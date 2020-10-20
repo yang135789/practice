@@ -20,10 +20,10 @@
       http.onreadystatechange = function () {
         if (http.readyState === 2 && resType) {
           // http.responseType = "arraybuffer"
-          //  http.responseType = "arraybuffer";
+           http.responseType = "arraybuffer";
         } 
         if (http.readyState === 4 && http.status === 200) {
-          resolve(http.responseText);
+          resolve(http.response);
         }
       };
       http.onerror = function (err) {
@@ -59,10 +59,10 @@
   function deCodeData(desction, data) {
     const dataDesction = root.lookupType(desction); // 要用來加密的消息
     const err = dataDesction.verify(data); // 校驗字段類型
-    if (err) {
-      console.log(err);
-      return
-    };
+    // if (err) {
+    //   console.log(err);
+    //   return
+    // };
     const json = dataDesction.decode(data).toJSON(); // 加密
     return json;
   }
@@ -79,7 +79,7 @@
     let pwd = password.value;
     ajax('post', 'http://localhost:80/api', enCodeData('LoginReq', {name, pwd}), {'Content-Type': 'application/protobuf'}, true).then(res => {
       buf = res
-      console.log('post',res, new Uint8Array(res), deCodeData('LoginRes', res));
+      console.log('post',res, new Uint8Array(res), deCodeData('LoginRes', new Uint8Array(res)));
     })
   }
 </script>
