@@ -1,0 +1,47 @@
+{
+  "nested": {
+    "ns": {
+      "nested": {
+        "LoginReq": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "pwd": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "LoginRes": {
+          "fields": {
+            "province": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "city": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "country": {
+              "rule": "required",
+              "type": "string",
+              "id": 3
+            }
+          }
+        },
+        "SearchService": {
+          "methods": {
+            "Login": {
+              "requestType": "LoginReq",
+              "responseType": "LoginRes"
+            }
+          }
+        }
+      }
+    }
+  }
+}

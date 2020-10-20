@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="../node_modules/protobufjs/dist/protobuf.js"></script>
+<script>
+  /**
+   * @param type {string} 請求類型 get, post
+   * @param url {string} 請求鏈接
+   * @param data {object} 請求數據
+   * @param headers {object} 請求頭
+  */
+  function ajax (type, url, data, headers, resType) { // ajax方法
+    return new Promise(function (resolve, reject) {
+      url = url || 'http://localhost:80/';
+      let http = new XMLHttpRequest();
+      if (resType) {
+        http.responseType = "arraybuffer";
+      }
+      http.onreadystatechange = function () {
+        if (http.readyState === 4 && http.status === 200) {
+          resolve(http.responseText);
+        }
+      };
+      http.onerror = function (err) {
+        reject(err)
+      }
+      http.open(type, url);
+      Object.keys(headers).forEach((key) => {
+        http.setRequestHeader(key, headers[key]);
+      })
+      http.send(data);
+    })
+  }
+</script>
+<script>
+  let Root = protobuf.Root;
+  let root = null;
+  ajax('get', '../proto/index.json', null, {'Content-Type': 'application/json'}).then(json => {
+    root = Root.fromJSON(JSON.parse(json));
+  })
+  // 編碼
+  function enCodeData(desction, data) {
+    const dataDesction = root.lookupType(desction); // 要用來加密的消息
+    const err = dataDesction.verify(data); // 校驗字段類型
+    if (err) {
+      console.log(err);
+      return
+    };
+    const message = dataDesction.create(data); // 創建消息體
+    const buffer = dataDesction.encode(message).finish(); // 加密
+    return buffer;
+  }
+  // 解碼
+  function deCodeData(desction, data) {
+    const dataDesction = root.lookupType(desction); // 要用來加密的消息
+    const err = dataDesction.verify(data); // 校驗字段類型
+    if (err) {
+      console.log(err);
+      return
+    };
+    const json = dataDesction.decode(data).toJSON(); // 加密
+    return json;
+  }
+</script>
+<body>
+  <label>用戶名: <input id="username" type="text"></label>
+  <label>密碼: <input id="password" type="text"></label>
+  <button id="btn">請求</button>
+</body>
+<script>
+  var buf = '';
+  btn.onclick = function () {
+    let name = username.value;
+    let pwd = password.value;
+    ajax('post', 'http://localhost:80/', enCodeData('LoginReq', {name, pwd}), {'Content-Type': 'application/protobuf'}, true).then(res => {
+      // console.log(res);
+      buf = res
+      console.log('post', deCodeData('LoginRes', res));
+    })
+  }
+</script>
+</html>

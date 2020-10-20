@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ns;
+
+message LoginReq {
+    string name = 1;
+    string pwd = 2;
+}
+message LoginRes {
+  required string province = 1;
+  required string city = 2;
+  required string country = 3;
+}
+
+service SearchService {
+  rpc Login (LoginReq) returns (LoginRes);
+}
