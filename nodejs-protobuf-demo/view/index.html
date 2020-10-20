@@ -17,10 +17,11 @@
     return new Promise(function (resolve, reject) {
       url = url || 'http://localhost:80/';
       let http = new XMLHttpRequest();
-      if (resType) {
-        http.responseType = "arraybuffer";
-      }
       http.onreadystatechange = function () {
+        if (http.readyState === 2 && resType) {
+          // http.responseType = "arraybuffer"
+          //  http.responseType = "arraybuffer";
+        } 
         if (http.readyState === 4 && http.status === 200) {
           resolve(http.responseText);
         }
@@ -76,10 +77,9 @@
   btn.onclick = function () {
     let name = username.value;
     let pwd = password.value;
-    ajax('post', 'http://localhost:80/', enCodeData('LoginReq', {name, pwd}), {'Content-Type': 'application/protobuf'}, true).then(res => {
-      // console.log(res);
+    ajax('post', 'http://localhost:80/api', enCodeData('LoginReq', {name, pwd}), {'Content-Type': 'application/protobuf'}, true).then(res => {
       buf = res
-      console.log('post', deCodeData('LoginRes', res));
+      console.log('post',res, new Uint8Array(res), deCodeData('LoginRes', res));
     })
   }
 </script>
