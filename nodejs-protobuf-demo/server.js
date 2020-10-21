@@ -5,6 +5,7 @@ let path = require('path');
 let app = express();
 let Root = protobuf.Root;
 let root = Root.fromJSON(require('./proto/index.json'));
+
 // 編碼
 function enCodeData(desction, data) {
   const dataDesction = root.lookupType(desction); // 要用來加密的消息
@@ -17,13 +18,20 @@ function enCodeData(desction, data) {
   const buffer = dataDesction.encode(message).finish(); // 加密
   return buffer;
 }
+
 // 解碼
 function deCodeData(desction, data) {
   const dataDesction = root.lookupType(desction); // 要用來加密的消息
-  const err = dataDesction.verify(data); // 校驗字段類型
-  if (err) throw err;
-  const json = dataDesction.decode(data).toJSON(); // 加密
-  return json;
+  const result = dataDesction.decode(data); // 加密
+  const obj = dataDesction.toObject(result)
+  return obj;
+}
+
+// 獲取空間命名
+function getReqResName (serviceName ,funcName) {
+  const dataDesction = root.lookupService(serviceName); // 要用來加密的消息
+  const message = dataDesction.get(funcName);
+  return {responseType: message.responseType, requestType: message.requestType }
 }
 
 app.use(express.raw({ type: 'application/protobuf' })) // 自定義解析application/protobuf為二進制數據
@@ -41,13 +49,32 @@ app.all('*', function (req, res, next) {
   next();
 });
 
+// 接口調用
 app.post('/api', (req, res) => {
-  // req.accepts('application/protobuf')
-  console.log(deCodeData('LoginReq', req.body));
-  console.log(enCodeData('LoginRes', {province: 'va', city: 'cdacs', country: 'ccdace'}))
+  // 設置content-type
   res.type('application/octet-stream');
-  // res.header("Content-Type", 'application/octet-stream');
-  res.end(enCodeData('LoginRes', {province: 'va', city: 'cdacs', country: 'ccdace'}));
+
+  // 解析請求數據包
+  let rpcInput = deCodeData('RPCInput', new Uint8Array(req.body));
+  // 獲取請求空間命名
+  let namespace = getReqResName(rpcInput.obj, rpcInput.func);
+  // 解析請求數據
+  let data = deCodeData(namespace.requestType, new Uint8Array(rpcInput.req));
+
+  console.log('請求數據', Object.assign({}, rpcInput, {req: data}));
+
+
+  // 返回數據編譯
+  let resData = enCodeData(namespace.responseType, {
+    id: 1,
+    name: data.username,
+    token: 'dafasfsachskjajhcksafhds;hkjfdsdfs'
+  });
+  // 返回数据包封装
+  let rpcOut = enCodeData('RPCOutput', {res: resData});
+
+  // 響應請求
+  res.end(rpcOut);
 })
 
 app.listen(80, () => {
