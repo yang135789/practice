@@ -7,79 +7,84 @@
 </head>
 <script src="../node_modules/protobufjs/dist/protobuf.js"></script>
 <script>
-  /**
-   * @param type {string} 請求類型 get, post
-   * @param url {string} 請求鏈接
-   * @param data {object} 請求數據
-   * @param headers {object} 請求頭
-  */
-  function ajax (type, url, data, headers, resType) { // ajax方法
+  // 封裝ajax
+  function ajax (options) { // ajax方法
     return new Promise(function (resolve, reject) {
-      url = url || 'http://localhost:80/';
-      let http = new XMLHttpRequest();
-      http.onreadystatechange = function () {
-        if (http.readyState === 2 && resType) {
-          // http.responseType = "arraybuffer"
-           http.responseType = "arraybuffer";
-        } 
-        if (http.readyState === 4 && http.status === 200) {
-          resolve(http.response);
-        }
+      let url = options.url || 'http://localhost:80/';
+      let type = options.type || 'get';
+      let data = options.data || null;
+      let xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
       };
-      http.onerror = function (err) {
-        reject(err)
+      xhr.onerror = function (err) {
+        reject({status: xhr.status, des: xhr.response})
       }
-      http.open(type, url);
-      Object.keys(headers).forEach((key) => {
-        http.setRequestHeader(key, headers[key]);
+      xhr.open(type, url);
+      options.headers && Object.keys(options.headers).forEach(key => {
+        xhr.setRequestHeader(key, options.headers[key]);
       })
-      http.send(data);
+      options.responseType && (xhr.responseType = options.responseType)
+      xhr.send(data);
     })
   }
 </script>
 <script>
   let Root = protobuf.Root;
   let root = null;
-  ajax('get', '../proto/index.json', null, {'Content-Type': 'application/json'}).then(json => {
+  ajax({
+    url: '../proto/index.json',
+    headers: {'Content-Type': 'application/json;charset=utf-8'}
+  }).then(json => {
     root = Root.fromJSON(JSON.parse(json));
   })
-  // 編碼
+  // 編譯數據
   function enCodeData(desction, data) {
-    const dataDesction = root.lookupType(desction); // 要用來加密的消息
+    const dataDesction = root.lookupType(desction); // 通過空間命名獲取消息
     const err = dataDesction.verify(data); // 校驗字段類型
-    if (err) {
-      console.log(err);
-      return
-    };
-    const message = dataDesction.create(data); // 創建消息體
-    const buffer = dataDesction.encode(message).finish(); // 加密
+    if (err) throw err;
+    const message = dataDesction.create(data); // 創建消息
+    const buffer = dataDesction.encode(message).finish(); // 編譯
     return buffer;
   }
-  // 解碼
+  // 解析數據
   function deCodeData(desction, data) {
-    const dataDesction = root.lookupType(desction); // 要用來加密的消息
-    const err = dataDesction.verify(data); // 校驗字段類型
-    // if (err) {
-    //   console.log(err);
-    //   return
-    // };
-    const json = dataDesction.decode(data).toJSON(); // 加密
-    return json;
+    const dataDesction = root.lookupType(desction);  // 通過空間命名獲取消息
+    const result = dataDesction.decode(data); // 解析
+    const obj = dataDesction.toObject(result)
+    return obj;
   }
 </script>
 <body>
   <label>用戶名: <input id="username" type="text"></label>
   <label>密碼: <input id="password" type="text"></label>
-  <button id="btn">請求</button>
+  <button id="btn">登錄</button>
 </body>
 <script>
-  var buf = '';
+  let btn = document.getElementById('btn');
+  let username = document.getElementById('username');
+  let password = document.getElementById('password');
   btn.onclick = function () {
-    let name = username.value;
-    let pwd = password.value;
-    ajax('post', 'http://localhost:80/api', enCodeData('LoginReq', {name, pwd}), {'Content-Type': 'application/protobuf'}, true).then(res => {
-      buf = res
-      console.log('post',res, new Uint8Array(res), deCodeData('LoginRes', new Uint8Array(res)));
+    let data = enCodeData('LoginReq', {username: username.value, password: password.value});
+    let queryData = enCodeData('RPCInput', {
+      obj: 'UserExtObj',
+      func: 'Login',
+      req: data,
+      opt: {
+        'a' : 'b'
+      }
+    })
+    ajax({
+      type: 'post', 
+      url: 'http://localhost:80/api',
+      data: queryData, 
+      headers: {
+        'Content-Type': 'application/protobuf'
+      },
+      responseType: "arraybuffer"
+    }).then(res => {
+      let data = deCodeData('RPCOutput', new Uint8Array(res));
+      console.log('post', deCodeData('LoginRes', new Uint8Array(data.res)) );
     })
   }
 </script>
