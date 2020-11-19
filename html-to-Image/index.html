@@ -21,7 +21,7 @@
     let imagesIndex = 0;
     dirFile.onchange = function (e) { // 加載文件夾文件
       let files = Array.from(dirFile.files); // 格式化files偽數組為數組
-      console.dir(dirFile.files, files)
+      addFile.style.display = 'none';
       files.forEach(function (files, index) {
         if (['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'].indexOf(files.type) === -1) { // 過濾非圖片
           return

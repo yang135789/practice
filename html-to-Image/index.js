@@ -18,8 +18,8 @@ function getDomStyle (el) {
   hasList.forEach(key => {
     data[key] = parseInt(styleSheetList[key]);
   })
-  data.totalHeight = data.paddingTop + data.paddingBottom + data.marginTop + data.marginBottom + data.height + data.borderWidth * 2;
-  data.totalWidth = data.paddingLeft + data.paddingRight + data.marginLeft + data.marginRight + data.width + data.borderWidth * 2;
+  data.totalHeight = data.paddingTop + data.paddingBottom + data.height + data.borderWidth * 2;
+  data.totalWidth = data.paddingLeft + data.paddingRight + data.width + data.borderWidth * 2;
   return data
 }
 
@@ -32,6 +32,7 @@ function createImageList(option) {
   let imgHeightList = []; // 保存列高度
   let imgLoadList = []; // 保存圖片加載列表
   let loadImgIndex = 0;
+  let space = 5;
   images.forEach(url => {
     let imgBox = document.createElement("div");
     let img = new Image();
@@ -50,13 +51,14 @@ function createImageList(option) {
         colspanCount = parseInt(rootStyle.width / imgBoxStyle.totalWidth);
       }
       if(loadImgIndex < colspanCount){ // 第一行
-        imgHeightList.push(imgBoxStyle.totalHeight);
-        imgBox.style.left = imgBoxStyle.totalWidth * loadImgIndex + "px";
+        imgBox.style.left = (imgBoxStyle.totalWidth + space) * loadImgIndex + rootStyle.paddingLeft + "px";
+        imgBox.style.top = 0 + rootStyle.paddingTop + 'px';
+        imgHeightList.push(imgBoxStyle.totalHeight + rootStyle.paddingTop);
       } else {
         var minIndex = imgHeightList.indexOf(Math.min.apply(null,imgHeightList)); // 獲取最小高度一列索引值
-        imgBox.style.left = imgBoxStyle.totalWidth * minIndex + "px";
-        imgBox.style.top = imgHeightList[minIndex] + "px";
-        imgHeightList[minIndex] += imgBoxStyle.totalHeight;
+        imgBox.style.left = (imgBoxStyle.totalWidth + space) * minIndex +  + rootStyle.paddingLeft  + "px";
+        imgBox.style.top = imgHeightList[minIndex] + space + "px";
+        imgHeightList[minIndex] += (imgBoxStyle.totalHeight + space + rootStyle.paddingTop);
       }
       imgLoadList.push({el: imgBox, style: imgBoxStyle});
       imgBox.style.display = 'block';

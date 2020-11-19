@@ -13,7 +13,7 @@ html, body, #dirImgBox {
 
 #dirImgBox div:not(#addFile) {
   padding: 5px;
-  margin: 5px;
+  /* margin: 5px; */
   border: 1px dashed #f1c000;
   text-align: center;
   transition: all 1s;
