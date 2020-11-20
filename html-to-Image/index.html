@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>html转Svg图片</title>
   <link rel="stylesheet" href="./indexl.css">
 </head>
 <body>
@@ -19,6 +19,7 @@
     let dirImgBox = document.getElementById('dirImgBox');
     let imagesArr = [];
     let imagesIndex = 0;
+    let fn = null;
     dirFile.onchange = function (e) { // 加載文件夾文件
       let files = Array.from(dirFile.files); // 格式化files偽數組為數組
       addFile.style.display = 'none';
@@ -27,12 +28,17 @@
           return
         };
         let url = window.URL.createObjectURL(files);
+        console.log(files);
         imagesArr.push(url)
       });
-      createImageList({
+      fn = new CrtImgLi({
         el: dirImgBox,
         images: imagesArr
-      })
+      }); // 創建實例
+      // fn.download(); // 下載圖片
+    }
+    window.onresize = function () {
+      fn && fn.reload(); // 重新繪製
     }
   </script>
 </body>
