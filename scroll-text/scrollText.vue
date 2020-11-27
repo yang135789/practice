@@ -50,7 +50,7 @@ export default {
       this.lastNodeheight = 0;
       this.autoScroll = true;
       this.createNode();
-      this.computedTop();
+        this.computedTop();
     },
     createNode () {
       let scrollEl = this.$refs['content'];
@@ -67,16 +67,19 @@ export default {
       this.$slots['default'].push(this.lastVNode);
     },
     computedTop (isAdd) {
-      this.scrollEl.style.setProperty('--time', `10s`);
-      this.scrollEl.style.setProperty('--contentHeigh', `-${this.scrollEl.offsetHeight}px`);
-      this.scrollEl.style.setProperty('--end', `${isAdd ? this.lastNodeheight : 0}px`);
+      this.$nextTick(() => {
+        this.scrollEl.style.setProperty('--time', `10s`);
+        this.scrollEl.style.setProperty('--top', `-${this.scrollEl.offsetHeight - this.lastNodeheight}px`);
+        this.scrollEl.style.setProperty('--end', `${isAdd ? this.lastNodeheight : 0}px`);
+      })
     }
   },
   watch: {
     change: {
       handler  (lala) {
         this.$slots['default'].push(this.lastVNode);
-        this.computedTop();
+        this.computedTop(true);
+        console.log(this.scrollEl.offsetHeight)
         // this.rederList();
       },
       deep: true,
@@ -90,23 +93,19 @@ export default {
   $top: var(--top);
   $time: var(--time);
   $end: var(--end);
-  $targetDeg: var(--targetDeg);
   position: relative;
   height: 100%;
   @keyframes topScroll {
     from {
-      // transform: translateY(0);
       top: 0;
     }
     to {
-      top: calc(var(--contentHeigh) + var(--end, 0px));
-      // transform: translateY($end);
+      top: var(--top);
     }
   }
-  //  overflow: hidden;
+   overflow: hidden;
   .scroll-text-content {
     display: flex;
-    // height: 100%;
     width: 100%;
     position: absolute;
     &.top {
@@ -114,7 +113,6 @@ export default {
         animation: topScroll $time infinite linear;  
       }
       transform-style: preserve-3d;
-      // position: absolute;
       top: 0;
       left: 0;
       flex-direction: column;
@@ -122,9 +120,6 @@ export default {
       text-align: center;
       word-break: break-all;
       white-space: pre-line;
-      > * {
-        // position: absolute;
-      }
     }
   }
 }
