@@ -1,0 +1,21 @@
+syntax = "proto3";
+option objc_class_prefix = "PROTO";
+package pb;
+
+// 请求数据包封装
+message RPCInput {
+   string obj  = 1;         //  微服务端具体服务名
+   string func = 2;         //  具体函数方法
+   bytes  req      = 3;         //  请求数据包
+   map<string,string> opt = 4;  //  进入房间需要带上key=subscribe-room-push value = roomId 退出房间 value = -1
+}
+
+// 返回数据包封装
+message RPCOutput {
+	int32 ret  = 1;              // 返回值 
+	bytes rsp  = 2;              // 返回数据包
+	map<string,string> opt = 3;  // 上下文
+	string desc = 4;             // 错误信息
+	string obj = 5;              // 调用服务
+	string func = 6;             // 调用函数方法
+}

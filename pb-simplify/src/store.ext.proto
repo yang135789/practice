@@ -1,0 +1,270 @@
+syntax = "proto3";
+
+option objc_class_prefix = "PB3";
+import "pb/common.ext.proto";
+package pb;
+
+message BuyExchangeGift{
+    uint32 id=1;//礼物id
+    uint32 num=2;//礼物数量
+    string name=3;//礼物名称
+    string icon=4;//图标
+}
+
+//购物
+message BuyReq {
+    int32 id = 1;  //商品id，不是物品id，即不是asset_id
+    int32 num = 2;
+    int32 type = 3; //0-购买 1-兑换
+    int32 remark = 4; //备注，购买不填，活动兑换填子活动id
+}
+
+message BuyRes {
+    int64 gold = 1; //扣除的金币数
+    int32 num = 2; //购买的数量
+    repeated BuyExchangeGift exchange_gift=3;
+}
+
+message Store {
+    int32 id = 1;
+    int32 asset_id = 2;
+    int32 asset_type = 3;
+    int32 price_type = 4;   //价格类型，就是用哪种物品或货币进行兑换 100001-金币，其他为各自物品id
+    int64 price = 5;
+    int32 active = 6;   //是否出售 1-出售 2-不出售  如果不出售显示原因asset_explain
+    string asset_name = 7;
+    string asset_image = 8;
+    string background_image = 9;
+    string asset_explain = 10;
+    int32 sort = 11;    //排序
+    string remark = 12; //备注
+    string num_color = 13;  //颜色
+    int32 status = 14; //1-显示 2-不显示
+    int64 num = 15; //数量
+    string unit = 16; //单位
+    int32 buy_num = 17; //允许购买次数 0-不限制 1-代表1次
+    DeviceType type = 18;//设备类型
+}
+
+//礼物
+message ExchangeGoods {
+    int32 gift_id = 1; //礼物id
+    int64 num = 2;  //礼物数量
+    string unit = 3;    //礼物单位
+    string name = 4;    //礼物名字
+    string image_url = 5; //图片路径
+    int64 original_price = 6; //原价
+    int32 gift_type=7;//礼物类型1:普通礼物、2:勋章、3:寻宝
+    int32 goods_label=8;//标签1:活动、2:限定、3:稀有、4:珍贵
+}
+
+message Exchange {
+    int32 id = 1;//兑换id
+    repeated ExchangeGoods goods = 2; //兑换物品
+    repeated ExchangeGoods price = 3; //兑换价格
+    int32 limit = 4; //限制次数
+    int64 created = 5;
+    string flag = 6; //
+    int32 exchange_num = 7; //兑换次数
+    int32 limit_range = 8;  //1-全服 2-个人
+    int32 limit_cycle = 9;  //每隔一段时间重置 1-每周 2-每月 3-每天 4-不重置
+    int64 gold = 10;//价值多少钱
+    int32 gift_category = 11; //礼物类型 0-普通 1-打折
+    int64 gold_price=12;//显示价值
+    int64 stock=13;//库存
+    uint32 act_id       = 14;        // 主活动id
+    uint32 act_rel_id   = 15;        // 子活动id
+}
+
+//购买限制记录
+message BuyRecord {
+    int32 id = 1; // 兑换id 或者物品id
+    int64 num = 2;
+}
+
+//兑换记录
+message LogExchange {
+    int32 id = 1;
+    int32 exchange_id = 2;
+    int64 player_id = 3;
+    repeated ExchangeGoods goods = 4; //兑换物品
+    repeated ExchangeGoods price = 5; //兑换价格
+    int64 created = 6;
+    string name = 7;                  // 用户名称
+}
+
+
+//获取商城配置
+message GetStoreConfReq {
+    DeviceType type = 1;
+}
+
+message GetStoreConfRes {
+    repeated Store store = 1;
+}
+
+//获取购买记录列表
+message ListBuyRecordReq {
+    repeated int32 id = 1; //兑换的配置id 如[1, 2, 3]
+    int32 buyType = 2; //0-购买 1-兑换
+}
+
+message ListBuyRecordRes {
+    repeated BuyRecord list = 1;
+}
+
+
+//获取兑换配置
+message GetExchangeConfReq {
+    int64 player_id = 1;
+}
+
+message GetExchangeConfRes {
+    repeated Exchange store = 1;
+}
+
+//兑换记录
+message StoreExchangeRecordReq {
+    int64 start_time = 1;   //开始时间
+    int64 end_time = 2;     //结束时间
+    string flag = 3; //这是后台兑换物品配置的标识符
+    int32 page = 4; //第几页
+    int64 page_size = 5; //每页数量
+    bool is_get_all = 6; 
+}
+
+message StoreExchangeRecordRes {
+    repeated LogExchange list = 1;
+}
+
+//获取商城
+message ShopListReq {
+  ShopType shop_type       = 1;//商城类型
+  DeviceType device_type   = 2;//設備類型
+  ItemType item_type       = 3; //物品类型
+  ShopTagType tag_type     = 4;   //页签类型（宝石，道具，靓号，装扮）
+}
+message ShopListRes {
+    repeated ShopItem list = 1;
+}
+//商城购买
+message BuyShopReq {
+  ShopType shop_type    = 1; //商城类型
+  int32 item_id         = 2;  // 物品id 
+  ItemCurrencyType currency_type = 3;//货币类型
+  ItemTermType term_type = 4;  //期限类型
+  int32 num             = 5;  //购买数量
+  DeviceType device_type = 6;//設備類型
+  int64 player_id        = 7;  //备用字段，如亲密好友id
+}
+message BuyShopRes {
+  ItemCurrencyType currency_type =1;//货币类型
+  int64 value           = 2; //扣除数
+  int64 end_time       = 3;    // 有效期结束时间 时间戳秒:0为永久
+}
+//商城赠送
+message GiveShopReq {
+  ShopType shop_type    = 1; //商城类型
+  int32 item_id         = 2;  // 物品id 
+  ItemCurrencyType currency_type = 3;//货币类型
+  ItemTermType term_type = 4;  //期限类型
+  int32 num             = 5;  //购买数量
+  DeviceType device_type = 6;//設備類型
+  int64 player_id        = 7;  //备用字段，如亲密好友id
+}
+
+message GiveShopRes {
+  ItemCurrencyType currency_type =1;//货币类型
+  int64 value           = 2; //扣除数
+  int64 end_time       = 3;    // 有效期结束时间 时间戳秒:0为永久
+}
+//背包
+message BackpackListReq {
+  StockType stock_type   = 1; //背包类型
+}
+
+message BackpackListRes {
+    repeated BackpackItem list = 1;
+}
+enum StockType {
+    BST_UNKNOWN     = 0;  // 
+    BST_Mizos       = 1;  // 一般背包
+}
+
+message BackpackItem {
+    int32 item_id = 1; //物品id
+    int32 amount = 2; //库存
+    int64 end_time = 3; //到期 时间戳秒
+    string item_name =4;    //物品名字
+    ItemType  item_type = 5; //物品类型
+    string middle_image = 6; //图片
+    string smile_image = 7; //图片
+}
+
+// 购买锤子请求
+message BuyShopHammerReq{
+    int32 num=1;  // 购买数量
+}
+
+message BuyShopHammerRes{
+    int64 gold=1;
+    int32 num=2;    
+}
+
+message ShopBannerInfo{
+    string image=1;
+    string route=2;
+}
+// 商城banner
+message ShopBannerReq{
+}
+message ShopBannerRes{
+    repeated ShopBannerInfo list=1;
+}
+
+// 商城角标
+message ShopCornerReq{
+
+}
+message ShopCornerRes{
+    string icon=1;  // 
+    bool had_viewed=2;      // 是否已看过
+}
+
+message ShowShowTagData {
+    ShopTagType tag_id=1;     // 标签id
+    string name=2;  // 名称
+}
+// 请求商城展示页签
+message ShopShowTagReq{
+
+}
+// 请求商城展示页签
+message ShopShowTagRes{
+    repeated ShowShowTagData list=1;    // 
+}
+
+service StoreExtObj {
+    rpc Buy (BuyReq) returns (BuyRes);
+    rpc GetStoreConf (GetStoreConfReq) returns (GetStoreConfRes);
+    rpc GetExchangeConf (GetExchangeConfReq) returns (GetExchangeConfRes);
+    rpc ListBuyRecord (ListBuyRecordReq) returns (ListBuyRecordRes);
+    rpc ExchangeRecord (StoreExchangeRecordReq) returns (StoreExchangeRecordRes);
+
+    //h5
+    rpc FetchStoreConf (GetStoreConfReq) returns (GetStoreConfRes);
+    //获取商城
+    rpc GetShopList (ShopListReq) returns (ShopListRes);
+    //商城购买
+    rpc BuyShop (BuyShopReq) returns (BuyShopRes);
+    //商城赠送
+    rpc GiveShop (GiveShopReq) returns (GiveShopRes);
+    //背包
+    rpc BackpackList (BackpackListReq) returns (BackpackListRes);
+
+    rpc BuyShopHammer(BuyShopHammerReq) returns (BuyShopHammerRes);
+    rpc ShopBanner(ShopBannerReq) returns (ShopBannerRes);
+    rpc ShopCorner(ShopCornerReq) returns (ShopCornerRes);
+    rpc ShopShowTag(ShopShowTagReq) returns(ShopShowTagRes);
+}
+

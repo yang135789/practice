@@ -1,0 +1,636 @@
+syntax = "proto3";
+option objc_class_prefix = "PB3";
+
+package pb;
+import "pb/common.ext.proto";
+
+enum UserCode {
+  SUCCESS = 0;                    // 成功
+  ErrUserKeyExpired = 33001;      // key失效, 请重新登录
+  ErrUserBanAccount = 33002;      // 被封号
+  ErrUserBanIp = 33003;           // 封ip
+  ErrUserNameIllegal = 33004;     // 昵称长度为2-20个字符
+  ErrUserRelogin = 33005;         // 需要重新登录
+  ErrUserNameDuplicate = 33006;   // 昵称已存在
+  ErrUserWrongArgs = 33017;       // 参数错误
+  ErrUserFail = 33018;            // 失败(此错误吗所以方法都适用)
+  ErrUserHasBindBankCard = 33019; // 银行卡已绑定
+  ErrUserBankNameNotEqual = 33020; // 银行卡用户名与已实名认证的身份证名不一致
+  ErrUserNotWithdDay = 33021;  // 不是提现日
+  ErrUserNotBindBand = 33022;     // 请先绑定银行卡
+  ErrUserHasWithded = 33023;   // 本周已提现
+  ErrUserLackStone = 33024;     // 钻石不足
+  ErrUserBindAPFail = 33025;      // 绑定支F宝失败
+  ErrUserBindBankCarFail = 33026; // 绑定银行卡失败
+  ErrUserNoRight = 33027;         // 没有权限
+  ErrUserPassword = 33029;        // 提现密码错误
+  ErrUserBusy = 33031;            // 本次操作失败
+  ErrUserBindIdCard = 33032;      // 绑定身份证失败
+  ErrUserNotAgree = 33033;        // 未通过劳动协议
+  ErrUserNameDirty = 33034; // 昵称修改失败，包含违禁字眼，请重新输入
+  ErrUserPassLength = 33035;  // 密码长度不符合要求
+  ErrUserKickOutRoom = 33036; // 不能将房主踢出房间
+  ErrUserIndexTop = 33037;    // 房主不在线不能置顶
+  ErrUserOffline = 33038;     // 用户不在线
+  ErrUserNamePasswd = 33040;  // 账号/密码错误
+
+  ErrUserLoginTimeout = 33050; // 登录超时
+  ErrUser3rdError = 33052;     // 第三方接口返回错误
+                               // 33080之后int使用
+}
+
+// 用户广播cmdId定义 // 500
+enum UserCmdId {
+  UC_Zero = 0;
+  UC_UpdatePlayerName =
+      500004;              // 房间广播昵称变更 SSC001004
+  UC_CharmLevel = 500006;  // 广播魅力升级
+  UC_WealthLevel = 500007; // 广播财富升级
+  UC_UserBan = 500008;     // 广播封号信息				SSC100052
+  UC_PlayerFlags = 500009; // 广播更新PlayerFlags		SSC000060
+  UC_UpdateIcon = 500010;  // 房间广播更新icon
+  UC_UpdateOnOff = 500011; // 广播更新开关状态
+  UC_SetShortId = 500012;  // 广播设置靓号
+}
+
+// cmdId=1004 广播昵称变更
+message BroadcastUpdatePlayerName {
+  sint64 id = 1;
+  string name = 2;
+}
+
+// cmdId=1006 广播魅力升级
+message BroadcastCharmLevel {
+  sint64 id = 1;
+  string name = 2;
+  int64 charm = 3;
+  int32 charm_level = 4;
+}
+
+// cmdId=1007 广播财富升级
+message BroadcastWealthLevel {
+  sint64 id = 1;
+  string name = 2;
+  int64 wealth = 3;
+  int32 wealth_level = 4;
+}
+
+// 处罚类型
+enum BanType {
+  BT_Zero = 0;
+  BT_Account = 1;          // 封号
+  BT_Speak = 2;            // 禁言
+  BT_Room = 3;             // 封房间
+  BT_IP = 4;               // IP
+  BT_Device = 5;           // 封设备id
+  BT_TakeLeave = 6;        // 踢下线
+  BT_Warning = 8;          // 警告
+  BT_Top = 9;              // 置顶
+  BT_BroadcastFriend = 10; // 禁止广播交友
+  BT_tickout_room = 11;    // 提出房间
+}
+
+// 广播处罚类型 cmdid = 500008   SSC100051
+message BroadcastBan {
+  uint32 banType = 1;
+  uint32 status = 2;     // 0解除/1生效
+  uint32 time = 3;       // 剩余时间,单位:秒
+  string remark = 4;     // 原因
+  uint64 operaterId = 5; // 操作人， =0时，后台管理操作
+}
+
+// 广播更新PlayerFlags cmdId = 500009   SSC000060
+message BraodUpdatePlayerFlags {
+  sint64 player_id = 1;
+  int32 flagType = 2; // 1=PlayerFlags；2=PlayerFlags2；3=PlayerFlags3
+  sint64 flagVal = 3;
+}
+
+// 广播更新icon cmdId = 500010;
+message BraodUpdateIcon {
+  sint64 player_id = 1;
+  string icon = 2;
+}
+
+// 广播更新开关状态 cmdId = 500011
+message BroadcastUpdateOnOff { OnOffStatus on_off = 1; }
+
+// 广播设置靓号　cmdId = 500012
+message BroadcastShortId {
+  int64 player_id = 1;
+  int64 short_id = 2;
+}
+
+// 请求player
+message PlayerReq {
+  sint64 id = 1; // 注：前端通过context上下文传值
+}
+
+message PlayerRes {
+  Player player = 1;
+  sint64 account_flags = 2;   // common.AccountFlags
+  repeated Effect effect = 3; //特效
+  ClanInfo clan = 5;                  // 公会信息
+}
+
+// 请求playerInfo, 1次最多取50个 (取代http=11协议)
+message PlayerInfoListReq { repeated int64 ids = 1; }
+
+message PlayerInfoListRes { repeated PlayerInfo list = 1; }
+
+// 等级
+message LevelReq {}
+
+message LevelRes {
+  sint64 charm = 1;
+  sint32 charm_level = 2;  // 魅力等级
+  sint32 charm_rank = 3;   // 魅力等级
+  sint32 wealth = 4;       // 财富值
+  sint32 wealth_level = 5; // 财富等级
+  sint32 wealth_rank = 6;
+  sint32 exp = 7;      // 在线经验
+  sint32 exp_rank = 8; // 在线经验
+}
+
+// 设置用户信息
+message UserInfoReq {
+  sint32 type = 1; // 修改对应的编号：2名称，3性别 ...
+  string nickname = 2;
+  SexType sex = 3;
+  string city = 4;
+  string signature = 5; // 个性签名
+  string mind = 6;      // 心声
+  string birthday = 7;
+}
+
+message UserInfoRes {}
+
+// 用户设置， 兼容旧的 http0010.UserSetting
+message UserSetting {
+  sint64 userId = 1;
+  bool imFriend = 2;        // [default=true];	// 是否允许加好友
+  bool imMessage = 3;       // [default=true];  	// 是否陌生人聊天
+  uint32 imWealthLevel = 4; // 接受多少富私聊
+  bool isInvite = 5;        // [default=true];	// 是否接受邀请
+  bool isPosition = 6;      // [default=true];     // 是否公开位置
+  bool isWealth = 7;        // [default=false];     // 是否隐藏财富值
+  bool isRemind =
+      8; // [default=false];     // 上线对好友提示 false==提示 true==不提示
+  bool isTotalRemind =
+      9; // [default=false];     // 关闭全站上线提醒 false==提示 true==不提示
+  bool chatShowCity = 12; // [default=true]; // 聊天是否显示地区
+}
+
+message SetUserSettingRes {}
+
+// 更新用户设置信息
+// message SCS001008 UserSetting userSetting = 2;
+// message SSC001008 IntegerVO result 结果，0失败，1成功
+
+// 绑定银行卡
+// message SCS001005 StringList;
+// 0姓名；1开户行；2开户支行；3银行卡号；4手机号；5支F宝账号;6身份证号 message
+// SSC001009 IntegerVO； 0失败；1成功；2已绑定;
+// 3银行卡用户名与已实名认证的身份证名不一致;
+
+// 申请提现钻石
+// message SCS001011 IntegerVO;  // 提现钻石
+// message SCS001011 IntegerVO;  //
+// 0成功；1不是提现日;2请先绑定银行卡;3本周已提现;
+
+// 更改密码 SCS001010 StringVO 新密码
+
+// 房间申请提现钻石
+// message SCS001012 IntegerVO;  // 提现钻石
+// message SSC001012 IntegerVO;  //
+// 0成功；1不是提现日;2请先绑定银行卡;3本周已提现;4钻石不足;
+
+// 房间申请兑换金币
+// message SCS001013 IntegerList;  // 0兑换金币；1提现密码
+// message SSC001013 IntegerVO;  // 0成功；4钻石不足;6提现密码不正确
+
+// 设置密码
+// message SCS001015 IntegerVO;  //密码
+// message SSC001015 IntegerVO;  //0成功；1失败
+
+// [M] 礼券兑换
+// message SCS000020 IntegerList;  		// 0兑换数量;1提现密码
+// message SSC000020 IntegerVO is_ok;  	// 1=成功；2=礼券不足；6提现密码不正确
+
+message BindBankCardReq { repeated string value = 1; }
+
+message BindBankCardRes {
+  // errCode 33018 失败；33019 已绑定; 33020
+  // 银行卡用户名与已实名认证的身份证名不一致; 33025 绑定支F宝失败; 33026
+  // 绑定银行卡失败;
+}
+
+//value 是钻石数
+message WithdDiamandReq {
+  sint32 value = 1;
+  int32  py_type = 2;       // 操作类型： PF_BIND_AP 或 PF_BIND_PP
+}
+
+message WithdDiamandRes {
+  // errCode 33021 不是提现日; 33022 请先绑定银行卡; 33023
+  // 本周已提现;33024钻石不足; 33018 失败;
+}
+
+message ChangePasswdReq { string value = 1; }
+
+message ChangePasswdRes {}
+
+message RoomWithdDiamandReq {
+  sint32 value = 1;
+  int32  py_type = 2;       // 操作类型： PF_BIND_AP 或 PF_BIND_PP
+}
+
+message RoomWithdDiamandRes {
+  // errCode 33021不是提现日;33022请先绑定银行卡;33023本周已提现;33024钻石不足;
+  // 33018 失败
+}
+
+message RoomChangeCoinReq {
+  sint32 stone = 1;
+  string passwd = 2;
+}
+
+message RoomChangeCoinRes {
+  // errCode 33024 钻石不足; 33029 提现密码不正确; 33018 失败;
+}
+
+message SettingPasswdReq { string value = 1; }
+
+message SettingPasswdRes {
+  // errCode 33018 失败;
+}
+
+message StoneChangCoinReq {
+  sint32 stone = 1;
+  string passwd = 2;
+}
+
+message StoneChangCoinRes {
+  // errCode 33024 钻石不足; 33029 提现密码不正确; 33018 失败;
+}
+
+message SuperManagerReq {
+  sint64 playerId = 1;
+  sint32 banType = 2; // BanType处罚类型, ACCOUNT(1, "封号"), SPEAK(2, "禁言"),
+                      // ROOM(3, "封房间"), IP(4, "封IP"), DEVICEID(5,
+                      // "封设备id"), TAKELEAVE(6, "踢下线"), WARNING(8,
+                      // "警告"), TOP(9, "置顶"),FRIEND(10,"禁止广播交友");
+  uint32 time = 3;   // 时间,单位:分
+  sint32 opType = 4; // 操作类型，1设置，0取消
+}
+
+message SuperManagerRes {
+  // errCode 0 成功; 33027 没有权限;
+}
+
+message GetOnOffListReq {}
+message GetOnOffListRes { repeated OnOffStatus status_list = 1; }
+
+message SearchPlayersReq {
+  sint32 page = 1;     // 页数
+  sint32 pageSize = 2; // 每页多少条数据
+  string key_word = 3; // 搜索关键词，房间Id或用户Id或公会Id以及房间名等
+}
+message SearchPlayersRes {
+  sint32 page = 1;     // 页数
+  sint32 pageSize = 2; // 每页多少条数据
+  repeated SearchPlayerEntry list = 3;
+}
+
+message GetPlayerGainsReq {
+  int32 type = 1; // 1个人，2房间
+}
+message GetPlayerGainsRes {
+  string today = 1;      // 今日收益
+  string week = 2;       // 本周收益
+  string month = 3;      // 本月收益
+  string last_month = 4; // 上月收益
+}
+
+message GetTatolGainReq {
+  int32 type = 1; // 1个人，2房间
+}
+message GetTatolGainRes {
+  string total_gain = 1; // 总收益
+}
+
+//  系统邮件
+message MailMsg {
+  int64 id = 1;        // mail id
+  int32 cmd_id = 2;    // 广播的cmdId
+  int32 create_at = 3; // 创建时间
+  bytes data = 4;      // 根据cmdId，创建对应的结构体
+}
+
+// last_read_time值由前端保存在本地，last_read_time更新机制：
+// 1、登录时判断对应的last_read_time>1分钟才请求，请求返回后更新last_read_time为当前时间
+// 2、收到对应cmdId时，更新last_read_time为当前时间
+// 当前对应的cmdId消息有：101001(SystemMsgNotice系统消息),
+// 100137(BroadcastMateMatchMsg交友成功系统消息)
+message ReadMailReq {
+  int32 last_read_time = 1; // 最后读取时间
+}
+
+message ReadMailRes { repeated MailMsg list = 1; }
+
+// 广播新邮件 cmdId=101005, 更新last_read_time为当前时间
+message BroadcastMailMsg { MailMsg mail = 1; }
+
+message GetPhoneUsedReq {
+  string country_code = 1; // 国家代号
+  string phone_no = 2;     // 电话号码
+}
+message GetPhoneUsedRes { bool is_used = 1; }
+
+message LoginWithPhoneSMSReq {
+  string phone_no = 1;  // 国家区号+电话号码
+  string sms_token = 2; // send_sms_code.go接口获取
+}
+message LoginWithPhoneSMSRes {
+  string login_token = 1; // 登录凭证
+  bool is_new = 2;        // 是否新建账号
+}
+
+message LoginWithPhonePasswordReq {
+  string phone_no = 1; // 国家区号+电话号码
+  string password = 2;
+}
+message LoginWithPhonePasswordRes {
+  string login_token = 1; // 登录凭证
+}
+
+message ChinaMobileQuickLoginReq {
+  string app_id = 1; // SDK appid
+  string token = 2;
+}
+message ChinaMobileQuickLoginRes {
+  string login_token = 1; // 登录凭证
+  bool is_new = 2;        // 是否新建账号
+}
+
+message ChinaTelecomAuthReq { string access_token = 2; }
+message ChinaTelecomAuthRes {
+  string login_token = 1; // 登录凭证
+  bool is_new = 2;        // 是否新建账号
+}
+
+message GetRankReq {
+  int32 type = 1; // 0魅力；1财富; 2贡献
+}
+
+message GetRankRes {
+  int32 type = 1; // 0魅力；1财富；2贡献
+  repeated Rank week_rank = 2;
+  repeated Rank day_rank = 3;
+  repeated Rank total_rank = 4;
+  repeated Rank new_player = 5 [ deprecated = true ];
+}
+
+message GetMyRankingReq {
+  int32 type = 1;       // 0魅力；1财富；2贡献
+  int32 secondType = 2; // 0日；1周；2总
+}
+
+message GetMyRankingRes { Rank my_rank = 1; }
+
+//获取个人页面配置
+message PageInstructionReq {}
+message PageInstructionRes {
+  int32 isValid = 1;  // 0: 表示 无页面配置， 1: 表示有页面配置
+  string content = 2; //文字说明
+  string url = 3;     // url链接
+}
+
+message NewAuthTokenReq {}
+message NewAuthTokenRes { string auth_req_token = 1; }
+
+message AuthReqTokenConfirmReq { string auth_req_token = 1; }
+message AuthReqTokenConfirmRes {}
+
+message AuthReqResultReq { string auth_req_token = 1; }
+message AuthReqResultRes {
+  sint32 result = 1; // 0成功，1未授权, 2已过期
+  // result == 0:
+  string login_token = 2; // 登录key
+}
+
+// H5收益页面  ---->
+//获取房间收益
+message RoomGiftTicketReq { int64 player_id = 1; }
+
+message RoomGiftTicketRes {
+  int64 result = 1; // 0, 表示非RT_REWARD， 1：RT_REWARD房
+  int64 value = 2;  //钻石数量
+}
+
+//绑定py
+message BindPyInfoReq {
+  int32   op            = 1;  // 1:表示 绑定， 2:表示更新帐号
+  int32   py_type       = 2;  // 操作类型： PF_BIND_AP 或 PF_BIND_PP
+  string  account       = 3;  // 帐号
+  string  name          = 4;  // 名
+  string  family_name   = 5;  // 姓
+  string  identity_code = 6;  // 身份证号
+  string  bank_card     = 7;  // 银行卡号
+  string  bank_name     = 8;  // 银行名字
+  string  bank_sub      = 9;  // 开户支行
+  string  phone         = 10; // 手机号码
+}
+message BindPyInfoRes {
+  int32  result = 1;      // 0: 表示成功绑定
+}
+
+//获取py信息
+message GetPyInfoReq {
+  int32   py_type      = 1;  // 操作类型： PF_BIND_AP 或 PF_BIND_PP
+}
+message GetPyInfoRes {
+  int32   result        = 1;   // 0: 表示成功获取
+  int32   py_type       = 2;  // 操作类型： PF_BIND_AP 或 PF_BIND_PP
+  string  account       = 3;  // 帐号
+  string  name          = 4;  // 名
+  string  family_name   = 5;  // 姓
+  string  identity_code = 6;  // 身份证号
+  string  bank_card     = 7;  // 银行卡号
+  string  bank_name     = 8;  // 银行名字
+  string  bank_sub      = 9;  // 开户支行
+  string  phone         = 10; // 手机号码
+}
+//获取ap或pp 是否 绑定信息
+message GetPyBindReq {
+}
+message GetPyBindRes {
+  int32 result  = 1;      //0: 表示没有绑定， 1: 表示绑定PF_BIND_AP, 2: 表示绑定PF_BIND_PP， 3: 表示两者都绑定
+  int32 py_type = 2;      //获取当前所在的支fu类型, 0, 表示没有支付， PF_BIND_AP 或 PF_BIND_PP
+  string  bank_card     = 3;  // 银行卡号
+  bool is_bind_ap = 4;   //是否绑定PF_BIND_AP
+  bool is_bind_pp = 5;   //是否绑定PF_BIND_PP
+  bool is_bind_tw_bank = 6;   //是否绑定PF_BIND_TW_BANK
+  string  tw_bank_card     = 7;  // 台湾银行卡号
+}
+
+//切换支fu类型
+message ChangePyTypeReq {
+  int32  py_type = 1;     //PF_BIND_AP 或 PF_BIND_PP
+}
+
+message ChangePyTypeRes {
+  int32  result = 1;     //0, 表示成功
+}
+
+// H5收益页面  <--------
+
+message GoogleSignInReq {
+  string id_token = 1; // google id token
+
+  string nickname = 10;  // 昵称
+  string photo_url = 11; // 头像地址
+}
+message GoogleSignInRes {
+  string login_token = 1; // miya login token
+  bool is_new = 2; // 是否新账号
+}
+
+message LineLoginReq {
+  string access_token = 1; // line access token
+}
+message LineLoginRes {
+  string login_token = 1; // miya login token
+  bool is_new = 2; // 是否新账号
+}
+
+message InviterDataReq{
+
+}
+
+message InviterDataRes{
+  int64   suc_num             = 1;  // 邀请成功好友人数
+  int64   reg_award_gold      = 2;  // 好友注册奖励金币
+  int64   charge_num          = 3;  // 邀请储值好友数
+  int64   charge_award_gold   = 4;  // 好友储值奖励金币
+  bool    is_show_chuzhi      = 5;  // 用来判断是否隐藏好友储值栏
+  string  explain_img         = 6;  // 说明图片地址
+}
+
+message InviterFriend {
+  int64 player_id = 1;
+  string icon = 2;
+  string name = 3;
+  int64 invite_time = 4;
+}
+
+message InviterFiendsListReq{
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message InviterFiendsListRes{
+  repeated InviterFriend list = 1;
+}
+
+service UserExtObj {
+  // 检查手机号是否已经使用
+  rpc GetPhoneUsed(GetPhoneUsedReq) returns (GetPhoneUsedRes);
+
+  // 请求player(自己)
+  rpc GetPlayer(PlayerReq) returns (PlayerRes);
+  // 请求playerInfo (原http 11 协议)
+  rpc GetPlayerInfoList(PlayerInfoListReq) returns (PlayerInfoListRes);
+  // 请求等级信息 (原http 12 协议)
+  rpc GetLevel(LevelReq) returns (LevelRes);
+
+  rpc SetUserInfo(UserInfoReq) returns (UserInfoRes); // 设置用户信息
+  rpc SetUserSetting(UserSetting) returns (SetUserSettingRes); // 更新用户设置
+
+  // 绑定银行卡
+  rpc BindBankCard(BindBankCardReq) returns (BindBankCardRes);
+
+  // 个人提现钻石
+  rpc WithdDiamand(WithdDiamandReq) returns (WithdDiamandRes);
+
+  // 改变账号密码
+  rpc ChangePasswd(ChangePasswdReq) returns (ChangePasswdRes);
+
+  // 房间申请提现钻石
+  rpc RoomWithdDiamand(RoomWithdDiamandReq)
+      returns (RoomWithdDiamandRes);
+
+  // 房间申请兑换金币
+  rpc RoomChangeCoin(RoomChangeCoinReq) returns (RoomChangeCoinRes);
+
+  // 设置提现密码
+  rpc SettingPasswd(SettingPasswdReq) returns (SettingPasswdRes);
+
+  // 个人钻石兑换金币
+  rpc StoneChangCoin(StoneChangCoinReq) returns (StoneChangCoinRes);
+
+  // 超级管理权限
+  rpc SuperManager(SuperManagerReq) returns (SuperManagerRes);
+  // 请求开关状态列表
+  rpc GetOnOffList(GetOnOffListReq) returns (GetOnOffListRes);
+  // 搜索条目
+  rpc SearchPlayers(SearchPlayersReq) returns (SearchPlayersRes);
+  // 获取今日收益，本周收益，本月收益，上月收益
+  rpc GetPlayerGains(GetPlayerGainsReq) returns (GetPlayerGainsRes);
+  // 获取总收益
+  rpc GetTatolGain(GetTatolGainReq) returns (GetTatolGainRes);
+  // 获取邮件(离线消息)
+  rpc ReadMail(ReadMailReq) returns (ReadMailRes);
+
+  // 手机号验证码登录
+  rpc GetLoginWithPhoneSMS(LoginWithPhoneSMSReq) returns (LoginWithPhoneSMSRes);
+  // 手机号密码登录
+  rpc GetLoginWithPhonePassword(LoginWithPhonePasswordReq)
+      returns (LoginWithPhonePasswordRes);
+  // 移动一键登录
+  rpc GetChinaMobileQuickLogin(ChinaMobileQuickLoginReq)
+      returns (ChinaMobileQuickLoginRes);
+  // 电信免密登录
+  rpc GetChinaTelecomAuth(ChinaTelecomAuthReq) returns (ChinaTelecomAuthRes);
+  // Google Sign-In
+  rpc GetGoogleSignIn(GoogleSignInReq) returns (GoogleSignInRes);
+  // LINE 登录
+  rpc GetLineLogin(LineLoginReq) returns (LineLoginRes);
+
+  // 获取排行榜
+  rpc GetRank(GetRankReq) returns (GetRankRes);
+  // 获取个人排行榜
+  rpc MyRanking(GetMyRankingReq) returns (GetMyRankingRes);
+
+  //获取个人页面配置
+  rpc GetPageInstruction(PageInstructionReq) returns (PageInstructionRes);
+
+  // 请求App验证登录
+  rpc GetNewAuthToken(NewAuthTokenReq) returns (NewAuthTokenRes);
+  // 授权WEB登录
+  rpc AuthReqTokenConfirm(AuthReqTokenConfirmReq)
+      returns (AuthReqTokenConfirmRes);
+  // 获取授权结果
+  rpc GetAuthReqResult(AuthReqResultReq) returns (AuthReqResultRes);
+  // 获取邀请好友统计数据
+  rpc InviterData(InviterDataReq) returns (InviterDataRes);
+  // 获取邀请有奖好友列表
+  rpc InviterFiendsList(InviterFiendsListReq) returns (InviterFiendsListRes);
+
+  // H5 --->
+  //获取房间收益
+  rpc H5RoomGiftTicket(RoomGiftTicketReq) returns (RoomGiftTicketRes);
+  // 获取今日收益，本周收益，本月收益，上月收益
+  rpc H5PlayerGains(GetPlayerGainsReq) returns (GetPlayerGainsRes);
+  // 获取总收益
+  rpc H5TatolGain(GetTatolGainReq) returns (GetTatolGainRes);
+  //绑定或跟新支fu信息
+  rpc BindPyInfo(BindPyInfoReq) returns (BindPyInfoRes);
+  //获取绑定支fu信息
+  rpc H5FetchPyInfo(GetPyInfoReq) returns (GetPyInfoRes);
+  //获取支fu是否绑定信息
+  rpc H5FetchPyBind(GetPyBindReq) returns (GetPyBindRes);
+  //切换支fu类型
+  rpc ChangePyType(ChangePyTypeReq) returns (ChangePyTypeRes);
+  // H5 <-----
+}
