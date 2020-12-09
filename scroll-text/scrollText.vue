@@ -67,11 +67,12 @@ export default {
       this.$slots['default'].push(this.lastVNode);
     },
     computedTop (isAdd) {
-      this.$nextTick(() => {
+      console.log(this.scrollEl.offsetHeight, this.lastNodeheight);
+      // this.$nextTick(() => {
         this.scrollEl.style.setProperty('--time', `10s`);
         this.scrollEl.style.setProperty('--top', `-${this.scrollEl.offsetHeight - this.lastNodeheight}px`);
         this.scrollEl.style.setProperty('--end', `${isAdd ? this.lastNodeheight : 0}px`);
-      })
+      // })
     }
   },
   watch: {

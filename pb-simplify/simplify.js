@@ -1,7 +1,7 @@
 const path = require('path'),
   fs = require('fs'),
   pbjs = require('protobufjs/cli/pbjs'),
-  useFun = require('./useFun.json');
+  useData = require('./useData.json');
 
 let fileCache = {}; // 缓存文件数据
 let src = path.resolve(__dirname, './src'); // 文件夹路径
@@ -14,16 +14,8 @@ files.forEach(fileName => {
   fileCache[prefix] = splitProto(fileName, fileData)
 })
 
-Object.keys(useFun).forEach(key => {
-  useFun[key].forEach(funName => {
-    let funReg = new RegExp(`rpc\\s${funName}\\s*\\((\\w+)\\)\\s*returns\\s*\\((\\w+)\\)`, 'g'); // 匹配方法
-      let req = fileCache[key].rpcs[funName].req;
-      let res = fileCache[key].rpcs[funName].res;
-      let reqMsg = fileCache[key].messages[req];
-      let resMsg = fileCache[key].messages[res];
-      console.log(funName, req, res, reqMsg, resMsg, fileCache[key].messages['AssetsMoney']);
-  })
-});
+// 遍历需要用到的协议
+getProto(useData);
 
 // let protoFiles = files.filter(str => /\.proto$/.test(str)).map(name => path.resolve(src, name));
 // pbjs.main(['--target', 'json', '--out', src + '/index.json'].concat(protoFiles), function (err, output) {
@@ -35,51 +27,124 @@ Object.keys(useFun).forEach(key => {
 function splitProto (fileName, fileData) {
   // proto类型
   let type = ['double', 'float', 'int32', 'int64', 'uint32', 'uint64', 'sint32', 'sint64', 'fixed32', 'fixed64', 'sfixed32', 'sfixed64', 'bool', 'string', 'bytes'];
+
   // 匹配rpc
-  // let rpcReg = (name) => new RegExp(`rpc\\s${name}\\s*\\((\\w+)\\)\\s*returns\\s*\\((\\w+)\\)`, 'g'); 
-  let rpcs = {};
   let rpcReg = /rpc\s+(\w+)\s*\((\w+)\)\s*returns\s*\((\w+)\)\s*;/g; 
+
   // 匹配enum内容
-  let enums = {};
-  let enumReg = /(?<!\bmessage\s+\w+\s*\{[^\{\}]*)\benum\s*\w+\s*\{[^\}]*\}/g;
-  let enumNameReg = /\benum\s*(\w+)\s*\{[^\}]*\}/g
+  let enumReg = /(?<!\bmessage\s+\w+\s*\{[^\{\}]*)\benum\s*(\w+)\s*\{[^\}]*\}/g;
+
   // 匹配message内容
-  let messages = {};
-  let messageReg = /\bmessage\s+\w+\s*\{(([^\{\}]*\benum\s*\w+\s*\{[^\}]*\}[^\}]*\})|([^\}]*\}))/g;
-  let messageNameReg = /\bmessage\s+(\w+)\s*\{/g
+  let messageReg = /\bmessage\s+(\w+)\s*\{(([^\{\}]*\benum\s*\w+\s*\{[^\}]*\}[^\}]*)|([^\}]*))\}/g;
+  let messageItemReg = /\b(([a-zA-Z]\w+)|(map\s?\<[^\>,]*,[^\>,]*\>))\s+\w+\s*\=\s*\w\s*;?/g
+
   // 匹配service内容
-  let serviceReg = /\bservice\s+\w+\s*\{[^\}]*\}/g; // 匹配proto文件service内容
+  let serviceReg = /\b(service\s+\w+\s*\{)[^\}]*(\})/g; // 匹配proto文件service内容
+
   // 匹配头部引入声明内容
-  let header = {};
   let keyWord = /(\bsyntax.*)|(\boption.*)|(\bpackage.*)|(\bimport.*)/g;
-  
+
   // 去注释
   fileData = fileData.replace(/\/\/.*/gm, '');
+
+  let header = (fileData.match(keyWord) || []).join('');
+
+  // 格式化message
+  let messages = {};
+  let messageExec = null;
+  while (messageExec = messageReg.exec(fileData)) {
+    let [src, fun, content] = messageExec;
+    let messageItemExec = null;
+    let redirect = [];
+    messageItemReg.lastIndex = 0;
+    while (messageItemExec = messageItemReg.exec(content)) {
+      let fieldType = messageItemExec[1];
+      if (type.indexOf(fieldType) === -1) {
+        redirect.push(fieldType);
+      }
+    }
+    messages[fun] = {src, redirect};
+  }
   
-  (fileData.match(keyWord) || []);
-  (fileData.match(messageReg) || []).forEach(str => {
-    messageNameReg.lastIndex = 0;
-    let [src, fun] = messageNameReg.exec(str);
-    messages[fun] = {src: str};
-  });;
-  (fileData.match(enumReg) || []).forEach(str => {
-    enumNameReg.lastIndex = 0;
-    let [src, name] = enumNameReg.exec(str);
+  // 格式化enum
+  let enums = {};
+  let enumExec = null;
+  while (enumExec = enumReg.exec(fileData)) {
+    let [src, name] = enumExec;
     enums[name] = src;
-  });
-  (fileData.match(rpcReg) || []).forEach(str => {
-    rpcReg.lastIndex = 0;
-    let [src, fun, req, res] = rpcReg.exec(str);
-    rpcs[fun] = {src, req, res};
-  });
-  let services = {};
-  fileData.match(serviceReg);
+  }
+
+  // // 格式化rpc
+  let rpcs = {};
+  let rpcExec = null;
+  while (rpcExec = rpcReg.exec(fileData)) {
+    let [src, fun, req, res] = rpcExec;
+    rpcs[fun] = {src, req, res}
+  }
+
+  // 格式化serviceReg
+  let services = '';
+  let serviceExec = null;
+  while (serviceExec = serviceReg.exec(fileData)) {
+    let [src, first, last] = serviceExec;
+    services = [first, last];
+  }
+
   return {
     fileName,
-    services: services ? services[0] : '',
+    services,
     messages,
     header,
     enums,
     rpcs
   }
+}
+
+// getProtoByFun
+function getProto (useData) {
+  let redirectArr = {
+  };
+  let redirect = (name, protoData, data) => {
+    let mes = protoData.messages[name];
+    let enu = protoData.enums[name];
+    if (mes) {
+      mes.redirect.length && mes.redirect.forEach(item => {
+        redirect(item, protoData, data);
+      })
+      data.message.indexOf(mes) === -1 && data.message.push(mes);
+    } else if (enu) {
+      data.enum.indexOf(enu) === -1 && data.enum.push(enu);
+    } else {
+      data.nofind.push(name);
+    }
+    // protoData.enums[name] || protoData.messages[name];
+  }
+
+  Object.keys(useData).forEach(service => {
+    let protoData = fileCache[service];
+    let totalData = {
+      fileName: protoData.fileName,
+      message: [],
+      enum: [],
+      nofind: [],
+      rpc: ''
+    }
+    useData[service].service && useData[service].service.forEach(funName => {
+      let {src ,req, res} = protoData.rpcs[funName];
+      let reqMsg = protoData.messages[req];
+      let resMsg = protoData.messages[res];
+      totalData.message.push(reqMsg);
+      totalData.message.push(resMsg);
+      reqMsg.redirect.forEach(item => {
+        redirect(item,protoData, totalData);
+      })
+      resMsg.redirect.forEach(item => {
+        redirect(item,protoData, totalData);
+      })
+      totalData.rpc = src;
+        // console.log(funName, req, reqMsg, res, resMsg);
+    })
+    redirectArr[service] = totalData;
+    console.log(totalData)
+  });
 }

@@ -1,0 +1,11 @@
+{
+  "assets": {
+    "service": ["GetMoney"]
+  },
+  "activity": {
+    "service": ["GetActivity", "HbyUserWin", "HbyWithdrawal"]
+  },
+  "rpcMessage": {
+    "message": ["RPCInput", "RPCOutput"]
+  }
+}
