@@ -1,6 +1,8 @@
 const path = require('path'),
   fs = require('fs'),
-  pbjs = require('protobufjs/cli/pbjs'),
+  // Root = require("protobufjs/src/root"),
+  // parse = require('protobufjs/src/parse'),
+  protobuf = require('protobufjs'),
   useData = require('./useData.json');
 
 let fileCache = {
@@ -20,14 +22,7 @@ files.forEach(fileName => {
 })
 
 // 遍历需要用到的协议
-getProto(useData);
- 
-let distfiles = fs.readdirSync(outPath, { encoding: 'utf-8' }).filter(str => /\.ext\.proto$/.test(str)); // 筛选proto文件
-let protoFiles = distfiles.filter(str => /\.proto$/.test(str)).map(name => path.resolve(outPath, name));
-pbjs.main(['--target', 'json', '--out', src + '/index.json'].concat(protoFiles), function (err, output) {
-  if (err) throw err;
-  console.log(output);
-});
+createJson(useData);
 
 // 对proto文件数据进行格式化
 function splitProto (fileName, fileData) {
@@ -53,6 +48,7 @@ function splitProto (fileName, fileData) {
   // 去注释
   fileData = fileData.replace(/\/\/.*/gm, '');
 
+  // 獲取頭部各類
   let header = (fileData.match(keyWord) || []).join('\r');
 
   // 格式化message
@@ -69,7 +65,6 @@ function splitProto (fileName, fileData) {
         redirect.push(fieldType);
       }
     }
-    // messages[fun] = {src, redirect};
     fileCache.allMesEnum.messages[fun] = messages[fun] = {src, redirect};
   }
   
@@ -78,7 +73,6 @@ function splitProto (fileName, fileData) {
   let enumExec = null;
   while (enumExec = enumReg.exec(fileData)) {
     let [src, name] = enumExec;
-    // enums[name] = src;
     fileCache.allMesEnum.enums[name] = enums[name] = src;
   }
 
@@ -109,8 +103,9 @@ function splitProto (fileName, fileData) {
 }
 
 // getProtoByFun
-function getProto (useData) {
-  let redirectArr = {};
+function createJson (useData) {
+  let redirectArr = [];
+  // 查找各種變量重定向
   let redirect = (name, protoData, data) => {
     let mesData = protoData.messages[name];
     let enumData = protoData.enums[name];
@@ -155,29 +150,30 @@ function getProto (useData) {
         redirect(item,protoData, totalData);
       })
       totalData.rpc.push(src);
-        // console.log(funName, req, reqMsg, res, resMsg);
     })
-    redirectArr[service] = totalData;
+    redirectArr.push(totalData);
   });
+  // 公共文件, 用於保存不在同一目錄下的變量
   let commonFile = {
     fileName: 'common.ext.proto',
     header: `syntax = "proto3";\roption objc_class_prefix = "PB3";\rpackage pb;`,
     message: [],
     enum: []
   };
-  Object.values(redirectArr).forEach(item => {
+  let protoRoot = new protobuf.Root();
+  redirectArr.forEach(item => {
     if (item.nofind.length) {
       item.header += '\rimport "pb/common.ext.proto";'
       item.nofind.forEach(name => { // 為在自己文件找到的變量
         redirect(name,fileCache.allMesEnum, commonFile);
-        // item.enum = item.enum.concat(data.enum);
-        // item.message = item.message.concat(data.message);
       })
     }
     let text = `${item.header}\r\r${item.enum.join('\r')}\r\r${item.message.map(item => item.src).join('\r')}\r\r${item.services? `${item.services[0]}\r${item.rpc.join('\r')}\r${item.services[1]}`: ''}`
-    fs.writeFileSync(`${outPath}/${item.fileName}`, text);
-    // console.log(text);
+    protobuf.parse(text, protoRoot);
+    // fs.writeFileSync(`${outPath}/${item.fileName}`, text);
   });
   let commonFileText = `${commonFile.header}\r\r${commonFile.enum.join('\r')}\r\r${commonFile.message.map(item => item.src).join('\r')}`
-  fs.writeFileSync(`${outPath}/${commonFile.fileName}`, commonFileText);
+  protobuf.parse(commonFileText, protoRoot);
+  fs.writeFileSync(`${src}/index.json`, JSON.stringify(protoRoot.toJSON())); // 寫入json
+  // fs.writeFileSync(`${outPath}/${commonFile.fileName}`, commonFileText);
 }
