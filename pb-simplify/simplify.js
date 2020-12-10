@@ -3,7 +3,12 @@ const path = require('path'),
   pbjs = require('protobufjs/cli/pbjs'),
   useData = require('./useData.json');
 
-let fileCache = {}; // 缓存文件数据
+let fileCache = {
+  allMesEnum: {
+    enums: [],
+    messages: []
+  }
+}; // 缓存文件数据
 let src = path.resolve(__dirname, './src'); // 文件夹路径
 let outPath = path.resolve(__dirname, './dist'); // 输出路径
 
@@ -16,12 +21,13 @@ files.forEach(fileName => {
 
 // 遍历需要用到的协议
 getProto(useData);
-
-// let protoFiles = files.filter(str => /\.proto$/.test(str)).map(name => path.resolve(src, name));
-// pbjs.main(['--target', 'json', '--out', src + '/index.json'].concat(protoFiles), function (err, output) {
-//   if (err) throw err;
-//   console.log(output);
-// });
+ 
+let distfiles = fs.readdirSync(outPath, { encoding: 'utf-8' }).filter(str => /\.ext\.proto$/.test(str)); // 筛选proto文件
+let protoFiles = distfiles.filter(str => /\.proto$/.test(str)).map(name => path.resolve(outPath, name));
+pbjs.main(['--target', 'json', '--out', src + '/index.json'].concat(protoFiles), function (err, output) {
+  if (err) throw err;
+  console.log(output);
+});
 
 // 对proto文件数据进行格式化
 function splitProto (fileName, fileData) {
@@ -36,18 +42,18 @@ function splitProto (fileName, fileData) {
 
   // 匹配message内容
   let messageReg = /\bmessage\s+(\w+)\s*\{(([^\{\}]*\benum\s*\w+\s*\{[^\}]*\}[^\}]*)|([^\}]*))\}/g;
-  let messageItemReg = /\b(([a-zA-Z]\w+)|(map\s?\<[^\>,]*,[^\>,]*\>))\s+\w+\s*\=\s*\w\s*;?/g
+  let messageItemReg = /\b(([a-zA-Z0-9]\w+)|(map\s*\<[^\>,]*\s*,\s*([^\>,]*)\s*\>))\s+\w+\s*\=\s*\w\s*;?/g
 
   // 匹配service内容
   let serviceReg = /\b(service\s+\w+\s*\{)[^\}]*(\})/g; // 匹配proto文件service内容
 
   // 匹配头部引入声明内容
-  let keyWord = /(\bsyntax.*)|(\boption.*)|(\bpackage.*)|(\bimport.*)/g;
+  let keyWord = /(\bsyntax.*)|(\boption\s+\w+\s+=.*)|(\bpackage.*)/g; // |(\bimport.*)
 
   // 去注释
   fileData = fileData.replace(/\/\/.*/gm, '');
 
-  let header = (fileData.match(keyWord) || []).join('');
+  let header = (fileData.match(keyWord) || []).join('\r');
 
   // 格式化message
   let messages = {};
@@ -58,12 +64,13 @@ function splitProto (fileName, fileData) {
     let redirect = [];
     messageItemReg.lastIndex = 0;
     while (messageItemExec = messageItemReg.exec(content)) {
-      let fieldType = messageItemExec[1];
+      let fieldType = messageItemExec[2] || messageItemExec[4];
       if (type.indexOf(fieldType) === -1) {
         redirect.push(fieldType);
       }
     }
-    messages[fun] = {src, redirect};
+    // messages[fun] = {src, redirect};
+    fileCache.allMesEnum.messages[fun] = messages[fun] = {src, redirect};
   }
   
   // 格式化enum
@@ -71,7 +78,8 @@ function splitProto (fileName, fileData) {
   let enumExec = null;
   while (enumExec = enumReg.exec(fileData)) {
     let [src, name] = enumExec;
-    enums[name] = src;
+    // enums[name] = src;
+    fileCache.allMesEnum.enums[name] = enums[name] = src;
   }
 
   // // 格式化rpc
@@ -102,35 +110,40 @@ function splitProto (fileName, fileData) {
 
 // getProtoByFun
 function getProto (useData) {
-  let redirectArr = {
-  };
+  let redirectArr = {};
   let redirect = (name, protoData, data) => {
-    let mes = protoData.messages[name];
-    let enu = protoData.enums[name];
-    if (mes) {
-      mes.redirect.length && mes.redirect.forEach(item => {
+    let mesData = protoData.messages[name];
+    let enumData = protoData.enums[name];
+    if (mesData) {
+      mesData.redirect.length && mesData.redirect.forEach(item => {
         redirect(item, protoData, data);
       })
-      data.message.indexOf(mes) === -1 && data.message.push(mes);
-    } else if (enu) {
-      data.enum.indexOf(enu) === -1 && data.enum.push(enu);
+      data.message.indexOf(mesData) === -1 && data.message.push(mesData);
+    } else if (enumData) {
+      data.enum.indexOf(enumData) === -1 && data.enum.push(enumData);
     } else {
-      data.nofind.push(name);
+      data.nofind.indexOf(name) === -1 && data.nofind.push(name);
     }
-    // protoData.enums[name] || protoData.messages[name];
   }
-
   Object.keys(useData).forEach(service => {
-    let protoData = fileCache[service];
-    let totalData = {
+    let protoData = fileCache[service]; // 當前文件緩存
+    let totalData = { // 需要的數據
       fileName: protoData.fileName,
+      services: protoData.services,
+      header: protoData.header,
       message: [],
       enum: [],
       nofind: [],
-      rpc: ''
+      rpc: []
     }
-    useData[service].service && useData[service].service.forEach(funName => {
-      let {src ,req, res} = protoData.rpcs[funName];
+    useData[service].enum && useData[service].enum.forEach(name => {
+      redirect(name, protoData, totalData);
+    })
+    useData[service].message && useData[service].message.forEach(name => {
+      redirect(name,protoData, totalData);
+    })
+    useData[service].service && useData[service].service.forEach(name => {
+      let {src ,req, res} = protoData.rpcs[name];
       let reqMsg = protoData.messages[req];
       let resMsg = protoData.messages[res];
       totalData.message.push(reqMsg);
@@ -141,10 +154,30 @@ function getProto (useData) {
       resMsg.redirect.forEach(item => {
         redirect(item,protoData, totalData);
       })
-      totalData.rpc = src;
+      totalData.rpc.push(src);
         // console.log(funName, req, reqMsg, res, resMsg);
     })
     redirectArr[service] = totalData;
-    console.log(totalData)
   });
+  let commonFile = {
+    fileName: 'common.ext.proto',
+    header: `syntax = "proto3";\roption objc_class_prefix = "PB3";\rpackage pb;`,
+    message: [],
+    enum: []
+  };
+  Object.values(redirectArr).forEach(item => {
+    if (item.nofind.length) {
+      item.header += '\rimport "pb/common.ext.proto";'
+      item.nofind.forEach(name => { // 為在自己文件找到的變量
+        redirect(name,fileCache.allMesEnum, commonFile);
+        // item.enum = item.enum.concat(data.enum);
+        // item.message = item.message.concat(data.message);
+      })
+    }
+    let text = `${item.header}\r\r${item.enum.join('\r')}\r\r${item.message.map(item => item.src).join('\r')}\r\r${item.services? `${item.services[0]}\r${item.rpc.join('\r')}\r${item.services[1]}`: ''}`
+    fs.writeFileSync(`${outPath}/${item.fileName}`, text);
+    // console.log(text);
+  });
+  let commonFileText = `${commonFile.header}\r\r${commonFile.enum.join('\r')}\r\r${commonFile.message.map(item => item.src).join('\r')}`
+  fs.writeFileSync(`${outPath}/${commonFile.fileName}`, commonFileText);
 }

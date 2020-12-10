@@ -1,11 +1,24 @@
 {
   "assets": {
-    "service": ["GetMoney"]
+    "service": ["GetMoney", "GetBag"]
   },
   "activity": {
-    "service": ["GetActivity", "HbyUserWin", "HbyWithdrawal"]
+    "service": [
+      "GetActivity",
+      "SlotMachine2020Data",
+      "SlotMachine2020UserDate",
+      "SlotMachine2020WinRecords",
+      "SlotMachine2020Bet",
+      "PlayerSort"
+    ]
+  },
+  "store": {
+    "service": ["GetExchangeConf", "Buy"]
   },
   "rpcMessage": {
     "message": ["RPCInput", "RPCOutput"]
+  },
+  "user": {
+    "service": ["GetPlayer"]
   }
 }
