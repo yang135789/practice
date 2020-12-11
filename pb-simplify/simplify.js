@@ -1,28 +1,34 @@
 const path = require('path'),
   fs = require('fs'),
-  // Root = require("protobufjs/src/root"),
-  // parse = require('protobufjs/src/parse'),
   protobuf = require('protobufjs'),
-  useData = require('./useData.json');
+  useData = require('./useData.json'); // 根據該json提取
 
+ // 缓存文件数据
 let fileCache = {
   allMesEnum: {
     enums: [],
     messages: []
   }
-}; // 缓存文件数据
+};
 let src = path.resolve(__dirname, './src'); // 文件夹路径
 let outPath = path.resolve(__dirname, './dist'); // 输出路径
 
-let files = fs.readdirSync(src, { encoding: 'utf-8' }).filter(str => /\.ext\.proto$/.test(str)); // 筛选proto文件
-files.forEach(fileName => {
-  let prefix = fileName.split('.')[0];
-  let fileData = fs.readFileSync(path.resolve(src, fileName), { encoding: 'utf-8' }); // 保存读取的数据
-  fileCache[prefix] = splitProto(fileName, fileData)
-})
 
+
+findFiles(src);
 // 遍历需要用到的协议
 createJson(useData);
+
+// 查找文件
+function findFiles (src) {
+  // 筛选proto文件
+ let files = fs.readdirSync(src, { encoding: 'utf-8' }).filter(str => /\.ext\.proto$/.test(str));
+ files.forEach(fileName => {
+   let prefix = fileName.split('.')[0];
+   let fileData = fs.readFileSync(path.resolve(src, fileName), { encoding: 'utf-8' }); // 保存读取的数据
+   fileCache[prefix] = splitProto(fileName, fileData)
+ })
+}
 
 // 对proto文件数据进行格式化
 function splitProto (fileName, fileData) {
@@ -43,7 +49,7 @@ function splitProto (fileName, fileData) {
   let serviceReg = /\b(service\s+\w+\s*\{)[^\}]*(\})/g; // 匹配proto文件service内容
 
   // 匹配头部引入声明内容
-  let keyWord = /(\bsyntax.*)|(\boption\s+\w+\s+=.*)|(\bpackage.*)/g; // |(\bimport.*)
+  let keyWord = /(\bsyntax.*)|(\boption\s+\w+\s+=.*)|(\bpackage\s+\w+\s*;.*)/g; // |(\bimport.*)
 
   // 去注释
   fileData = fileData.replace(/\/\/.*/gm, '');
@@ -102,9 +108,17 @@ function splitProto (fileName, fileData) {
   }
 }
 
-// getProtoByFun
+// 加載prto文件數據, 創建json
 function createJson (useData) {
+  let protoRoot = new protobuf.Root();
   let redirectArr = [];
+  // 公共文件, 用於保存不在同一目錄下的變量
+  let commonFile = {
+    fileName: 'common.ext.proto',
+    header: `syntax = "proto3";\roption objc_class_prefix = "PB3";\rpackage pb;`,
+    message: [],
+    enum: []
+  };
   // 查找各種變量重定向
   let redirect = (name, protoData, data) => {
     let mesData = protoData.messages[name];
@@ -123,7 +137,7 @@ function createJson (useData) {
   Object.keys(useData).forEach(service => {
     let protoData = fileCache[service]; // 當前文件緩存
     let totalData = { // 需要的數據
-      fileName: protoData.fileName,
+      fileName: `${protoData.fileName}\rimport "pb/common.ext.proto";`,
       services: protoData.services,
       header: protoData.header,
       message: [],
@@ -151,23 +165,24 @@ function createJson (useData) {
       })
       totalData.rpc.push(src);
     })
-    redirectArr.push(totalData);
-  });
-  // 公共文件, 用於保存不在同一目錄下的變量
-  let commonFile = {
-    fileName: 'common.ext.proto',
-    header: `syntax = "proto3";\roption objc_class_prefix = "PB3";\rpackage pb;`,
-    message: [],
-    enum: []
-  };
-  let protoRoot = new protobuf.Root();
-  redirectArr.forEach(item => {
-    if (item.nofind.length) {
-      item.header += '\rimport "pb/common.ext.proto";'
-      item.nofind.forEach(name => { // 為在自己文件找到的變量
+    if (totalData.nofind.length) {
+      totalData.nofind.forEach(name => { // 為在自己文件找到的變量
         redirect(name,fileCache.allMesEnum, commonFile);
       })
     }
+    redirectArr.push(totalData);
+  });
+  redirectArr.forEach(item => {
+    let arr = [].concat(commonFile.enum, commonFile.message);
+    // 把和公用裡面重複的數據刪除
+    arr.forEach(com => {
+      if (item.enum.indexOf(com) > -1) {
+        item.message.splice(item.enum.indexOf(com), 1);
+      }
+      if (item.message.indexOf(com) > -1) {
+        item.message.splice(item.message.indexOf(com), 1);
+      }
+    });
     let text = `${item.header}\r\r${item.enum.join('\r')}\r\r${item.message.map(item => item.src).join('\r')}\r\r${item.services? `${item.services[0]}\r${item.rpc.join('\r')}\r${item.services[1]}`: ''}`
     protobuf.parse(text, protoRoot);
     // fs.writeFileSync(`${outPath}/${item.fileName}`, text);

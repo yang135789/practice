@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "sPb": "node ./simplify"
+  },
   "devDependencies": {
     "protobufjs": "^6.10.2"
   }

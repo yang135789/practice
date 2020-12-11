@@ -4,6 +4,7 @@
   },
   "activity": {
     "service": [
+      "RoomAwardData",
       "GetActivity",
       "SlotMachine2020Data",
       "SlotMachine2020UserDate",
@@ -11,6 +12,9 @@
       "SlotMachine2020Bet",
       "PlayerSort"
     ]
+  },
+  "gift": {
+    "service": ["GetGiftConfig"]
   },
   "store": {
     "service": ["GetExchangeConf", "Buy"]
