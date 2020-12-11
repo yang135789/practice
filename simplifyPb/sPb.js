@@ -137,7 +137,7 @@ function createJson (useData) {
   Object.keys(useData).forEach(service => {
     let protoData = fileCache[service]; // 當前文件緩存
     let totalData = { // 需要的數據
-      fileName: `${protoData.fileName}\rimport "pb/common.ext.proto";`,
+      fileName: protoData.fileName,
       services: protoData.services,
       header: protoData.header,
       message: [],
@@ -165,6 +165,15 @@ function createJson (useData) {
       })
       totalData.rpc.push(src);
     })
+    // 如果是common.ext.proto的數據, 全部添加公用裡面
+    if (totalData.fileName === "common.ext.proto") {
+      commonFile.enum = [].concat(totalData.enum);
+      commonFile.message = [].concat(totalData.message);
+    } else {
+      // 非公用文件都添加引入公用文件, 確保不會缺失變量
+      totalData.header = `${totalData.header}\rimport "pb/common.ext.proto";`;
+    }
+    // 沒有找的變量從全局查找, 添加到公用裡面
     if (totalData.nofind.length) {
       totalData.nofind.forEach(name => { // 為在自己文件找到的變量
         redirect(name,fileCache.allMesEnum, commonFile);
@@ -177,7 +186,7 @@ function createJson (useData) {
     // 把和公用裡面重複的數據刪除
     arr.forEach(com => {
       if (item.enum.indexOf(com) > -1) {
-        item.message.splice(item.enum.indexOf(com), 1);
+        item.enum.splice(item.enum.indexOf(com), 1);
       }
       if (item.message.indexOf(com) > -1) {
         item.message.splice(item.message.indexOf(com), 1);

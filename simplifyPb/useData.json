@@ -1,4 +1,7 @@
 {
+  "common": {
+    "enum": ["AwardType"]
+  },
   "assets": {
     "service": ["GetMoney", "GetBag"]
   },
