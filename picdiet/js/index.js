@@ -162,12 +162,12 @@ function compress_loop() {
         var file = input.files[i];
         getImageData(file).then(data=>{
             var result = cjpeg(data, {
-                debug: 1,
                 quality: getElementById('q_value').value
             });
             var blob = new Blob([result.data],{
                 type: 'image/jpeg'
             });
+            console.log(file.name, result);
             imgfolder.file(file.name, blob);
             i++;
             ini_filesize = ini_filesize + file.size;
