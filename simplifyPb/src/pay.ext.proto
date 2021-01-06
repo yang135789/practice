@@ -7,46 +7,41 @@ package pb;
 
 enum PayErr {
   PE_ZERO = 0;
-  PE_LIMIT = 6000; // 充值次数限制
+  PE_LIMIT = 6000;
 }
 
 enum RequestPayUseType {
-  RPU_TYPE_DEFAULT = 0;   // 默认(储值金币)
-  RPU_TYPE_ACT = 999; // 活动
+  RPU_TYPE_DEFAULT = 0;
+  RPU_TYPE_ACT = 999;
 }
 
 service PayExtObj {
-  // 充值用户信息
   rpc GetUser(GetUserReq) returns (GetUserRes);
-  // 发起充值请求
   rpc GetRequestPay(RequestPayReq) returns (RequestPayRes);
-  // 查询是否可以充值
   rpc GetCheckPay(CheckPayReq) returns (CheckPayRes);
-  // 苹果内购
   rpc GetAppleInAppP(AppleInAppPReq) returns (AppleInAppPRes);
-  // Google内购
   rpc GetGoInAppP(GoInAppPReq) returns (GoInAppPRes);
 }
 
 message GetUserReq {
-  sint64 id = 1; // 用户ID，支持短号
+  sint64 id = 1;
 }
 message GetUserRes {
-  sint64 id = 1; // 长号
-  sint64 id2 = 2; // 短号
+  sint64 id = 1;
+  sint64 id2 = 2;
   string nickname = 3;
   string icon = 4;
 }
 
 enum ResponseType {
-  RT_POST_FORM = 0; // 用户页面把data按submit form的方式post到action_url
-  RT_REDIRECT = 1; // 用户页面重定向到action_url, data数据作为action_url的query string
+  RT_POST_FORM = 0;
+  RT_REDIRECT = 1;
 }
 
 enum InvoiceType{
   INVOICES_UNKNOWN = 0;
-  INVOICES_TWE_COPIES = 1;//二联发票（b2c
-  INVOICES_THREE_COPIES = 2;//三联发票(b2b
+  INVOICES_TWE_COPIES = 1;
+  INVOICES_THREE_COPIES = 2;
 }
 
 
@@ -55,16 +50,16 @@ message RequestPayReq {
   PayChannels channel = 1;
   sint64 user_id = 2;
   uint32 gold = 3;
-  string return_url = 4; // 充值后跳转地址
-  string sub_type = 5; // 充值子类型
-  RequestPayUseType pay_use_type = 6;  // 充值使用类型
-  InvoiceInfo invoice_info = 7; //发票信息
+  string return_url = 4;
+  string sub_type = 5;
+  RequestPayUseType pay_use_type = 6;
+  InvoiceInfo invoice_info = 7;
 }
 message RequestPayRes {
   ResponseType type = 1;
   string action_url = 2;
   map<string, string> data = 3;
-  string order_id = 4;  // 订单id, 服务端生成的.仅用于内部调用使用, 前端不需要
+  string order_id = 4;
 }
 
 message CheckPayReq {
@@ -74,18 +69,17 @@ message CheckPayReq {
 message CheckPayRes {
 }
 
-// 扩展参数
 message ExtParam {
   int64 room_id=1;
 }
 
 message AppleInAppPReq {
   sint64 user_id = 1;
-  sint32 purchase_type = 2; // 0金币，1VIP，2贵族
+  sint32 purchase_type = 2;
   string transaction_id = 3;
   string receipt_data = 4;
-  int64  give_id = 5;  // 赠送用户id
-  string params=6;    //  附加参数 ExtParam 结构体（方便ios传数据）
+  int64  give_id = 5;
+  string params=6;
 }
 message AppleInAppPRes {
 
@@ -106,12 +100,12 @@ message GoInAppPRes {
 }
 
 message InvoiceInfo{
-  string email = 1; // 邮箱
-  string phone = 2; // 联系方式
-  InvoiceType invoice_type = 3;//发票类型
-  bool is_donate = 4;//是否捐赠
-  string name = 5;//名称
-  string donate_code = 6;//捐赠码
-  int32 carrier_type = 7;//载具类型，1、智付宝、2:手机号、3:自然人
-  string carrier_num = 8;//载具编号（手机条码、自然人凭证、买受人统编
+  string email = 1;
+  string phone = 2;
+  InvoiceType invoice_type = 3;
+  bool is_donate = 4;
+  string name = 5;
+  string donate_code = 6;
+  int32 carrier_type = 7;
+  string carrier_num = 8;
 }

@@ -9,76 +9,72 @@ import "pb/gift.ext.proto";
 
 
 enum ActPayType {
-    Act_Pay_Type_Gold   = 0;    // 默认金币
-    Act_Pay_Type_Money  = 1;    // 金钱
+    Act_Pay_Type_Gold   = 0;
+    Act_Pay_Type_Money  = 1;
 }
 
-enum ActivityCmdId { //202
+enum ActivityCmdId {
     IC_Activity_None               = 0;
-    Activity_Notice                = 202101;   // 活动通知 NoticeActivity
+    Activity_Notice                = 202101;
 }
 
-//##########结构定义
 enum ActivityType {
     Type_None = 0;
-    Type_Normal = 1; //普通积分类型
-    Type_Task = 2; //任务类型
+    Type_Normal = 1;
+    Type_Task = 2;
 }
 
 enum HandleInviteType {
-    Handle_Type_None = 0;   // 可用于等待处理
-    Handle_Type_Agree = 1;  // 同意
-    Handle_Type_Reject = 2; // 拒绝
+    Handle_Type_None = 0;
+    Handle_Type_Agree = 1;
+    Handle_Type_Reject = 2;
 }
 
 enum RelActivityType {
     Rel_Type_None = 0;
-    Rel_Type_GoodNum = 1; //靓号活动
-    Rel_Type_Sort_Send = 2; //排行榜赠送活动
-    Rel_Type_Sort_Get = 3; //排行榜获得活动
-    Rel_Type_Mine = 4; //矿山
-    Rel_Type_Sort_Pay = 5; //排行榜充值活动
-    Rel_Type_Sort_Consume = 6; //排行榜消费活动
+    Rel_Type_GoodNum = 1;
+    Rel_Type_Sort_Send = 2;
+    Rel_Type_Sort_Get = 3;
+    Rel_Type_Mine = 4;
+    Rel_Type_Sort_Pay = 5;
+    Rel_Type_Sort_Consume = 6;
 }
 
-//活动任务类型
 enum ActivityTaskType {
     Task_Type_None                          = 0;
-    Task_Type_Pay                           = 1;    // 充值
-    Task_Type_Gift_Get                      = 2;    // 个人获得礼物
-    Task_Type_Room_Gift_Get                 = 3;    // 房间获得礼物
-    Task_Type_Gift_Send                     = 4;    // 个人送礼
-    Task_Type_Room_Gift_Send                = 5;    // 房间送礼
-    Task_Type_Buy                           = 6;    // 购买
-    Task_Type_Family_Share                  = 8;    // 家族成员分享家族房间
-    Task_Type_Room_Online                   = 9;    // 房间营业(在线时长)
-    Task_Type_Room_Gift_Send_Player_Num     = 10;   // 房间送礼人数
-    Task_Type_Gift_Send_Player_Num          = 11;   // 送礼人数(非免费礼物)
-    Task_Type_Gift_Get_Player_Num           = 12;   // 收礼人数(非免费礼物)
+    Task_Type_Pay                           = 1;
+    Task_Type_Gift_Get                      = 2;
+    Task_Type_Room_Gift_Get                 = 3;
+    Task_Type_Gift_Send                     = 4;
+    Task_Type_Room_Gift_Send                = 5;
+    Task_Type_Buy                           = 6;
+    Task_Type_Family_Share                  = 8;
+    Task_Type_Room_Online                   = 9;
+    Task_Type_Room_Gift_Send_Player_Num     = 10;
+    Task_Type_Gift_Send_Player_Num          = 11;
+    Task_Type_Gift_Get_Player_Num           = 12;
 }
 
-//活动触发类型
 enum ActivityTaskTriggerType {
     Task_Trigger_Type_None = 0;
-    Task_Trigger_Type_Repeated = 1; //重复
-    Task_Trigger_Type_Once = 2; //一次性
-    Task_Trigger_Type_Day = 3; //每日
+    Task_Trigger_Type_Repeated = 1;
+    Task_Trigger_Type_Once = 2;
+    Task_Trigger_Type_Day = 3;
 }
 
 enum ActivityTaskTriggerPointType {
     Task_Trigger_Point_Type_None = 0;
-    Task_Trigger_Point_Type_Num = 1; //数量
-    Task_Trigger_Point_Type_Point = 2; //积分
+    Task_Trigger_Point_Type_Num = 1;
+    Task_Trigger_Point_Type_Point = 2;
 
 }
 
 enum ActvityMonsterStatusType {
-    ActvityMonsterStatusNone = 0;       // 空状态, 占位
-    ActvityMonsterStatusSurvive = 1;    // 存活状态
-    ActvityMonsterStatusDead = 2;       // 死亡状态, 等待下一次再生
+    ActvityMonsterStatusNone = 0;
+    ActvityMonsterStatusSurvive = 1;
+    ActvityMonsterStatusDead = 2;
 }
 
-//活动房间入口位置
 enum ActivityLocation {
     Location_None = 0;
     Location_Left_Top = 1;
@@ -87,39 +83,36 @@ enum ActivityLocation {
     Location_Center = 4;
 }
 
-//个人信息卡的积分或礼物数量统计类型
 enum CountType {
     CountType_None = 0;
-    CountType_Get = 1; //获得
-    CountType_Send = 2; //赠送
+    CountType_Get = 1;
+    CountType_Send = 2;
 }
 
 
 enum DiceGridType {
-    GridNone        = 0;    // 无
-    Reward          = 1;    // 奖励
-    StartPoint      = 2;    // 回到起点
-    GoTwoStep       = 3;    // 前进两步
-    Waite           = 4;    // 休息一下
-    Again           = 5;    // 再擲一次
-    BackTwoStep     = 6;    // 后退两步
-    OneMoreTime     = 7;    // 骰子次数加1
-    BackThreeStep   = 8;    // 后退三步
-    GoThreeStep     = 9;    // 前进三步
+    GridNone        = 0;
+    Reward          = 1;
+    StartPoint      = 2;
+    GoTwoStep       = 3;
+    Waite           = 4;
+    Again           = 5;
+    BackTwoStep     = 6;
+    OneMoreTime     = 7;
+    BackThreeStep   = 8;
+    GoThreeStep     = 9;
 }
 
-// 禮物、寶箱、金幣、鑽石
 enum DeiceGridRewardType {
-    RewardNone      = 0; // 无
-    Gift            = 1; // 礼物
-    TreasureBox     = 2; // 宝箱
-    Gold            = 3; // 金币
-    Diamond         = 4; // 钻石
-    RewardEffect    = 5; // 特效
-    Point           = 6; // 积分
+    RewardNone      = 0;
+    Gift            = 1;
+    TreasureBox     = 2;
+    Gold            = 3;
+    Diamond         = 4;
+    RewardEffect    = 5;
+    Point           = 6;
 }
 
-//个人页数据类型 具体看文档https://www.tapd.cn/35578143/prong/stories/view/1135578143001001130
 enum PlayerPageType {
     PlayerPageType_None = 0;
     One_Point_Point = 1;
@@ -130,162 +123,157 @@ enum PlayerPageType {
     Two_Point_Point_Count = 6;
 }
 
-//房间角标数据类型
 enum RoomSubInfoShow {
     RoomSubInfoShow_None = 0;
-    Show_Point = 1; //积分
-    Show_People = 2; //人数
+    Show_Point = 1;
+    Show_People = 2;
 }
 
-//状态
 enum WelfareSataus {
-    Status_No_Start = 0; //未开始
-    Status_Doing = 1; //执行中
-    Status_Wait_Receive = 2; //待领取
-    Status_Completed = 3; //已完成
-    Status_Past = 4; //已错过
-    Status_Over = 5; //已结束
-    Status_Need_Manual_Start = 6; //需要手动开始
-    Status_Wait_Start = 7; //等待开始
+    Status_No_Start = 0;
+    Status_Doing = 1;
+    Status_Wait_Receive = 2;
+    Status_Completed = 3;
+    Status_Past = 4;
+    Status_Over = 5;
+    Status_Need_Manual_Start = 6;
+    Status_Wait_Start = 7;
 }
 
 
-//活动奖励类型
 enum ActivityAwardType {
     Award_Type_None         = 0;
-    Award_Type_Gold         = 1;    // 金币
-    Award_Type_Tick         = 2;    // 钻石
-    Award_Type_Gift         = 3;    // 礼物
-    Award_Type_BONUS_POOL   = 4;    // 奖金池
-    Award_Type_Effect       = 6;    // 特效
-    Award_Type_Background   = 7;    // 背景
-    Award_Type_Special      = 8;    // 特殊
+    Award_Type_Gold         = 1;
+    Award_Type_Tick         = 2;
+    Award_Type_Gift         = 3;
+    Award_Type_BONUS_POOL   = 4;
+    Award_Type_Effect       = 6;
+    Award_Type_Background   = 7;
+    Award_Type_Special      = 8;
 }
 
 enum LuckFunType {
     Luck_Fun_Type_None = 0;
-    Luck_Fun_Type_Normal = 1;       // 普通
-    Luck_Fun_Type_First_Charge = 2; // 首储
+    Luck_Fun_Type_Normal = 1;
+    Luck_Fun_Type_First_Charge = 2;
 }
 
 enum SortTypeExtendType {
     SortTypeExtendTypeNone = 0;
-    SortTypeExtendTypePkTeam = 1; // 天团
+    SortTypeExtendTypePkTeam = 1;
 }
 
 enum CPInviteStatusType {
     CPInviteStatusTypeNone = 0;
-    CPInviteStatusTypeRejectInvite = 1; // 已拒绝
-    CPInviteStatusTypeHadCP = 2;        // 已有CP
-    CPInviteStatusTypeHadInvite = 3;    // 已邀请
-    CPInviteStatusTypeCanInvite = 4;    // 邀请他
-    CPInviteStatusTypeBeInvite = 5;     // 接受邀请
+    CPInviteStatusTypeRejectInvite = 1;
+    CPInviteStatusTypeHadCP = 2;
+    CPInviteStatusTypeHadInvite = 3;
+    CPInviteStatusTypeCanInvite = 4;
+    CPInviteStatusTypeBeInvite = 5;
 }
 
-// 投注状态
 enum BetStatusType {
-    BetStatusTypeNone           = 0;  // 空, 占位
-    BetStatusTypeBet            = 1;  // 下注中
-    BetStatusTypeWaitResult     = 2;  // 等待结果
-    BetStatusTypeResult         = 3;  // 公布结果
-    BetStatusTypeWaitNextRound  = 4;  // 等待下一轮开始
-    BetStatusTypeClose          = 5;  // 关闭状态
+    BetStatusTypeNone           = 0;
+    BetStatusTypeBet            = 1;
+    BetStatusTypeWaitResult     = 2;
+    BetStatusTypeResult         = 3;
+    BetStatusTypeWaitNextRound  = 4;
+    BetStatusTypeClose          = 5;
 }
 
 enum WelfareActionType {
-    WelfareActionTypeDefault    = 0;    // 默认
-    WelfareActionTypeCrackEgg   = 1;    // 砸蛋
-    WelfareActionTypeJumpURL    = 2;    // 跳转到其他url
+    WelfareActionTypeDefault    = 0;
+    WelfareActionTypeCrackEgg   = 1;
+    WelfareActionTypeJumpURL    = 2;
 }
 
 enum BargainGoodsItemSymbolType {
     BargainGoodsItemSymbolTypeDefault       = 0;
-    BargainGoodsItemSymbolTypeRare          = 1; // 稀有
-    BargainGoodsItemSymbolTypeRestrict      = 2; // 限定
-    BargainGoodsItemSymbolTypeRarity        = 3; // 珍贵
-    BargainGoodsItemSymbolTypeAct           = 4; // 活动
-    BargainGoodsItemSymbolTypeAllSer        = 5; // 全服
-    BargainGoodsItemSymbolTypeExclusive     = 6; // 专属
-    BargainGoodsItemSymbolTypeNew           = 7; // 新
+    BargainGoodsItemSymbolTypeRare          = 1;
+    BargainGoodsItemSymbolTypeRestrict      = 2;
+    BargainGoodsItemSymbolTypeRarity        = 3;
+    BargainGoodsItemSymbolTypeAct           = 4;
+    BargainGoodsItemSymbolTypeAllSer        = 5;
+    BargainGoodsItemSymbolTypeExclusive     = 6;
+    BargainGoodsItemSymbolTypeNew           = 7;
 }
 
 
 enum BargainGoodsItemStatus {
     BargainGoodsItemStatusDefault       = 0;
-    BargainGoodsItemStatusWait          = 1;    // 等待砍价
-    BargainGoodsItemStatusInProgress    = 2;    // 砍价进行中
-    BargainGoodsItemStatusFail          = 3;    // 砍价失败
-    BargainGoodsItemStatusNotBegin      = 4;    // 砍价未开始
-    BargainGoodsItemStatusOverdue       = 5;    // 过期
-    BargainGoodsItemStatusCancel        = 6;    // 取消
-    BargainGoodsItemStatusSuc           = 7;    // 成功
-    BargainGoodsItemStatusBuy           = 8;    // 砍价购买
+    BargainGoodsItemStatusWait          = 1;
+    BargainGoodsItemStatusInProgress    = 2;
+    BargainGoodsItemStatusFail          = 3;
+    BargainGoodsItemStatusNotBegin      = 4;
+    BargainGoodsItemStatusOverdue       = 5;
+    BargainGoodsItemStatusCancel        = 6;
+    BargainGoodsItemStatusSuc           = 7;
+    BargainGoodsItemStatusBuy           = 8;
 }
 
 enum HbyAwardType {
     HbyAwardTypeNone = 0;
-    HbyAwardTypeHb   = 1; // 红包
-    HbyAwardTypeTime = 2; // 时钟
-    HbyAwardTypeBoom = 3; // 炸弹
-    HbyAwardTypeGift = 4; // 礼物/特效
-    HbyAwardTypeOther= 5; // 十万金币
+    HbyAwardTypeHb   = 1;
+    HbyAwardTypeTime = 2;
+    HbyAwardTypeBoom = 3;
+    HbyAwardTypeGift = 4;
+    HbyAwardTypeOther= 5;
 }
 
 enum BargainBuyType {
     BargainBuyTypeDefault   = 0;
-    BargainBuyTypePlay      = 1; // 玩耍的购买
-    BargainBuyTypeStore     = 2; // 商城的购买
-    BargainBuyTypePlayFail  = 3; // 玩耍的失败的购买
+    BargainBuyTypePlay      = 1;
+    BargainBuyTypeStore     = 2;
+    BargainBuyTypePlayFail  = 3;
 }
 
 enum DoubleForecastGambleStatusType {
     ForecastGambleStatusTypeNone        = 0;
-    ForecastGambleStatusTypeWaitBet     = 1; // 等待开始
-    ForecastGambleStatusTypeBeting      = 2; // 下注中
-    ForecastGambleStatusTypeWaitResult  = 3; // 等待结果
-    ForecastGambleStatusTypeEnd         = 4; // 已结束
-    ForecastGambleStatusCancel          = 5; // 取消
+    ForecastGambleStatusTypeWaitBet     = 1;
+    ForecastGambleStatusTypeBeting      = 2;
+    ForecastGambleStatusTypeWaitResult  = 3;
+    ForecastGambleStatusTypeEnd         = 4;
+    ForecastGambleStatusCancel          = 5;
 }
 
 enum DoubleForecastGambleBetResultType {
     ForecastGambleBetResultTypeNone     = 0;
-    ForecastGambleBetResultTypeWait     = 1; // 等待结果
-    ForecastGambleBetResultTypeWin      = 2; // 胜利
-    ForecastGambleBetResultTypeLose     = 3; // 失败
-    ForecastGambleBetResultTypeCancel   = 4; // 取消
+    ForecastGambleBetResultTypeWait     = 1;
+    ForecastGambleBetResultTypeWin      = 2;
+    ForecastGambleBetResultTypeLose     = 3;
+    ForecastGambleBetResultTypeCancel   = 4;
 }
 
 enum DoubleForecastGambleBetType {
     DoubleForecastGambleBetTypeNone     = 0;
-    DoubleForecastGambleBetTypeNormal   = 1; // 普通
-    DoubleForecastGambleBetTypeMain     = 2; // 主要
+    DoubleForecastGambleBetTypeNormal   = 1;
+    DoubleForecastGambleBetTypeMain     = 2;
 }
 
 enum NumLotteryChoosenType {
     NumLotteryChoosenTypeNone   = 0;
-    NumLotteryChoosenTypeRandom = 1; // 随机
-    NumLotteryChoosenTypeManual = 2; // 手动
+    NumLotteryChoosenTypeRandom = 1;
+    NumLotteryChoosenTypeManual = 2;
 }
 
 enum SortPlayerTagType {
     SortPlayerTagTypeNone    = 0;
-    SortPlayerTagTypeLead    = 1;  // 领先
-    SortPlayerTagTypeWin     = 2;  // 胜利
-    SortPlayerTagTypeLose    = 3;  // 失败
-    SortPlayerTagTypeRebirth = 5;  // 重生
+    SortPlayerTagTypeLead    = 1;
+    SortPlayerTagTypeWin     = 2;
+    SortPlayerTagTypeLose    = 3;
+    SortPlayerTagTypeRebirth = 5;
 }
 
-//活动通知
 message NoticeActivity {
-    int32 type = 1; //1-角标积分
-    repeated int32 act_id = 2; //活动id列表  用这些id去请求角标积分
+    int32 type = 1;
+    repeated int32 act_id = 2;
 }
 
 
 enum NumType {
-    Num     = 0;    // 个数
-    Hour    = 1;    // 小时
-    Day     = 2;    // 天数
+    Num     = 0;
+    Hour    = 1;
+    Day     = 2;
 }
 
 message Int32s {
@@ -302,105 +290,98 @@ message NoticeMsgDetailData {
     int64 gift_num = 7;
 }
 
-//通知记录
 message NoticeRecord {
-    int32 msg_id = 1; //通知记录id
-    int32 rel_id = 2; //子活动id
-    int32 player_id = 3; //人员id 允许为空
-    string msg = 4; //通知信息
+    int32 msg_id = 1;
+    int32 rel_id = 2;
+    int32 player_id = 3;
+    string msg = 4;
     int64 created = 5;
     NoticeMsgDetailData msg_detail = 6;
 }
 
 message LotteryRecord {
-    int32 rel_id = 1; //子活动id
-    int32 player_id = 2; //人员id
-    int32 player_id2 = 3; //人员靓号
-    string player_name = 4; //人员名称
-    int32 award_pool_id = 5; //奖励id
-    string gift_name = 6; //
+    int32 rel_id = 1;
+    int32 player_id = 2;
+    int32 player_id2 = 3;
+    string player_name = 4;
+    int32 award_pool_id = 5;
+    string gift_name = 6;
     int64 created = 7;
     uint64 num = 8;
 }
 
 message SpecialAward {
-    int32 type = 1; //1-抽奖码 2-新贵 3-抽奖次数
-    int32 num = 2; //已用数量
-    int32 count = 3; //总数量
+    int32 type = 1;
+    int32 num = 2;
+    int32 count = 3;
 }
 
-//奖励信息
 message PlayerActAwardInfo {
     int64 player_id = 1;
-    int32 rel_id = 2; //关联id
+    int32 rel_id = 2;
     int64 award_id = 3;
-    int32 num = 5; //数量
+    int32 num = 5;
     ActivityAwardType type = 6;
-    int32 value = 7; //奖类型的值 礼物为礼物id，货币为货币总量
-    string name = 8; //奖励名称
+    int32 value = 7;
+    string name = 8;
     string image_url = 9;
 }
 
 
 message ActivityResource {
-    ActivityLocation location = 1; // 入口位置
-    string activity_url = 2; // 活动链接
-    string progress_color = 3; // 进度条颜色
-    string enter_background = 4; //入口角标 url
-    string enter_small_background = 5; //入口右下角角标 url
-    string card_background = 6; // 卡片背景
-    bool player_page_status = 7; //个人活动页状态，表示是否开启
-    PlayerPageType player_page_type = 8; // 个人页类型
-    string player_page_url = 9; //个人页url
-    RoomSubInfoShow roomsubinfo_show = 10; //point或者people
+    ActivityLocation location = 1;
+    string activity_url = 2;
+    string progress_color = 3;
+    string enter_background = 4;
+    string enter_small_background = 5;
+    string card_background = 6;
+    bool player_page_status = 7;
+    PlayerPageType player_page_type = 8;
+    string player_page_url = 9;
+    RoomSubInfoShow roomsubinfo_show = 10;
 }
 
-//活动任务
 message ActivityTask {
     int32 id = 1;
     string name = 2;
-    ActivityTaskType type = 3; //活动类型
-    repeated int32 trigger_id = 4; //活动触发id
-    ActivityTaskTriggerType trigger_type = 5; //活动触发类型
-    int64 trigger_point = 6; //活动触发点
-    ActivityTaskTriggerPointType trigger_point_type = 7; //触发点的类型
+    ActivityTaskType type = 3;
+    repeated int32 trigger_id = 4;
+    ActivityTaskTriggerType trigger_type = 5;
+    int64 trigger_point = 6;
+    ActivityTaskTriggerPointType trigger_point_type = 7;
     repeated Int32s reward = 8;
 }
 
-//抽奖奖励
 message LotteryAward {
-    int64 award_id = 1; //奖励id
-    int64 award_num = 2; //奖励数量
-    int32 type = 3; // 奖励类型 1金币，2钻石，3礼物 4奖金池
-    int64 value = 4; //奖励价值
-    string description = 5; //描述
-    string image_url = 6; //图片路劲
-    string name = 7; //名字
+    int64 award_id = 1;
+    int64 award_num = 2;
+    int32 type = 3;
+    int64 value = 4;
+    string description = 5;
+    string image_url = 6;
+    string name = 7;
 }
 
-//阶段奖励
 message LotteryStageAward {
-    int64 stage = 1; //阶段
-    repeated LotteryAward list = 2; //
+    int64 stage = 1;
+    repeated LotteryAward list = 2;
 }
 
-//子活动
 message RelActivity {
     int32 id = 1;
     string name = 2;
     RelActivityType type = 3;
-    repeated int32 gift_id = 4; //关联的礼物id
-    repeated ActivityTask tasks = 5; //活动任务
-    int64 start_time = 6; //开始时间
-    int64 end_time = 7; //结束时间
-    int64 guaranteed_times = 8; //保底触发次数
-    repeated LotteryStageAward lottery_awards = 9; //子活动抽奖配置
-    int32 num_rate = 10; //倍率
-    repeated int64 apply_players = 11;  // 申请玩家列表
+    repeated int32 gift_id = 4;
+    repeated ActivityTask tasks = 5;
+    int64 start_time = 6;
+    int64 end_time = 7;
+    int64 guaranteed_times = 8;
+    repeated LotteryStageAward lottery_awards = 9;
+    int32 num_rate = 10;
+    repeated int64 apply_players = 11;
     string remark = 12;
 }
 
-//主活动结构
 message Activity {
     int32 id = 1;
     string name = 2;
@@ -413,11 +394,11 @@ message Activity {
 }
 
 message SortParam {
-    int64 player_id = 1; //个人id
-    int32 activity_id = 2; //活动id
-    int32 rel_activity_id = 3; //子活动id
-    int32 page = 4; //第几页
-    int64 page_size = 5; //每页数量
+    int64 player_id = 1;
+    int32 activity_id = 2;
+    int32 rel_activity_id = 3;
+    int32 page = 4;
+    int64 page_size = 5;
 }
 
 message SortSupportedResult {
@@ -425,27 +406,26 @@ message SortSupportedResult {
     int64 point         = 2;
 }
 
-//排行榜通用返回结果
 message SortResult {
     int64 sort                                = 1;
-    int64 id                                  = 2;  // 按请求 roomid或playerid
-    int64 id2                                 = 3;  // 靓号, 如果靓号不为空则显示靓号
-    string name                               = 4;  // 同上
+    int64 id                                  = 2;
+    int64 id2                                 = 3;
+    string name                               = 4;
     string icon                               = 5;
-    int64 gold                                = 6;  // 金币
-    int64 point                               = 7;  // 积分
-    int64 num                                 = 8;  // 礼物总数
-    int64 room_id                             = 9;  // 房间id
-    string room_name                          = 10; // 房间名字
-    int32 like_num                            = 11; // 点赞数
-    bool  is_like                             = 12; // 是否已经点赞
-    string msg                                = 13; // 祝福语
+    int64 gold                                = 6;
+    int64 point                               = 7;
+    int64 num                                 = 8;
+    int64 room_id                             = 9;
+    string room_name                          = 10;
+    int32 like_num                            = 11;
+    bool  is_like                             = 12;
+    string msg                                = 13;
     int64 last_player_id                      = 14;
-    string resource                           = 15; // 资源  可以是图片，音频或视频  www.shenzhen.alyun.com/alpha/voice/abedfagadsdfgsa.mp3
+    string resource                           = 15;
     int64 result_create_time                  = 16;
-    SortPlayerTagType tag                     = 17; // tag标识
-    repeated SortSupportedResult support_list = 18; // 支持者列表(有序). 只有roomsort才会有这个值
-    RoomSubInfoExtModuleSchedule progress     = 19; // 进度
+    SortPlayerTagType tag                     = 17;
+    repeated SortSupportedResult support_list = 18;
+    RoomSubInfoExtModuleSchedule progress     = 19;
 }
 
 message GroupSortItem {
@@ -455,52 +435,50 @@ message GroupSortItem {
 }
 
 
-//主题结构
 message Theme {
     int32 id = 1;
-    string name = 2; //主题名字
-    int32 type = 3; //主题类型 1- 砸蛋
-    bool status = 4; //状态
-    int64 start_time = 5; //开始时间
-    int64 end_time = 6; //结束时间
-    string extend = 7; //扩展，json格式
-    string key = 8; // 唯一标志
+    string name = 2;
+    int32 type = 3;
+    bool status = 4;
+    int64 start_time = 5;
+    int64 end_time = 6;
+    string extend = 7;
+    string key = 8;
 }
 
-//兑换记录
 message ExchangeRocord {
-    int32 asset_id = 1; //物品id
-    int64 num = 2; //物品数量
-    int64 created = 3; //兑换时间
-    string name = 4; //物品名字
+    int32 asset_id = 1;
+    int64 num = 2;
+    int64 created = 3;
+    string name = 4;
 }
 
 message ConfessionCol{
-    Player player = 1;              // 告白人
-    Player target = 2;              // 被告白人
-    int64  confession_num = 3;      // 告白数
-    string confession_content = 4;  // 告白语句
+    Player player = 1;
+    Player target = 2;
+    int64  confession_num = 3;
+    string confession_content = 4;
 }
 
 message AuctionRecord{
-    int32  rank = 1;                // 位置
-    Player from = 2;                // 竞拍人
-    Player to   = 3;                // 上榜人
-    int64  auction_num = 4;         // 被告白数
-    string auction_content = 5;     // 告白语句
-    uint64 auction_price = 6;       // 拍卖价
-    int64  create_at = 7;           // 创建时间
-    bool is_hidden = 8;             // 是否隐藏
-    int64 hot_score = 9;            // 热度
+    int32  rank = 1;
+    Player from = 2;
+    Player to   = 3;
+    int64  auction_num = 4;
+    string auction_content = 5;
+    uint64 auction_price = 6;
+    int64  create_at = 7;
+    bool is_hidden = 8;
+    int64 hot_score = 9;
 }
 
 message KingOfSingingItem {
-    int64   player_id   = 1;    // 歌手id
-    string  name        = 2;    // 歌手名字
-    string  icon        = 3;    // 歌手头像地址
-    int64   popularity  = 4;    // 人气值
-    bool    can_vote    = 5;    // 能否投票
-    bool    is_vote     = 6;    // 是否已投票
+    int64   player_id   = 1;
+    string  name        = 2;
+    string  icon        = 3;
+    int64   popularity  = 4;
+    bool    can_vote    = 5;
+    bool    is_vote     = 6;
     int32   idx_id      = 7;
     int64   update_time = 8;
 }
@@ -513,29 +491,28 @@ message H5KingOfSingingFansVoteData {
 }
 
 message WelfareExtendRangeData {
-    int64 range_id = 1; // 商城id/ 礼物id
-    string  name = 2; // 名称
-    string url = 3; // 图片地址
+    int64 range_id = 1;
+    string  name = 2;
+    string url = 3;
 }
 
-//福利信息
 message WelfareInfo {
     int32 welfare_id                                    = 1;
-    int32 type                                          = 2; //1-普通 2-分享
-    WelfareSataus status                                = 3; //0-未开始 1-执行中 2-待领取 3-已完成 4-已错过 5-已结束 6-需要手动开始 7-等待开始
-    int64 created                                       = 4; //完成的时间，未完成时为0
-    int64 num                                           = 5; // 当前进度数量
-    int64 trigger_num                                   = 6; // 目标数量
+    int32 type                                          = 2;
+    WelfareSataus status                                = 3;
+    int64 created                                       = 4;
+    int64 num                                           = 5;
+    int64 trigger_num                                   = 6;
     repeated GiftNumItem gift_list                      = 7;
-    int32 trigger_rate                                  = 8; // 1-重复 2-每天 3- 一次性
+    int32 trigger_rate                                  = 8;
     string name                                         = 9;
     repeated WelfareExtendRangeData extend_data_list    = 10;
-    string remark                                       = 11; // 备注信息
-    string img                                          = 12; // 图标
-    uint32 sort                                         = 13; // 排序
-    string description                                  = 14; // 描述
-    WelfareActionType action_type                       = 15; // 动作
-    uint32 next_start_time                              = 16; // 下一次开始时间(一般是小时单位)
+    string remark                                       = 11;
+    string img                                          = 12;
+    uint32 sort                                         = 13;
+    string description                                  = 14;
+    WelfareActionType action_type                       = 15;
+    uint32 next_start_time                              = 16;
 }
 
 message ReceiveWelfare {
@@ -549,17 +526,16 @@ message ReceiveWelfare {
 
 message ConfWelfare {
     int32 id = 1;
-    int32 group = 2; ////分组
-    int32 relative_id = 3; ////关联id
-    int32 status = 4; //状态
-    int64 trigger_num = 5; //触发次数 表示当完成某个任务多少次之后可完成福利
-    int32 trigger_type = 6; //触发类型
-    int32 trigger_rate = 7; //触发频率
-    int64 num_limit = 8; //数量限制
-    repeated int32 prepose = 9; //前置福利  就是需要完成某些福利后才能进行此福利
+    int32 group = 2;
+    int32 relative_id = 3;
+    int32 status = 4;
+    int64 trigger_num = 5;
+    int32 trigger_type = 6;
+    int32 trigger_rate = 7;
+    int64 num_limit = 8;
+    repeated int32 prepose = 9;
 }
 
-//评论
 message Comment {
     int64 player_id = 1;
     string player_name = 2;
@@ -567,18 +543,17 @@ message Comment {
     string content = 4;
     int64 created = 5;
     int32 like = 6;
-    int32 flag = 7; //1-中奖
+    int32 flag = 7;
     int32 comment_id = 8;
-    int32 is_like = 9; //0-未点赞，1-已点赞
+    int32 is_like = 9;
 }
 
-//单人的信息
 message PlayerSortMsg {
-    int64 id = 1; //按请求 roomid或playerid
-    int64 id2 = 2; //靓号 //如果靓号不为空则显示靓号
-    string name = 3; //同上
+    int64 id = 1;
+    int64 id2 = 2;
+    string name = 3;
     string icon = 4;
-    int32 gender = 5; //性别 1-男 2-女
+    int32 gender = 5;
 }
 
 message GiftNumItem {
@@ -591,120 +566,118 @@ message GiftNumItem {
 }
 
 message DiceGridRewardItem {
-    int32 grid_id       = 1;    // 格子id
-    DiceGridType type   = 2;    // 格子类型
-    string grid_img     = 3;    // 格子图片
-    string grid_name    = 4;    // 格子名称 (只有格子类型是奖励类型, 才有数值)
-    int32 award_num     = 5;    // 奖励数量
-    NumType num_type    = 6;    // 数量类型
-    DeiceGridRewardType reward_type = 7;    // 具体的奖励类型(只有当格子类型是奖励才会有值)
+    int32 grid_id       = 1;
+    DiceGridType type   = 2;
+    string grid_img     = 3;
+    string grid_name    = 4;
+    int32 award_num     = 5;
+    NumType num_type    = 6;
+    DeiceGridRewardType reward_type = 7;
 }
 
 message TreasureBoxItem {
     string award_name = 1;
 }
 
-//多人排行榜通用返回结果
 message ManySortResult {
-    repeated PlayerSortMsg list = 1; //
+    repeated PlayerSortMsg list = 1;
     int64 sort = 2;
-    int64 gold = 3; //金币
-    int64 point = 4; //积分
-    int64 num = 5; //礼物总数
-    int64 room_id = 6; //房间id
-    string room_name = 7; //房间名字
-    int32 like_num = 8; //点赞数
-    bool  is_like = 9; //是否已经点赞
-    string msg = 10;//祝福语
-    string resource = 11; //资源  可以是图片，音频或视频
+    int64 gold = 3;
+    int64 point = 4;
+    int64 num = 5;
+    int64 room_id = 6;
+    string room_name = 7;
+    int32 like_num = 8;
+    bool  is_like = 9;
+    string msg = 10;
+    string resource = 11;
 }
 
 message ConfLotteryPoint {
-    int32 point = 1;//幸运值
-    map<int32, int32> rate = 2; //达到幸运值后的倍率 第一位是奖品等级（1-小，2-中 3-大奖），第二是倍率 200代表翻两倍
+    int32 point = 1;
+    map<int32, int32> rate = 2;
 }
 
 
 message ConfLottery {
-    int32 rel_id = 1; //子活动
-    repeated ConfLotteryPoint point_list = 2; //幸运值
+    int32 rel_id = 1;
+    repeated ConfLotteryPoint point_list = 2;
 }
 
 
 message NameList {
-    int64 player_id = 1; //人员id
-    string player_name = 2 ; //人员名称
-    string player_icon = 3; //人员icon
-    int64 group = 4;//人员分组
-    int64 point = 5; //分数
-    int64 sort = 6; //排名
+    int64 player_id = 1;
+    string player_name = 2 ;
+    string player_icon = 3;
+    int64 group = 4;
+    int64 point = 5;
+    int64 sort = 6;
 }
 
 message NameListResult {
     repeated NameList list = 1;
-    int64 group = 2; //分组
+    int64 group = 2;
 }
 
-//中奖数据
 message PlayerWin {
     int64 player_id = 1;
     string player_name = 2;
     string player_icon = 3;
     int64 num = 4;
-    int64 award_id = 5; //奖励id
-    int64 award_num = 6; //奖励数量
-    int32 type = 7; // 奖励类型 1金币，2钻石，3礼物 4奖金池
-    int64 value = 8; //奖励价值
+    int64 award_id = 5;
+    int64 award_num = 6;
+    int32 type = 7;
+    int64 value = 8;
 }
 
 message StagePlayerWin {
-    repeated PlayerWin list = 1;   //中奖人数据列表
-    int64 stage = 2;  //阶段
+    repeated PlayerWin list = 1;
+    int64 stage = 2;
 }
 
 enum TaskScheduleNumType {
-    Num_Times   = 0;    // 次数(次)
-    Num_People  = 1;    // 人数(位)
-    Num_Hour    = 2;    // 小时
+    Num_Times   = 0;
+    Num_People  = 1;
+    Num_Hour    = 2;
 }
 
 enum LotteryPlayTimes {
-    Times_None = 0; // 暂未
-    Times_One = 1;  // 一次
-    Times_Ten = 2;  // 十次
+    Times_None = 0;
+    Times_One = 1;
+    Times_Ten = 2;
 }
 
 message TaskScheduleItem {
-    int32 cur_num = 1; // 当前进度值
-    int32 total_num = 2; // 总进度值
-    TaskScheduleNumType num_type = 3; // 数值单位类型
-    int64 point = 4; // 奖励值
-    bool is_finish = 5; // 是否已完成
-    ActivityTaskType task_type = 6; // 任务类型
+    int32 cur_num = 1;
+    int32 total_num = 2;
+    TaskScheduleNumType num_type = 3;
+    int64 point = 4;
+    bool is_finish = 5;
+    ActivityTaskType task_type = 6;
 }
 
 message PlayerDiceRewardItem {
-    string reward_name  = 1;    // 奖励名称
-    int64   num         = 2;    // 获得数量
-    NumType num_type    = 3;    // 数量类型
+    string reward_name  = 1;
+    int64   num         = 2;
+    NumType num_type    = 3;
 }
 
 message MarqueeMsg{
-    int64 player_id = 1;    // 玩家id
-    string player_name = 2; // 玩家昵称
-    string award_name = 3;  // 奖励名称
-    int32 award_num = 4;    // 奖励数量
-    NumType num_type = 5;   // 数量类型
+    int64 player_id = 1;
+    string player_name = 2;
+    string award_name = 3;
+    int32 award_num = 4;
+    NumType num_type = 5;
 }
 
 message LotteryGood {
-    int64 good_id = 1;                      // 物品id
-    string good_name = 2;                   // 物品名称
-    uint32 good_num  = 3;                   // 物品数量
-    NumType good_num_type = 4;              // 物品数量单位
-    string good_img = 5;                    // 物品图片
-    DeiceGridRewardType reward_type = 6;    // 奖励类型
-    string description = 7;                 // 描述
+    int64 good_id = 1;
+    string good_name = 2;
+    uint32 good_num  = 3;
+    NumType good_num_type = 4;
+    string good_img = 5;
+    DeiceGridRewardType reward_type = 6;
+    string description = 7;
 }
 
 message LotteryGoodRecords {
@@ -728,127 +701,118 @@ message ForecastVoteRecord {
 }
 
 message ForecastVotePlayerData {
-    uint32 poll_num = 1; // 投票数
-    bool is_winner  = 2; // 胜利者
+    uint32 poll_num = 1;
+    bool is_winner  = 2;
 }
 
 message RoomAwardDetailData {
-    string source_des  = 1; // 来源描述
-    string title       = 2; // 标题
-    AwardType type     = 3; // 类型
-    string name        = 4; // 名称
-    string url         = 5; // 图片地址
-    int64 num          = 6; // 数量
+    string source_des  = 1;
+    string title       = 2;
+    AwardType type     = 3;
+    string name        = 4;
+    string url         = 5;
+    int64 num          = 6;
     int64 award_id     = 7;
 }
 
-//-------直男直女活动-------//
 
 enum QAJoinType {
     EQANotUsed = 0;
-    EQAMale    = 1; // 男性
-    EQAFemale  = 2; // 女性
+    EQAMale    = 1;
+    EQAFemale  = 2;
 }
 
 enum QAType {
     QANotUsed = 0;
-    QAward    = 1;  // 礼物
-    QASpecial = 2;  // 特效
+    QAward    = 1;
+    QASpecial = 2;
 }
 
-// 参与活动
 message QAJoinReq {
-    uint32 act_id           = 1; // 主活动id
-    uint32 act_rel_id       = 2; // 子活动id
-    QAJoinType gender_type  = 3; // 性别类型
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
+    QAJoinType gender_type  = 3;
 }
 
 message QAJoinRes {
 }
 
-// 提交答题
 message QASubmitReq {
-    uint32 act_id     = 1;       // 主活动id
-    uint32 act_rel_id = 2;       // 子活动id
+    uint32 act_id     = 1;
+    uint32 act_rel_id = 2;
 }
 
 message QASubmitRes {
     int32 result = 1;
 }
 
-// 答题生成礼物
 message QAwardReq {
-    uint32 act_id     = 1; // 主活动id
-    uint32 act_rel_id = 2; // 子活动id
+    uint32 act_id     = 1;
+    uint32 act_rel_id = 2;
 }
 
 message QAwardRes {
-    int32 gift_id   = 1; // 礼物id
-    int32 gift_count = 2; // 礼物数量
-    int32 type      = 3; // 礼物类型
-    string gift_name = 4; // 奖品名称
-    string gift_img_addr = 5; // 图片地址
+    int32 gift_id   = 1;
+    int32 gift_count = 2;
+    int32 type      = 3;
+    string gift_name = 4;
+    string gift_img_addr = 5;
 }
 
-// 领取礼物
 message QAGetAwardReq {
-    uint32 act_id     = 1; // 主活动id
-    uint32 act_rel_id = 2; // 子活动id
+    uint32 act_id     = 1;
+    uint32 act_rel_id = 2;
 }
 
 message QAGetAwardRes {
     int32 result = 1;
 }
 
-// 助力好友
 message QAssitFriendsReq {
-    uint32 act_id     = 1; // 主活动id
-    uint32 act_rel_id = 2; // 子活动id
-    int64 friend_id  = 3; // 邀请人id
+    uint32 act_id     = 1;
+    uint32 act_rel_id = 2;
+    int64 friend_id  = 3;
 }
 
 message QAssitFriendsRes {
     int32 result = 1;
 }
 
-// 获取用户最新状态
 message QAInitReq {
-    uint32 act_id             = 1; // 主活动id
-    uint32 act_rel_id         = 2; // 子活动id
+    uint32 act_id             = 1;
+    uint32 act_rel_id         = 2;
 }
 
-// 奖品信息
 message QAWardInfo {
-    int32 gift_id = 1; // 奖品id
-    int32 num     = 2; // 奖品数量
-    int32 type    = 3; // 奖品类型
-    string gift_name = 4; // 奖品名称
-    string gift_img_addr = 5; // 图片地址
+    int32 gift_id = 1;
+    int32 num     = 2;
+    int32 type    = 3;
+    string gift_name = 4;
+    string gift_img_addr = 5;
 }
 
 message QAInitRes {
-    int32 qa_status     = 1; // 用户活动状态 1：未参与活动 2：已经参与活动  3；完成答题  4：已领取奖品 5:朋友助力成功，未领取礼物
-    QAWardInfo award    = 2; // 获的奖品信息
-    int32 gender_type = 3; // 性别类型  1：男性   2：女性
-    repeated QAWardInfo infos = 4; // 奖品信息列表
+    int32 qa_status     = 1;
+    QAWardInfo award    = 2;
+    int32 gender_type = 3;
+    repeated QAWardInfo infos = 4;
 }
-//-------直男直女活动end-------//
 
 message BoxAward {
-    int32 gift_id = 1; 		// 礼物id
-    string gift_name = 2;	// 礼物名称
-    int32 gift_num = 3;	    // 礼物数量
-    string gift_url = 4;    // 图片
+    int32 gift_id = 1; 		
+    string gift_name = 2;	
+    int32 gift_num = 3;	
+    string gift_url = 4;
     uint64 gold = 5;
 }
 
 message GiftBoxRecord {
-    int32 box_id = 1; //盒子id
-    int32 gift_id = 2; 		// 礼物id
-    int32 gift_num = 3;	// 礼物数量
-    int64 created = 4; //创建时间
-    string box_name = 5;    // 盒子名字
-    string gift_name = 6;   // 礼物名称
+    int32 box_id = 1;
+    int32 gift_id = 2; 		
+    int32 gift_num = 3;	
+    int64 created = 4;
+    string box_name = 5;
+    string gift_name = 6;
 }
 
 message MonsterNianInviteMsg {
@@ -875,46 +839,46 @@ message WinGoodsRecord {
     int64 num = 4;
     int32 gift_id = 5;
     NumType good_num_type = 6;
-    DeiceGridRewardType reward_type = 7;    // 奖励类型
+    DeiceGridRewardType reward_type = 7;
     int64 created_time = 8;
 }
 
 message ActAwardFlowRecord {
     int64 player_id = 1;
     string player_name = 2;
-    string remark = 3;              // 备注值
-    int64 flow_num = 4;             // 流水值(负数为减, 反之为增)
+    string remark = 3;
+    int64 flow_num = 4;
     int64 created_time = 5;
 }
 
 message LuckFunGoods{
     string name = 1;
-    int32 residual_num = 2;                 // 剩余库存数量   当为0，则代表已夺完
-    int64 cur_reach_num = 3;                // 当前达成数量
-    int64 total_reach_num = 4;              // 总需要达成数量
-    int64 participation_num = 5;            // 参与数量
+    int32 residual_num = 2;
+    int64 cur_reach_num = 3;
+    int64 total_reach_num = 4;
+    int64 participation_num = 5;
     string goods_img = 6;
     int32 goods_id = 7;
     int32 round_id = 8;
-    int32 store_id = 9;                     // 商城商品id
-    LuckFunType fun_type = 10;              // 列表类型
-    DeiceGridRewardType reward_type = 11;   // 奖励类型
-    int32 weight = 12;                      // 权重
-    uint64 gold = 13;                       // 价值
+    int32 store_id = 9;
+    LuckFunType fun_type = 10;
+    DeiceGridRewardType reward_type = 11;
+    int32 weight = 12;
+    uint64 gold = 13;
 }
 
 message NumLotteryChosenNum {
-    repeated uint32 numbers = 1;    // 投注号码
-    uint32 bet_num = 2;             // 投注数
+    repeated uint32 numbers = 1;
+    uint32 bet_num = 2;
 }
 
 message NumLotteryResults {
-    repeated uint32 numbers                         = 1; // 中奖号码
-    bool is_win                                     = 2; // 判断是否已中奖
-    repeated NumLotteryChosenNum chosen_num_list    = 3; // 选择号码s
-    uint64 round_id                                 = 4; // 期数id
-    uint32 index                                    = 5; // 数组索引id
-    NumLotteryChoosenType choosen_type              = 6; // 选择类型
+    repeated uint32 numbers                         = 1;
+    bool is_win                                     = 2;
+    repeated NumLotteryChosenNum chosen_num_list    = 3;
+    uint64 round_id                                 = 4;
+    uint32 index                                    = 5;
+    NumLotteryChoosenType choosen_type              = 6;
 }
 
 message CPInviteData {
@@ -931,15 +895,15 @@ message MotorPattern {
     uint32 id           = 1;
     uint32 num          = 2;
     uint32 gold         = 3;
-    float  total_length = 4;    // 总长(m)
-    uint32 time_length  = 5;    // 倒计时时长(s)
-    float  speed        = 6;    // 速度(m/s)
-    string name         = 7;    // 名称
+    float  total_length = 4;
+    uint32 time_length  = 5;
+    float  speed        = 6;
+    string name         = 7;
 }
 
 message LocationGiftData {
-    float location                      = 1;    // 位置(具体的路程点m)
-    GiftNumItem gift_datas     = 2;    // 礼物数据
+    float location                      = 1;
+    GiftNumItem gift_datas     = 2;
 }
 
 message RunCatPlayRecord {
@@ -958,19 +922,19 @@ message TreasureHouseGift {
 }
 
 message TreasureHouseGiftItem {
-    int64 day_time  = 1;    // 时间戳
-    string name     = 2;    // 名称
+    int64 day_time  = 1;
+    string name     = 2;
     repeated TreasureHouseGift gift_list = 3;
 }
 
 message LotteryResult {
-    uint32 prize = 1;   // 奖项(1: 一等奖; 2: 二等奖...)
-    uint32 win_num = 2; // 赢数量
+    uint32 prize = 1;
+    uint32 win_num = 2;
 }
 
 message ScratchOffLotteryOpenResult {
-    uint64 win_gold = 1;                // 总获得金币数(>0 代表有中奖)
-    repeated LotteryResult results  = 2; // 具体注数中奖数据
+    uint64 win_gold = 1;
+    repeated LotteryResult results  = 2;
     repeated uint32 luck_num        = 3;
 }
 
@@ -979,15 +943,15 @@ message ChoosenNums {
 }
 
 message LuckFunRankItem {
-    Player player_data = 1;             // 玩家个人数据
-    uint32 num = 2;                     // 榜单值
-    uint32 index = 3;                   // 排名值
-    repeated BoxAward award_list = 4;   // 奖励列表
+    Player player_data = 1;
+    uint32 num = 2;
+    uint32 index = 3;
+    repeated BoxAward award_list = 4;
 }
 
 message LuckConstellatoryPriceData {
     uint32 price_type_id = 1;
-    uint64 price = 2;                       // 如果 pay_type == Act_Pay_Type_Money, 则price = price/100
+    uint64 price = 2;
     string price_type_str = 3;
     repeated PayChannels pay_channels = 4;
     ActPayType        pay_type        = 5;
@@ -995,20 +959,20 @@ message LuckConstellatoryPriceData {
 
 message LuckConstellatoryRecord{
     string price_type_name = 1;
-    string choosen_nums = 2;    // 数组json
+    string choosen_nums = 2;
     uint32 luck_num = 3;
     int64 created_time = 4;
     repeated LotteryGood award_list = 5;
-    int32 luck_num_idx              = 6;    // 中奖索引(award_list数组的索引下标). -1则代表没有中奖
+    int32 luck_num_idx              = 6;
 }
 
 message SmeltGoodsData {
     uint64 id           = 1;
     string name         = 2;
-    uint64 worth        = 3;    // 物品价值(单个价值)
-    uint64 own_num      = 4;    // 物品数量
+    uint64 worth        = 3;
+    uint64 own_num      = 4;
     string img          = 5;
-    uint64 smelt_worth  = 6;    // 物品熔炼价值(单个价值)
+    uint64 smelt_worth  = 6;
 }
 
 message SmeltGoodsRecordItem {
@@ -1017,28 +981,26 @@ message SmeltGoodsRecordItem {
     repeated SmeltGoodsData spend_goods_list = 3;
 }
 
-// SlotMachinePriceItem 价格配置项
 message SlotMachinePriceItem {
-    uint32 price_id                 = 1;    // 价格配置id
-    DeiceGridRewardType price_type  = 2;    // 价格类型
-    uint64 price_num                = 3;    // 价格数
-    string price_img                = 4;    // 价格图片
-    string price_invalid_img        = 5;    // 价格无效图片
-    uint32 goods_id                 = 6;    // 物品id
+    uint32 price_id                 = 1;
+    DeiceGridRewardType price_type  = 2;
+    uint64 price_num                = 3;
+    string price_img                = 4;
+    string price_invalid_img        = 5;
+    uint32 goods_id                 = 6;
 }
 
-// SlotMachineBetConfigItem 投注配置项
 message SlotMachineBetConfigItem {
-    uint32 bet_id       = 1;    // 投注配置id
-    string bet_img      = 2;    // 图片
-    string bet_name     = 3;    // 名称
-    float bet_multiples = 4;    // 倍数
-    string description  = 5;    // 描述
-    uint32 bet_max_num  = 6;    // 单轮最大下注次数
+    uint32 bet_id       = 1;
+    string bet_img      = 2;
+    string bet_name     = 3;
+    float bet_multiples = 4;
+    string description  = 5;
+    uint32 bet_max_num  = 6;
 }
 
 message SlotMachineOpenRecordItem {
-    SlotMachineBetConfigItem bet_data   = 1;    // 开奖投注数据
+    SlotMachineBetConfigItem bet_data   = 1;
 }
 
 message SlotMachineBetRecordItem {
@@ -1051,9 +1013,9 @@ message SlotMachineBetRecordItem {
 }
 
 message SlotMachineBetItem {
-    uint32 bet_id   = 1;    // 投注配置id
-    uint32 bet_num  = 2;    // 投注次数
-    uint64 bet_gold = 3;    // 投注金额数据
+    uint32 bet_id   = 1;
+    uint32 bet_num  = 2;
+    uint64 bet_gold = 3;
 }
 
 message SlotMachineBetPriceItem {
@@ -1064,40 +1026,40 @@ message BargainGoodsItem {
     uint32 goods_id                         = 1;
     string name                             = 2;
     string icon_url                         = 3;
-    uint64 total_price                      = 4;    // 总价格
-    uint32 difficulty                       = 5;    // 难度
-    BargainGoodsItemSymbolType symbol       = 6;    // 标志
-    uint64 inventory                        = 7;    // 库存
-    bool recommend                          = 8;    // 推荐
-    BargainGoodsItemStatus bargain_status   = 9;    // 砍价状态
-    int64 up_time                           = 10;   // 上线时间(时间戳), 一般bargain_status == BargainGoodsItemStatusNotBegin, 才有值
-    uint64 bargain_price                    = 11;   // 已砍价格
-    uint64 overdue_time                     = 12;   // 过期剩余时间(秒)
-    uint32 discount                         = 13;   // 折扣
-    uint64 discount_price                   = 14;   // 折扣价格
-    uint64  sql_id                          = 15;   // (前端不需要用到)
-    uint64 start_integral                   = 16;   // 启动积分
-    uint32 num                              = 17;   //
+    uint64 total_price                      = 4;
+    uint32 difficulty                       = 5;
+    BargainGoodsItemSymbolType symbol       = 6;
+    uint64 inventory                        = 7;
+    bool recommend                          = 8;
+    BargainGoodsItemStatus bargain_status   = 9;
+    int64 up_time                           = 10;
+    uint64 bargain_price                    = 11;
+    uint64 overdue_time                     = 12;
+    uint32 discount                         = 13;
+    uint64 discount_price                   = 14;
+    uint64  sql_id                          = 15;
+    uint64 start_integral                   = 16;
+    uint32 num                              = 17;
 }
 
 message BargainRecordItem {
-    Player player_data  = 1; // 玩家个人数据
+    Player player_data  = 1;
     uint64 gold         = 2;
 }
 
 message BargainBuyRecordItem {
-    Player player_data      = 1; // 玩家个人数据
-    uint32 goods_id         = 2; // 物品id
-    BargainBuyType buy_type = 3; // 购买类型
-    uint32 buy_num          = 4; // 数量
-    string goods_name       = 5; // 物品名称
+    Player player_data      = 1;
+    uint32 goods_id         = 2;
+    BargainBuyType buy_type = 3;
+    uint32 buy_num          = 4;
+    string goods_name       = 5;
 }
 
 message RoomSubInfoExtModule {
-    RoomSubInfoExtModuleSymbol symbol       = 1;  // 标志组件信息(为空, 则不显示)
-    RoomSubInfoExtModuleBase base           = 2;  // 基本组件信息(为空, 则不显示)
-    RoomSubInfoExtModuleSort sort           = 3;  // 排名组件信息(为空, 则不显示)
-    RoomSubInfoExtModuleSchedule schedule   = 4;  // 进度条组件信息(为空, 则不显示)
+    RoomSubInfoExtModuleSymbol symbol       = 1;
+    RoomSubInfoExtModuleBase base           = 2;
+    RoomSubInfoExtModuleSort sort           = 3;
+    RoomSubInfoExtModuleSchedule schedule   = 4;
 }
 
 message RoomSubInfoExtModuleSymbol {
@@ -1113,21 +1075,21 @@ message RoomSubInfoExtModuleBase {
 }
 
 message RoomSubInfoExtModuleSchedule {
-    int64 cur_num   = 1;    // 当前值
-    int64 total_num = 2;    // 总值
+    int64 cur_num   = 1;
+    int64 total_num = 2;
 }
 
 message DoubleForecastGambleTeamData {
     string name     = 1;
     string icon     = 2;
     uint64 team_id  = 3;
-    bool is_win     = 4; // 只有当ForecastGambleListItem.status == ForecastGambleStatusType_ForecastGambleStatusTypeEnd, 用于展示结果
+    bool is_win     = 4;
 }
 
 message DoubleForecastGambleTeamBetData {
     DoubleForecastGambleTeamData team_data  = 1;
-    float odds                              = 2;   // 赔率
-    uint64 bet_num                          = 3;   // 投注数(>0则代表, 这一场是投注了给他)
+    float odds                              = 2;
+    uint64 bet_num                          = 3;
     uint64 bet_gold                         = 4;
 }
 
@@ -1143,14 +1105,14 @@ message DoubleForecastGambleData {
 message DoubleForecastGambleListItem {
     DoubleForecastGambleTeamData player_data                = 1;
     DoubleForecastGambleTeamData opponent_data              = 2;
-    repeated DoubleForecastGambleData gamble_data_list      = 3;    // 投注信息
-    uint64 gamble_id                                        = 4;    // 场次id
-    DoubleForecastGambleStatusType status                   = 5;    // 状态
-    string remark                                           = 6;    // 备注信息
+    repeated DoubleForecastGambleData gamble_data_list      = 3;
+    uint64 gamble_id                                        = 4;
+    DoubleForecastGambleStatusType status                   = 5;
+    string remark                                           = 6;
     int64 bet_time                                          = 7;
     int64 bet_end_time                                      = 8;
     int64 game_show_time                                    = 9;
-    uint64 surrender_value                                  = 10; // 退还值. 只有当status == ForecastGambleStatusCancel, 才会需要用到
+    uint64 surrender_value                                  = 10;
 }
 
 message DoubleForecastGambleBetRecordItem {
@@ -1161,33 +1123,29 @@ message DoubleForecastGambleBetRecordItem {
     string remark                               = 5;
 }
 
-//##########请求################################
-//获取配置
 message GetActivityReq {
 
 }
 
 message GetActivityRes {
     repeated Activity activity = 1;
-    repeated ConfWelfare welfare = 2; //福利配置
-    repeated ConfLottery lottery = 3; //抽奖配置
+    repeated ConfWelfare welfare = 2;
+    repeated ConfLottery lottery = 3;
 }
 
-//房间角标信息
 message ActivityRoomSubInfoReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
 }
 
 message ActivityRoomSubInfoRes {
-    int64 sort                      = 1; // 排名
-    int64 num                       = 2; // 当前值, 积分或完成任务的人数，按需变化
-    RoomSubInfoExtModule ext_module = 3; // 扩展组件信息(为空, 则不需要显示额外组件信息, 默认只显示普通的图片角标(就是以前的逻辑))
+    int64 sort                      = 1;
+    int64 num                       = 2;
+    RoomSubInfoExtModule ext_module = 3;
     int32 activity_id               = 4;
     int32 rel_activity_id           = 5;
 }
 
-//个人信息卡进度
 message CardProgressReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
@@ -1195,24 +1153,23 @@ message CardProgressReq {
 }
 
 message CardProgressRes {
-    int64 point_total = 1; //总积分
-    int64 point_extra = 2; //当日获得的额外分数
-    int32 gift_id1 = 3; //礼物id
-    int64 gift_num1 = 4; //礼物积分或者数量 按类型区分
-    int32 gift_id2 = 5; //礼物id
-    int64 gift_num2 = 6; //礼物积分或者数量 按类型区分
+    int64 point_total = 1;
+    int64 point_extra = 2;
+    int32 gift_id1 = 3;
+    int64 gift_num1 = 4;
+    int32 gift_id2 = 5;
+    int64 gift_num2 = 6;
 }
 
-//多人排行榜
 message ManyPlayerSortReq {
     SortParam param = 1;
-    int32 type = 2; //分类，填物品id
+    int32 type = 2;
 }
 
 message ManyPlayerSortRes {
     repeated ManySortResult list = 1;
     int64 total = 2;
-    ManySortResult player = 3; //个人信息
+    ManySortResult player = 3;
 }
 
 message GroupSortReq {
@@ -1228,11 +1185,10 @@ message GroupSortRes {
     GroupSortItem player = 3;
 }
 
-//个人排行榜
 message PlayerSortReq {
     SortParam param = 1;
-    int32 type = 2; //分类，填物品id
-    SortTypeExtendType ext_type = 3; // 扩展字段
+    int32 type = 2;
+    SortTypeExtendType ext_type = 3;
 }
 
 message PlayerSortRes {
@@ -1241,12 +1197,11 @@ message PlayerSortRes {
     int64 total = 3;
 }
 
-//房间排行榜
 message RoomSortReq {
     SortParam param             = 1;
     int64 room_id               = 2;
-    int32 time_day              = 3; // 日期零点, 总榜:0
-    uint32 get_support_num      = 4; // 获取支持者数量(不填, 或者<1, 则代表不获取. 最大不超过10)
+    int32 time_day              = 3;
+    uint32 get_support_num      = 4;
 }
 
 message RoomSortRes {
@@ -1255,18 +1210,16 @@ message RoomSortRes {
     int64 total = 3;
 }
 
-//获取靓号 当玩家之前获得靓号，但未绑定会暂存24小时或直到活动结束
 message GetGoodNumReq {
-    int64 player_id = 1; //用户id
-    int32 activity_id = 2; //活动id
-    int32 rel_activity_id = 3; //子活动id
+    int64 player_id = 1;
+    int32 activity_id = 2;
+    int32 rel_activity_id = 3;
 }
 
 message GetGoodNumRes {
     int64 number = 1;
 }
 
-//随机靓号 随机从库存中获得一个靓号
 message RandGoodNumReq {
     int64 player_id = 1;
     int32 activity_id = 2;
@@ -1275,22 +1228,20 @@ message RandGoodNumReq {
 
 message RandGoodNumRes {
     int64 number = 1;
-    bool guaranteed_award = 2; //判断是否触发保底奖励
+    bool guaranteed_award = 2;
 }
 
-//绑定或替换靓号 如果没有靓号则直接使用
 message BindGoodNumReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    int64 number = 3; //靓号
-    int64 old_number = 4; //要替换的靓号
-    bool used = 5; //是否使用 true表示使用这个靓号 false 只绑定
+    int64 number = 3;
+    int64 old_number = 4;
+    bool used = 5;
 }
 
 message BindGoodNumRes {
 }
 
-//购买摇靓号机会
 message BuyRockGoodNumReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
@@ -1299,7 +1250,6 @@ message BuyRockGoodNumReq {
 message BuyRockGoodNumRes {
 }
 
-//获取个人充值信息
 message GetPlayerPayReq {
     int64 player_id = 1;
     int32 activity_id = 2;
@@ -1307,12 +1257,12 @@ message GetPlayerPayReq {
 }
 
 message GetPlayerPayRes {
-    int64 pay_count = 1; //充值总数
-    int32 times = 2; //可用次数
-    int32 count_times = 3; //总次数
-    int32 bind_num_times = 4; //绑定靓号次数
-    int32 guaranteed_used = 5; //已使用几次保底奖励
-    int32 guaranteed_plan = 6; //保底进度
+    int64 pay_count = 1;
+    int32 times = 2;
+    int32 count_times = 3;
+    int32 bind_num_times = 4;
+    int32 guaranteed_used = 5;
+    int32 guaranteed_plan = 6;
 }
 
 message GetPlayerDiceReq{
@@ -1321,11 +1271,11 @@ message GetPlayerDiceReq{
 }
 
 message GetPlayerDiceRes{
-    repeated GiftNumItem gift_send_list = 1;    // 礼物送出列表
-    int64 dice_num = 2;                         // 剩余骰子次数
-    int32 cur_grid_location = 3;                // 当前格子位置
-    repeated DiceGridRewardItem grid_list = 4;  // 格子
-    repeated TreasureBoxItem box_list = 5;      // 宝箱
+    repeated GiftNumItem gift_send_list = 1;
+    int64 dice_num = 2;
+    int32 cur_grid_location = 3;
+    repeated DiceGridRewardItem grid_list = 4;
+    repeated TreasureBoxItem box_list = 5;
 }
 
 message GetPlayerDiceRewardListReq {
@@ -1345,8 +1295,8 @@ message PlayActDiceReq {
 }
 
 message PlayActDiceRes {
-    int32 dice_count = 1;   // 点数
-    DiceGridRewardItem grid_reward = 2; // 奖励格子数据类型(只有最后跳转的格子是奖励类型, 才有数据)
+    int32 dice_count = 1;
+    DiceGridRewardItem grid_reward = 2;
 }
 
 message GetActivityMarqueeMsgReq{
@@ -1360,7 +1310,6 @@ message GetActivityMarqueeMsgRes{
     repeated MarqueeMsg list = 1;
 }
 
-//获取主题配置  有配置使用配置，没有使用默认
 message GetThemeReq {
 
 }
@@ -1369,31 +1318,27 @@ message GetThemeRes {
     repeated Theme themes = 1;
 }
 
-//中奖的抽奖数据
 message ListWinLotteryReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    int64 group = 3; //日期的零点时间戳
+    int64 group = 3;
 }
 
 message ListWinLotteryRes {
     repeated StagePlayerWin list = 1;
-    int64 total = 2;    //总的魔法值
+    int64 total = 2;
 }
 
-//###########靓号库
-//获取靓号库列表
 message GoodNumListReq {
 
 }
 
 message GoodNumListRes {
-    repeated int64 list = 1; //靓号列表
-    int64 used = 2; //使用中的靓号
-    int64 num = 3; //靓号库槽位
+    repeated int64 list = 1;
+    int64 used = 2;
+    int64 num = 3;
 }
 
-//购买靓号库位置
 message BuyGoodNumSlotReq {
 }
 
@@ -1401,16 +1346,14 @@ message BuyGoodNumSlotRes {
 
 }
 
-//批量删除靓号
 message DelGoodNumReq {
-    repeated int64 nums = 1; //批量删除靓号
+    repeated int64 nums = 1;
 }
 
 message DelGoodNumRes {
 
 }
 
-//使用靓号
 message UseGoodNumReq {
     int64 num = 1;
 }
@@ -1419,7 +1362,6 @@ message UseGoodNumRes {
 
 }
 
-//获取保底奖励
 message GuaranteedAwardReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
@@ -1438,38 +1380,36 @@ message H5ConfessionListReq {
 message H5ConfessionListRes {
     repeated ConfessionCol list = 1;
 }
-// 七夕竞拍
 message H5AuctionListReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    int32 rank_type = 3;        // 0:初始化配置;1:告白榜;2:土豪榜;3:红人榜;4:我的竞拍记录
-    int32 page = 4;             // 分页
-    int32 page_size = 5;        // 分页数  默认20
+    int32 rank_type = 3;
+    int32 page = 4;
+    int32 page_size = 5;
 }
 message H5AuctionRankReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    int32 rank = 3;             // 竞价位置
-    int32 to_id = 4;            // 被告白人ID
-    string auction_content = 5; // 告白语
-    uint64 auction_price = 6;   // 竞拍价格
-    bool is_hidden = 7;         // 是否隐藏
-    int32 re_rank = 8;          // 原来的排名
+    int32 rank = 3;
+    int32 to_id = 4;
+    string auction_content = 5;
+    uint64 auction_price = 6;
+    bool is_hidden = 7;
+    int32 re_rank = 8;
 }
 
-// 表白排行
 message H5AuctionListRes {
     repeated AuctionRecord list = 1;
 }
 message H5AuctionRankRes {
 }
 message IsPlayerCanHadChargeAwardReq{
-    int64 playerID = 1; // 仅此h5需要传参, app端不需要
+    int64 playerID = 1;
 }
 
 message IsPlayerCanHadChargeAwardRes{
-    bool    is_can_had      = 1;    // 判断是否显示宣传图
-    string  advertise_img   = 2;    // 宣传图图片地址
+    bool    is_can_had      = 1;
+    string  advertise_img   = 2;
 }
 
 message H5KingOfSingingReq{
@@ -1478,13 +1418,13 @@ message H5KingOfSingingReq{
 }
 
 message H5KingOfSingingRes{
-    int64    count_down_sec         = 1;    // 倒计时(秒)
-    repeated KingOfSingingItem list = 2;    // 排行列表
+    int64    count_down_sec         = 1;
+    repeated KingOfSingingItem list = 2;
 }
 
 message H5KingOfSingingVoteReq{
-    int64   singer_id   = 1;    // 歌手id
-    uint32  vote_num    = 2;    // 投票数
+    int64   singer_id   = 1;
+    uint32  vote_num    = 2;
     int32 act_id        = 3;
     int32 act_rel_id    = 4;
 }
@@ -1496,7 +1436,7 @@ message H5KingOfSingingVoteRes{
 message H5KingOfSingingBeVoteRecordReq {
     int32 act_id        = 1;
     int32 act_rel_id    = 2;
-    int64 singer_id     = 3;    // 歌手id
+    int64 singer_id     = 3;
     uint32 page         = 4;
     uint32 page_size    = 5;
 }
@@ -1505,11 +1445,10 @@ message H5KingOfSingingBeVoteRecordRes {
     repeated H5KingOfSingingFansVoteData list = 1;
 }
 
-////////获取评论列表
 message ListAwardCommentReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    int32 flag = 3; //0返回错误 1-中奖列表
+    int32 flag = 3;
 }
 
 message ListAwardCommentRes {
@@ -1517,45 +1456,40 @@ message ListAwardCommentRes {
 }
 
 
-//
-//领取福利
 message ReceiveWelfareReq {
     int32 welfare_id = 1;
-    int64 target_id = 2; //用于挚友绑定
+    int64 target_id = 2;
 }
 
 message ReceiveWelfareRes {
     string award = 1;
 }
 
-////////发表评论
 message PublishCommentReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    string notice = 3; //评论内容
-    bool show_name = 4; //false 不匿名 true 匿名
+    string notice = 3;
+    bool show_name = 4;
 }
 
 message PublishCommentRes {
 
 }
 
-////////获取评论列表
 message ListCommentReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
     int32 page = 3;
     int64 page_size = 4;
-    int32 flag = 5; //0-全部数据，最多前200，1-所有中奖数据
-    int64 player_id = 6; //搜索id
-    int32 order_by_type = 7; //0-最新 1-最热（点赞最多）
+    int32 flag = 5;
+    int64 player_id = 6;
+    int32 order_by_type = 7;
 }
 
 message ListCommentRes {
     repeated Comment list = 1;
 }
 
-//获取入围名单
 message ListNameListReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
@@ -1567,9 +1501,8 @@ message ListNameListRes {
 
 
 
-//获取个人福利信息
 message ListWelfareReq {
-    int32 relative_id = 1; //关联id 0-获取全部 其他为子活动id
+    int32 relative_id = 1;
 }
 
 message ListWelfareRes {
@@ -1577,18 +1510,17 @@ message ListWelfareRes {
 }
 
 message WelfareReceiveLogReq {
-    int32 act_rel_id    = 1;    // 子活动id
-    bool is_get_all     = 2;    // true: 所有用户
+    int32 act_rel_id    = 1;
+    bool is_get_all     = 2;
     int32 page          = 3;
     int32 page_size     = 4;
 }
 
 message WelfareReceiveLogRes {
     repeated ReceiveWelfare list = 1;
-    int32 total = 2; // 如果WelfareReceiveLogReq.is_get_all == true, 则固定为0
+    int32 total = 2;
 }
 
-//完成福利
 message FinishWelfareReq {
     int32 welfare_id = 1;
 }
@@ -1597,27 +1529,25 @@ message FinishWelfareRes {
 
 }
 
-//获取个人已使用积分
 message GetUsePointReq {
-    int32 activity_id = 1; //活动id
-    int32 rel_activity_id = 2; //子活动id
+    int32 activity_id = 1;
+    int32 rel_activity_id = 2;
     int64 player_id = 3;
 }
 
 message GetUsePointRes {
-    int64 point = 1; //总积分
-    int64 use_point = 2; //已使用积分
+    int64 point = 1;
+    int64 use_point = 2;
 }
 
-//做任务，福利
 message DoTaskReq {
-    int32 activity_id = 1; //活动id
-    int32 rel_activity_id = 2; //子活动id
-    int32 type = 3; //2-分享 3-签到
+    int32 activity_id = 1;
+    int32 rel_activity_id = 2;
+    int32 type = 3;
 }
 
 message DoTaskRes {
-    repeated int32 welfare_id = 1; //福利id列表
+    repeated int32 welfare_id = 1;
 }
 
 message ApplyForDoWelfareReq {
@@ -1628,19 +1558,17 @@ message ApplyForDoWelfareRes {
 
 }
 
-//点赞
 message GiveALikeReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
-    repeated int64 player_id = 3;    //支持多个玩家
-    int32 type = 4; //分类，填物品id 或者零点时间戳
+    repeated int64 player_id = 3;
+    int32 type = 4;
 }
 
 message GiveALikeRes {
-    string award = 1; //奖励 二维数组的字符串
+    string award = 1;
 }
 
-//给评论点赞
 message GiveALikeCommentReq {
     int32 activity_id = 1;
     int32 rel_activity_id = 2;
@@ -1651,15 +1579,14 @@ message GiveALikeCommentRes {
 
 }
 
-// 上传文件
 message UploadFileReq {
-    bytes file = 1; //文件
-    string file_name = 2; //文件名字
-    string path = 3; //路径
+    bytes file = 1;
+    string file_name = 2;
+    string path = 3;
 }
 
 message UploadFileRes {
-    string url = 1; //返回相对路劲，自己拼host
+    string url = 1;
 }
 
 message PlayerIntegralValueReq {
@@ -1668,7 +1595,7 @@ message PlayerIntegralValueReq {
 }
 
 message PlayerIntegralValueRes {
-    uint64 point = 1;   // 积分分数值
+    uint64 point = 1;
 }
 
 message ListPlayerIntegralLotteryReq {
@@ -1734,28 +1661,27 @@ message PlayerBonusPoolReceiceRes {
 }
 
 message ActivityTaskScheduleListReq {
-    int32 activity_id       = 1;    // 主活动id
-    int32 rel_activity_id   = 2;    // 子活动id
+    int32 activity_id       = 1;
+    int32 rel_activity_id   = 2;
 }
 
 message ActivityTaskScheduleListRes {
     repeated TaskScheduleItem task_list = 1;
 }
 
-// 周充值奖励
 message WeekRechargeAwardReq {
 
 }
 
 message WeekRechargeAwardRes {
-    uint32 status = 1;  // 状态 0未获得 1已获得 2未开启
-    string img_url = 2; // 图片地址
-    string skip_url = 3; // 跳转地址
+    uint32 status = 1;
+    string img_url = 2;
+    string skip_url = 3;
 }
 
 message ForecastVoteReq {
-    int32 rel_activity_id   = 1;                // 子活动id
-    repeated ForecastVoteData vote_list = 2;    // 投票数据
+    int32 rel_activity_id   = 1;
+    repeated ForecastVoteData vote_list = 2;
 }
 
 message ForecastVoteRes {
@@ -1763,33 +1689,33 @@ message ForecastVoteRes {
 }
 
 message ForecastVoteRecordReq {
-    int32 rel_activity_id       = 1;    // 子活动id
+    int32 rel_activity_id       = 1;
     int32 page                  = 2;
     int32 page_size             = 3;
     int32 last_vote_record_id   = 4;
-    int32 act_id                = 5;    // 主活动ID
+    int32 act_id                = 5;
 }
 
 message ForecastVoteRecordRes {
     repeated ForecastVoteRecord list = 1;
     int32 total = 2;
-    uint32 total_vote_num = 3;  // 只有当ForecastVoteRecordReq.page <=1 才有值
-    uint64 total_get_gold = 4;  // 只有当ForecastVoteRecordReq.page <=1 才有值
+    uint32 total_vote_num = 3;
+    uint64 total_get_gold = 4;
 }
 
 message ForecastBonusPoolNumReq {
-    int32 rel_activity_id   = 1;                // 子活动id
-    int32 act_id            = 2;                // 主活动id
+    int32 rel_activity_id   = 1;
+    int32 act_id            = 2;
 }
 
 message ForecastBonusPoolNumRes {
-    int64 bonus_pool_num        = 1;    // 累计瓜分值
-    uint64 total_vote_num       = 2;    // 总投票数
-    int64 partition_gold_num    = 3;    // 瓜分金币数(-1: 未开奖瓜分; >=0: 则代表瓜分值)
+    int64 bonus_pool_num        = 1;
+    uint64 total_vote_num       = 2;
+    int64 partition_gold_num    = 3;
 }
 
 message ForecastPlayerBeVotingNumReq {
-    int32 rel_activity_id   = 1;                // 子活动id
+    int32 rel_activity_id   = 1;
 }
 
 message ForecastPlayerBeVotingNumRes {
@@ -1802,7 +1728,7 @@ message RoomAwardDataReq {
 }
 
 message RoomAwardDataRes {
-    int64 count_down_sec      = 1; // 倒计时(秒). 只有当 > 0, award_data才有数据, 界面上才需要显示
+    int64 count_down_sec      = 1;
     GiftConfigItem award_data = 2;
 }
 
@@ -1815,91 +1741,84 @@ message RoomAwardReceiveRes {
 }
 
 
-// 开宝盒礼物
 message ActOpenGiftBoxReq {
-    int32 rel_activity_id = 1; //子活动id
-    int32 gift_id = 2; 		// 宝盒礼物id(如果'is_luck_bag' == true , 那么要传商场id)
-    int32 num = 3;   //开宝盒数量
-    bool is_luck_bag = 4;   // 福袋
+    int32 rel_activity_id = 1;
+    int32 gift_id = 2; 		
+    int32 num = 3;
+    bool is_luck_bag = 4;
 }
 
 message ActOpenGiftBoxRes {
-    repeated BoxAward list = 1; //
+    repeated BoxAward list = 1;
 }
 
-// 宝盒礼物记录
 message ActGiftBoxRecordReq {
-    int32 rel_activity_id = 1; //子活动id
+    int32 rel_activity_id = 1;
 }
 message ActGiftBoxRecordRes {
-    repeated GiftBoxRecord list = 1; //宝盒记录
+    repeated GiftBoxRecord list = 1;
 }
 
 
 message GetLotteryPointReq {
-    int32 rel_id = 1; //子活动id
+    int32 rel_id = 1;
 }
 
 message GetLotteryPointRes {
-    int32 point = 1; //总数
+    int32 point = 1;
 }
 
-//抽奖
 message DrawLuckyReq {
-    int32 rel_id = 1; //子活动id
-    int32 num = 2; //数量
-    int32 store_id = 3; // 商品id
+    int32 rel_id = 1;
+    int32 num = 2;
+    int32 store_id = 3;
 }
 
 message DrawLuckyRes {
-    string reward = 1; //返回奖励
+    string reward = 1;
 }
 
-////通知记录
 message ListNoticeRecordReq {
-    int32 rel_id = 1; //子活动id
-    int32 player_id = 2; //人员id 允许为空
-    int32 conf_notice_id = 3; //通知的id
-    int32 page = 4; //分页
-    int32 page_size = 5; //分页数  默认20
-    int32 last_msg_id = 6; //最新的通知记录id 查询比这个id大的数据
+    int32 rel_id = 1;
+    int32 player_id = 2;
+    int32 conf_notice_id = 3;
+    int32 page = 4;
+    int32 page_size = 5;
+    int32 last_msg_id = 6;
 }
 
 message ListNoticeRecordRes {
     repeated NoticeRecord list = 1;
-    int32 total = 2; //总数
+    int32 total = 2;
 }
 
-////抽奖记录
 message ListLotteryRecordReq {
-    int32 rel_id = 1; //子活动id
-    int32 player_id = 2; //人员id 允许为空
-    int32 weight = 3; //礼物类型 1-小奖 2-中奖 3- 大奖 0-所有
-    int32 page = 4; //分页
-    int32 page_size = 5; //分页数  默认20
+    int32 rel_id = 1;
+    int32 player_id = 2;
+    int32 weight = 3;
+    int32 page = 4;
+    int32 page_size = 5;
 }
 
 message ListLotteryRecordRes {
     repeated LotteryRecord list = 1;
-    int32 total = 2; //总数
+    int32 total = 2;
 }
 
 
-//获取特别奖励列表
 message ListSpecialAwardReq {
-    int32 rel_activity_id = 1; //子活动id
-    int64 player_id = 2; //人员id
+    int32 rel_activity_id = 1;
+    int64 player_id = 2;
 }
 
 message ListSpecialAwardRes {
     repeated SpecialAward list = 1;
 }
 
-//获取奖励记录
 message ListPlayerActAwardReq {
-    int32 rel_id = 1; //关联id 0-获取全部 其他为子活动id
-    int64 stage = 2; //活动阶段
-    int64 player_id = 3; //玩家id 0-获取全部
+    int32 rel_id = 1;
+    int64 stage = 2;
+    int64 player_id = 3;
     int32 page = 4;
     int32 page_size = 5;
 }
@@ -1909,11 +1828,11 @@ message ListPlayerActAwardRes {
 }
 
 message PartitionRecordsReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
-    bool is_all = 5;        // 所有人
+    bool is_all = 5;
 }
 
 message PartitionRecordsRes {
@@ -1922,8 +1841,8 @@ message PartitionRecordsRes {
 }
 
 message PartitionTotalReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
 }
 
 message PartitionTotalRes {
@@ -1935,15 +1854,15 @@ message IsPlayerDidFirstChargeReq{
 }
 
 message IsPlayerDidFirstChargeRes {
-    bool is_charge = 1; // true: 已首储， false: 没有
+    bool is_charge = 1;
 }
 
 message WinGoodsRecordsReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
-    bool is_get_all = 5;    // 是否获取所有人，（false: 只获取自己）
+    bool is_get_all = 5;
 }
 
 message WinGoodsRecordsRes {
@@ -1952,8 +1871,8 @@ message WinGoodsRecordsRes {
 }
 
 message ActAwardFlowRecordReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
 }
@@ -1964,51 +1883,50 @@ message ActAwardFlowRecordRes {
 }
 
 message OldPlayerGetAwardByOtherPlayerIDReq {
-    int32 act_id = 1;           // 主活动id
-    int32 act_rel_id = 2;       // 子活动id
-    int64 other_player_id = 3;  // 对方用户id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    int64 other_player_id = 3;
 }
 
 message OldPlayerGetAwardByOtherPlayerIDRes {
 
 }
 
-// 年兽
 message MonsterNianStatusReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
 }
 
 message MonsterNianStatusRes {
-    ActvityMonsterStatusType status = 1;    // 年兽状态
-    int64 surplus_blood = 2;                // 年兽剩余血量
-    int64 total_blood = 3;                  // 总的血量
-    int32 round_id = 4;                     // 轮次id
+    ActvityMonsterStatusType status = 1;
+    int64 surplus_blood = 2;
+    int64 total_blood = 3;
+    int32 round_id = 4;
 }
 
 message MonsterNianGoodAttackDataReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
 }
 
 message MonsterNianGoodAttackDataRes {
-    map<int32, int64> good_attack_data = 1; // key->商品id, value->攻击值
+    map<int32, int64> good_attack_data = 1;
 }
 
 message MonsterNianAttackReq {
-    int32 act_id = 1;       // 主活动id
-    int32 act_rel_id = 2;   // 子活动id
-    int32 good_id = 3;      // 商城id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    int32 good_id = 3;
 }
 
 message MonsterNianAttackRes {
-    int32 attack_blood = 1; // 攻击血量值
+    int32 attack_blood = 1;
 }
 
 message MonsterNianSendInviteReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    int64 be_invite_player_id = 3;  // 被邀请人id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    int64 be_invite_player_id = 3;
 }
 
 message MonsterNianSendInviteRes {
@@ -2016,10 +1934,10 @@ message MonsterNianSendInviteRes {
 }
 
 message MonsterNianHandleInviteReq {
-    int32 act_id = 1;                   // 主活动id
-    int32 act_rel_id = 2;               // 子活动id
-    HandleInviteType handle_type = 3;   // 处理类型
-    int32 msg_id = 4;                   // 邀请消息id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    HandleInviteType handle_type = 3;
+    int32 msg_id = 4;
 }
 
 message MonsterNianHandleInviteRes {
@@ -2027,21 +1945,21 @@ message MonsterNianHandleInviteRes {
 }
 
 message MonsterNianTeamDataReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
 }
 
 message MonsterNianTeamDataRes {
-    repeated Player team_players = 1;   // 战队人员列表
-    int64 cur_round_attack_blood = 2;   // 当前打击血量
-    int32 team_players_num = 3;         // 战队人数/数据总条数
+    repeated Player team_players = 1;
+    int64 cur_round_attack_blood = 2;
+    int32 team_players_num = 3;
 }
 
 message MonsterNianInviteMsgsReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
 }
@@ -2053,8 +1971,8 @@ message MonsterNianInviteMsgsRes {
 }
 
 message MonsterNianMvpRecordsReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
     int32 page = 3;
     int32 page_size = 4;
 }
@@ -2065,9 +1983,9 @@ message MonsterNianMvpRecordsRes {
 }
 
 message LuckFunGoodsListReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    LuckFunType fun_type = 3;       // 列表类型
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    LuckFunType fun_type = 3;
 }
 
 message LuckFunGoodsListRes {
@@ -2075,10 +1993,10 @@ message LuckFunGoodsListRes {
 }
 
 message LuckFunSnatchTreasureReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    int32 snatch_num = 3;           // 夺宝次数
-    int32 goods_id = 4;             // 夺宝物品id(不是，道具id)
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    int32 snatch_num = 3;
+    int32 goods_id = 4;
 }
 
 message LuckFunSnatchTreasureRes {
@@ -2086,8 +2004,8 @@ message LuckFunSnatchTreasureRes {
 }
 
 message LuckFunRankListReq {
-    uint32 act_id = 1;               // 主活动id
-    uint32 act_rel_id = 2;           // 子活动id
+    uint32 act_id = 1;
+    uint32 act_rel_id = 2;
     uint32 page = 3;
     uint32 page_size = 4;
 }
@@ -2098,46 +2016,45 @@ message LuckFunRankListRes {
     uint32 total = 3;
 }
 
-// 周年情书
 message AnniversaryReq {
-    uint32 player_id = 1;               // 用户id
+    uint32 player_id = 1;
 }
 
 message AnniversaryRes {
-    uint32 id = 1;       // 用户id
-    uint32 id2 = 2;       // 用户靓号
-    string nickname = 3; // 昵称
-    string icon = 4;     // 头像路径
-    string register_at = 5; // 注册时间
-    float  register_over_percent = 6; // 注册时长超过用户百分比
-    string online_date_at = 7; // 在线最长日期
-    uint32 online = 8; // 在线最长时间
-    uint32 follow_count = 9; // 我关注的人数
-    uint32 fans_count = 10; // 我的粉丝人数
-    bool   is_once_intimate = 11;  // 是否曾经绑定挚友关系
-    uint32 intimate_count = 12; // 与我绑定亲密关系的人数
-    uint32 intimate_player_id = 13; // 与我绑定最久亲密关系用户ID
-    uint32 intimate_player_id2 = 14; // 与我绑定最久亲密关系用户靓号
-    string intimate_nickname = 15; // 与我绑定最久亲密关系用户昵称
-    uint32 intimate_days = 16; // 与我绑定最久亲密关系的天数
-    uint32 receive_gift_count = 17; // 收到的礼物总数
-    uint32 receive_gift_total_gold = 18; // 收到的礼物总价值金币
-    string receive_gift_name = 19; // 收到最贵礼物的名称
-    uint32 receive_gift_gold = 20; // 收到最贵礼物价值金币
-    string receive_gift_image_url = 21; // 收到最贵礼物的图标
-    uint32 give_gift_count = 22; // 送出的礼物总数
-    uint32 give_gift_total_gold = 23; // 送出的礼物总价值金币
-    string give_gift_name = 24; // 送出最贵礼物的名称
-    uint32 give_gift_gold = 25; // 送出最贵礼物价值金币
-    string give_gift_image_url = 26; // 送出最贵礼物的图标
-    float  crackegg_over_percent = 27; // 砸蛋超过用户百分比
-    string keyword = 28; // 年度关键词
+    uint32 id = 1;
+    uint32 id2 = 2;
+    string nickname = 3;
+    string icon = 4;
+    string register_at = 5;
+    float  register_over_percent = 6;
+    string online_date_at = 7;
+    uint32 online = 8;
+    uint32 follow_count = 9;
+    uint32 fans_count = 10;
+    bool   is_once_intimate = 11;
+    uint32 intimate_count = 12;
+    uint32 intimate_player_id = 13;
+    uint32 intimate_player_id2 = 14;
+    string intimate_nickname = 15;
+    uint32 intimate_days = 16;
+    uint32 receive_gift_count = 17;
+    uint32 receive_gift_total_gold = 18;
+    string receive_gift_name = 19;
+    uint32 receive_gift_gold = 20;
+    string receive_gift_image_url = 21;
+    uint32 give_gift_count = 22;
+    uint32 give_gift_total_gold = 23;
+    string give_gift_name = 24;
+    uint32 give_gift_gold = 25;
+    string give_gift_image_url = 26;
+    float  crackegg_over_percent = 27;
+    string keyword = 28;
 }
 
 message DoubleForecastGambleListReq {
-    uint32 act_id        = 1;    // 主活动id
-    uint32 act_rel_id    = 2;    // 子活动id
-    int64 day           = 3;    // 日期(时间戳)
+    uint32 act_id        = 1;
+    uint32 act_rel_id    = 2;
+    int64 day           = 3;
 }
 
 message DoubleForecastGambleListRes {
@@ -2147,21 +2064,21 @@ message DoubleForecastGambleListRes {
 }
 
 message DoubleForecastBetReq {
-    uint32 act_id        = 1;    // 主活动id
-    uint32 act_rel_id    = 2;    // 子活动id
+    uint32 act_id        = 1;
+    uint32 act_rel_id    = 2;
     uint64 gamble_id    = 3;
     uint64 bet_id       = 4;
     uint64 team_id      = 5;
-    uint64 bet_num      = 6;    // 投注数量
+    uint64 bet_num      = 6;
 }
 
 message DoubleForecastBetRes {
 }
 
 message DoubleForecastBetRecordReq {
-    uint32 act_id        = 1;    // 主活动id
-    uint32 act_rel_id    = 2;    // 子活动id
-    int64 day           = 3;    // 日期(时间戳)
+    uint32 act_id        = 1;
+    uint32 act_rel_id    = 2;
+    int64 day           = 3;
     uint32 page         = 4;
     uint32 page_size    = 5;
 }
@@ -2172,20 +2089,20 @@ message DoubleForecastBetRecordRes {
 }
 
 message NumLotteryStatusReq{
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
 }
 
 message NumLotteryStatusRes {
-    uint64 cur_round_id = 1;    // 当前期数
-    uint64 cur_jackpot = 2;     // 当前累计奖池
-    uint64 count_down_sec = 3;  // 倒计时(秒)
+    uint64 cur_round_id = 1;
+    uint64 cur_jackpot = 2;
+    uint64 count_down_sec = 3;
 }
 
 message NumLotteryChosenNumsReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    uint64 round_id = 3;            // 期数id(不填， 默认是当前期数）
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    uint64 round_id = 3;
     uint32 page = 4;
     uint32 page_size = 5;
 }
@@ -2196,80 +2113,79 @@ message NumLotteryChosenNumsRes {
 }
 
 message NumLotteryResultsReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    uint64 round_id = 3;            // 期数id(不填， 默认是上一期期数）
-    bool is_records = 4;            // 是否查询开奖历史记录(若为true， 则round_id忽略)
-    uint32 page = 5;                // is_records == true, 才需要
-    uint32 page_size = 6;           // is_records == true, 才需要
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    uint64 round_id = 3;
+    bool is_records = 4;
+    uint32 page = 5;
+    uint32 page_size = 6;
 }
 
 message NumLotteryResultsRes {
-    repeated NumLotteryResults list = 1; // 若请求参数is_records == false, 数组只返回一个元素
+    repeated NumLotteryResults list = 1;
     uint32 total = 2;
 }
 
 message NumLotteryPlayReq {
-    int32 act_id = 1;               // 主活动id
-    int32 act_rel_id = 2;           // 子活动id
-    repeated uint32 num_list = 3;   // 选择的号码组
+    int32 act_id = 1;
+    int32 act_rel_id = 2;
+    repeated uint32 num_list = 3;
 }
 
 message NumLotteryPlayRes {
 
 }
 
-//pkteam-------------------------->>>
 message FetchPkteamInfoReq{
     enum FetchType {
         ZERO                    = 0;
-        TEAMID_NOTIMELIMIT      = 1;         // 团队ID   没有失效的限制
-        PLAYERID_TIMELIMIT      = 2;         // 玩家ID   有时间失效的限制
-        TEAMID_TIMELIMIT        = 3;         // 团队ID   有时间失效的限制
+        TEAMID_NOTIMELIMIT      = 1;
+        PLAYERID_TIMELIMIT      = 2;
+        TEAMID_TIMELIMIT        = 3;
     }
-    FetchType fetch_type = 1;       // 查询类型
-    int64 id             = 2;       // 根据查询类型，调写相应ID
+    FetchType fetch_type = 1;
+    int64 id             = 2;
 }
 
 message PkteamMemberInfo {
     int64 player_id             = 1;
     string player_name          = 2;
     string player_icon          = 3;
-    int64 pk_value              = 4;    // pk贡献值
-    int64 player_id2            = 5;    // 靓号
+    int64 pk_value              = 4;
+    int64 player_id2            = 5;
 }
 message FetchPkteamInfoRes{
-    int64 pkteam_id                         = 1;    // 团队ID  为0，则没有加入pk天团
-    string name                             = 2;    // 团名
-    string slogan                           = 3;    // 口号
-    int64 continue_win                      = 4;    // 连胜场数
-    int64 pk_value                          = 5;    // pk贡献值
-    bool  can_modify_slogan                 = 6;    // 是否能修改口号 是，可以， 否， 不可以
-    int64  master_id                        = 7;    // 团长ID
-    repeated PkteamMemberInfo  member_list  = 8;    // 成员列表 第一个为团长
-    repeated PkteamMemberInfo  apply_list   = 9;    // 申请者列表  团长页面需要展示
+    int64 pkteam_id                         = 1;
+    string name                             = 2;
+    string slogan                           = 3;
+    int64 continue_win                      = 4;
+    int64 pk_value                          = 5;
+    bool  can_modify_slogan                 = 6;
+    int64  master_id                        = 7;
+    repeated PkteamMemberInfo  member_list  = 8;
+    repeated PkteamMemberInfo  apply_list   = 9;
 }
 
 message SetPkteamSloganReq {
-    int64 pkteam_id                         = 1;    // 团队ID  为0，则没有加入pk天团
-    string slogan                           = 2;    // 口号
+    int64 pkteam_id                         = 1;
+    string slogan                           = 2;
 }
 
 message SetPkteamSloganRes {
 }
 
 message CreatePkteamReq {
-    int64 player_id           = 1;    // 创建者
-    string name               = 2;    // 团名
-    string slogan             = 3;    // 口号
-    int32 act_rel_id          = 4;    // 子活动id
+    int64 player_id           = 1;
+    string name               = 2;
+    string slogan             = 3;
+    int32 act_rel_id          = 4;
 }
 
 message CreatePkteamRes {
 }
 
 message ApplyPkteamReq {
-    int64 pkteam_id                         = 1;    // 团队ID
+    int64 pkteam_id                         = 1;
 }
 
 message ApplyPkteamRes {
@@ -2277,97 +2193,97 @@ message ApplyPkteamRes {
 
 enum ApplyPkTeamType {
     ZERO        = 0;
-    APPLYING    = 1;        //本人正在申请加入天团
-    AGREE       = 2;        //团长同意
-    REJECT      = 3;        //团长拒绝
-    OTHERAGREE  = 4;        //加入其它团了
+    APPLYING    = 1;
+    AGREE       = 2;
+    REJECT      = 3;
+    OTHERAGREE  = 4;
 }
 
 message AgreeApplyPkteamReq {
-    ApplyPkTeamType apply_type              = 1;    //同意还是拒绝
-    int64 pkteam_id                         = 2;    // 团队ID
-    repeated int64 player_id_list           = 3;    //申请者ID
+    ApplyPkTeamType apply_type              = 1;
+    int64 pkteam_id                         = 2;
+    repeated int64 player_id_list           = 3;
 }
 
 message AgreeApplyPkteamRes {
 }
 
 message OpenPkteamReq {
-    int64 pkteam_id                         = 1;    // 团队ID
+    int64 pkteam_id                         = 1;
 }
 
 enum PkteamMatchType {
     PKMT_ZERO    = 0;
-    PKMT_SUCC    = 1;    // 匹配成功
-    PKMT_FAIL    = 2;    // 匹配失败
-    PKMT_WAIT    = 3;    // 匹配等待中
+    PKMT_SUCC    = 1;
+    PKMT_FAIL    = 2;
+    PKMT_WAIT    = 3;
 }
 message OpenPkteamRes {
-    PkteamMatchType match_type = 1;   // 匹配状态 该接口只返回 PKMT_FAIL，PKMT_WAIT 两种情况
+    PkteamMatchType match_type = 1;
 }
 
 message PkTeamPkInfo {
-    int64 pk_num                        = 1;    // pk轮次
-    int64 end_time                      = 2;    // 结束时间
-    FetchPkteamInfoRes         team_a   = 3;    // 团队A信息
-    FetchPkteamInfoRes         team_b   = 4;    // 团队B信息
+    int64 pk_num                        = 1;
+    int64 end_time                      = 2;
+    FetchPkteamInfoRes         team_a   = 3;
+    FetchPkteamInfoRes         team_b   = 4;
 }
 message FetchPkInfoListReq {
 }
 message FetchPkInfoListRes {
-    repeated PkTeamPkInfo   pkinfo_list  = 1;    // 对战信息
+    repeated PkTeamPkInfo   pkinfo_list  = 1;
 }
 
 message FetchPkInfoReq {
-    int64 player_id           = 1;    // 玩家ID
+    int64 player_id           = 1;
 }
 message FetchPkInfoRes {
-    PkTeamPkInfo   pkinfo  = 1;    // 对战信息
+    PkTeamPkInfo   pkinfo  = 1;
 }
 
 enum PkteamResultType {
     PKRT_ZERO    = 0;
     PKRT_WIN     = 1;
     PKRT_LOSE    = 2;
-    PKRT_DRAW    = 3;    // 平局
+    PKRT_DRAW    = 3;
 }
 
 message PkRecord {
-    int64 pk_num                 = 1;  //pk轮次
-    int64 begin_time             = 2;  //开始时间
-    PkteamResultType result_type = 3;  //胜负
-    int64 pkteam_id              = 4;  //团队ID
-    string name                  = 5;  //团名
+    int64 pk_num                 = 1;
+    int64 begin_time             = 2;
+    PkteamResultType result_type = 3;
+    int64 pkteam_id              = 4;
+    string name                  = 5;
 }
 message FetchPkRecordListReq {
-    int64 player_id             = 1;    // 玩家ID
-    int64 page                  = 2;    //第几页  从1页开始
-    int64 page_size             = 3;    //每页数量
+    int64 player_id             = 1;
+    int64 page                  = 2;
+    int64 page_size             = 3;
 }
 message FetchPkRecordListRes {
     repeated PkRecord record_list = 1;
-    int64 total_count             = 2;    //总记录数
+    int64 total_count             = 2;
 }
 
 message FetchPkInfoByPkNumReq {
-    int64 pk_num                 = 1;  //pk轮次
+    int64 pk_num                 = 1;
 }
 
 message FetchPkInfoByPkNumRes {
-    int64 pk_num                 = 1;  //pk轮次
-    int64 pkteam_id_a            = 2;    // 团队a id
-    string pkteam_name_a         = 3;    // 团队a name
-    PkteamResultType result_a    = 4;    // a结果
+    int64 pk_num                 = 1;
+    int64 pkteam_id_a            = 2;
+    string pkteam_name_a         = 3;
+    PkteamResultType result_a    = 4;
 
-    int64 pkteam_id_b            = 5;    // 团队b id
-    string pkteam_name_b         = 6;    // 团队b name
-    PkteamResultType result_b    = 7;    // b结果
+    int64 pkteam_id_b            = 5;
+    string pkteam_name_b         = 6;
+    PkteamResultType result_b    = 7;
 }
 
 message HelpTeamReq {
-    int32 act_id        = 1;            // 主活动id
-    int32 act_rel_id    = 2;            // 子活动id
-    uint32 help_num     = 3;            // 助力数量
+    int32 act_id        = 1;
+    int32 act_rel_id    = 2;
+    uint32 help_num     = 3;
 }
 
 message HelpTeamRes {
@@ -2375,19 +2291,18 @@ message HelpTeamRes {
 }
 
 message GetActPlayerRoomLiveDataReq {
-    uint32 act_id        = 1;            // 主活动id
-    uint32 act_rel_id    = 2;            // 子活动id
+    uint32 act_id        = 1;
+    uint32 act_rel_id    = 2;
 }
 
 message GetActPlayerRoomLiveDataRes {
     repeated RoomLive live_list = 1;
 }
-//pkteam--------------------------<<<
 
 message SendCPInvitationReq {
-    uint32 act_id           = 1;            // 主活动id
-    uint32 act_rel_id       = 2;            // 子活动id
-    uint64 receiver_id      = 3;            // 接受者id
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
+    uint64 receiver_id      = 3;
 }
 
 message SendCPInvitationRes {
@@ -2395,8 +2310,8 @@ message SendCPInvitationRes {
 }
 
 message CPInvitationListReq {
-    uint32 act_id           = 1;            // 主活动id
-    uint32 act_rel_id       = 2;            // 子活动id
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
 }
 
 message CPInvitationListRes {
@@ -2404,10 +2319,10 @@ message CPInvitationListRes {
 }
 
 message HandleCPInvitationReq {
-    uint32 act_id                   = 1;            // 主活动id
-    uint32 act_rel_id               = 2;            // 子活动id
-    uint32 inviter_id               = 3;            // 邀请人ID
-    HandleInviteType handle_type    = 4;            // 处理类型
+    uint32 act_id                   = 1;
+    uint32 act_rel_id               = 2;
+    uint32 inviter_id               = 3;
+    HandleInviteType handle_type    = 4;
 }
 
 message HandleCPInvitationRes {
@@ -2415,33 +2330,33 @@ message HandleCPInvitationRes {
 }
 
 message CPDataReq {
-    uint32 act_id                   = 1;            // 主活动id
-    uint32 act_rel_id               = 2;            // 子活动id
+    uint32 act_id                   = 1;
+    uint32 act_rel_id               = 2;
 }
 
 message CPDataRes {
-    uint64 cp_id                                    = 1;    // cp id. < 1 则没有组建cp
-    Player player_f                                 = 2;    // 第一个用户
-    Player player_s                                 = 3;    // 第二个用户
+    uint64 cp_id                                    = 1;
+    Player player_f                                 = 2;
+    Player player_s                                 = 3;
     CPContributeDetailData total_contribute_data    = 4;
     CPContributeDetailData my_contribute_data       = 5;
-    uint32 rank_num                                 = 6;    // 排名
+    uint32 rank_num                                 = 6;
 }
 
 message BargainDataReq{
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message BargainDataRes {
-    BargainGoodsItem cur_bargain_goods  = 1;    // 当为空时, 则没有当前砍价物品
-    BargainGoodsItem fail_bargain_goods = 2;    // 当为空时, 则没有"砍价失败但未过期物品"
-    uint64 send_gold                    = 3;    // 送出礼物价值金币值
+    BargainGoodsItem cur_bargain_goods  = 1;
+    BargainGoodsItem fail_bargain_goods = 2;
+    uint64 send_gold                    = 3;
 }
 
 message BargainListReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message BargainListRes {
@@ -2449,8 +2364,8 @@ message BargainListRes {
 }
 
 message BargainGoodsReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 goods_id     = 3;
 }
 
@@ -2459,8 +2374,8 @@ message BargainGoodsRes {
 }
 
 message BargainStoreListReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message BargainStoreListRes {
@@ -2468,11 +2383,11 @@ message BargainStoreListRes {
 }
 
 message BargainBuyReq {
-    uint32 act_id           = 1;    // 主活动id
-    uint32 act_rel_id       = 2;    // 子活动id
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
     BargainBuyType buy_type = 3;
     uint32 goods_id         = 4;
-    uint32 buy_num          = 5;    // 购买数量
+    uint32 buy_num          = 5;
 }
 
 message BargainBuyRes {
@@ -2480,8 +2395,8 @@ message BargainBuyRes {
 }
 
 message StopBargainingReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message StopBargainingRes {
@@ -2489,8 +2404,8 @@ message StopBargainingRes {
 }
 
 message BargainRecordReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2501,8 +2416,8 @@ message BargainRecordRes {
 }
 
 message BargainBuyRecordReq {
-    uint32 act_id           = 1;    // 主活动id
-    uint32 act_rel_id       = 2;    // 子活动id
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
     BargainBuyType buy_type = 3;
     uint32 page             = 4;
     uint32 page_size        = 5;
@@ -2514,18 +2429,18 @@ message BargainBuyRecordRes {
 }
 
 message RunCatConfigDataReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message RunCatConfigDataRes {
-    repeated MotorPattern motor_pattern_list = 1;   // 运动模式配置
+    repeated MotorPattern motor_pattern_list = 1;
 }
 
 message RunCatPlayReq {
-    uint32 act_id           = 1;    // 主活动id
-    uint32 act_rel_id       = 2;    // 子活动id
-    uint32 motor_pattern_id = 3;    // 运动模式id
+    uint32 act_id           = 1;
+    uint32 act_rel_id       = 2;
+    uint32 motor_pattern_id = 3;
 }
 
 message RunCatPlayRes {
@@ -2535,20 +2450,20 @@ message RunCatPlayRes {
 
 message RunCatReportSettlementResultReq {
     string round_id                         = 1;
-    uint32 act_id                           = 2;    // 主活动id
-    uint32 act_rel_id                       = 3;    // 子活动id
-    float  total_run_length                 = 4;    // 总跑路程
-    uint32 total_click_num                  = 5;    // 总点击次数
-    repeated uint32 click_num_per_second    = 6;    // 每秒所点击的次数
+    uint32 act_id                           = 2;
+    uint32 act_rel_id                       = 3;
+    float  total_run_length                 = 4;
+    uint32 total_click_num                  = 5;
+    repeated uint32 click_num_per_second    = 6;
 }
 
 message RunCatReportSettlementResultRes {
-    repeated GiftNumItem gain_gift_list = 1;   // 获取奖励
+    repeated GiftNumItem gain_gift_list = 1;
 }
 
 message RunCatPlayRecordReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2559,8 +2474,8 @@ message RunCatPlayRecordRes {
 }
 
 message TreasureHouseListReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message TreasureHouseListRes {
@@ -2568,44 +2483,44 @@ message TreasureHouseListRes {
 }
 
 message BuyScratchOffLotteryTicksReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
-    uint32 tick_num     = 3;    // 组数
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    uint32 tick_num     = 3;
 }
 
 message BuyScratchOffLotteryTicksRes {
-    repeated uint32 luck_nums = 1;  // 幸运号码
+    repeated uint32 luck_nums = 1;
 }
 
 message ScratchOffLotteryOpenReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message ScratchOffLotteryOpenRes {
-    repeated  ChoosenNums buy_nums      = 1;    // 抽到的组数
-    ScratchOffLotteryOpenResult result  = 2;    // 结算结果
+    repeated  ChoosenNums buy_nums      = 1;
+    ScratchOffLotteryOpenResult result  = 2;
 }
 
 message ScratchOffLotteryStatusReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message ScratchOffLotteryStatusRes {
-    uint64 total_win_gold = 1;              // 累计胜利金币
-    repeated uint32 no_open_luck_nums = 2;  // 未开奖幸运号码(字段不为空 && 数组元素数量>0, 代表上一期未开奖, 需要调ScratchOffLotteryOpen开奖)
+    uint64 total_win_gold = 1;
+    repeated uint32 no_open_luck_nums = 2;
 }
 
 message BuyAndOpenScrarchOffLotteryTicksReq {
-    uint32 act_id                   = 1;    // 主活动id
-    uint32 act_rel_id               = 2;    // 子活动id
-    repeated  ChoosenNums buy_nums  = 3;    // 购买组数
+    uint32 act_id                   = 1;
+    uint32 act_rel_id               = 2;
+    repeated  ChoosenNums buy_nums  = 3;
 }
 
 message LuckConstellatoryDataReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message LuckConstellatoryDataRes {
@@ -2613,24 +2528,24 @@ message LuckConstellatoryDataRes {
 }
 
 message LuckConstellatoryDrawReq {
-    uint32 act_id                   = 1;    // 主活动id
-    uint32 act_rel_id               = 2;    // 子活动id
+    uint32 act_id                   = 1;
+    uint32 act_rel_id               = 2;
     uint32 price_type_id            = 3;
-    repeated uint32 draw_location   = 4;    // 抽奖位置. 例如:[0, 2, 4]
-    RequestPayReq pay_req           = 5;    // 支付请求参数(如果ActPayType == Act_Pay_Type_Money)
+    repeated uint32 draw_location   = 4;
+    RequestPayReq pay_req           = 5;
 }
 
 message LuckConstellatoryDrawRes {
     map<uint32, LotteryGood> award          = 1;
     uint32 luck_num                         = 2;
     repeated LotteryGood award_show_record  = 3;
-    RequestPayRes pay_res                   = 4;    // 支付请求返回参数(如果LuckConstellatoryDrawReq.ActPayType == Act_Pay_Type_Money, 仅有这个参数)
-    string product_id                       = 5;    // 仅用于gp支付返回
+    RequestPayRes pay_res                   = 4;
+    string product_id                       = 5;
 }
 
 message LuckConstellatoryRecordReq {
-    uint32 act_id       = 1;                // 主活动id
-    uint32 act_rel_id   = 2;                // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2641,8 +2556,8 @@ message LuckConstellatoryRecordRes {
 }
 
 message SmeltDataReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2653,9 +2568,9 @@ message SmeltDataRes {
 }
 
 message SmeltingReq {
-    uint32 act_id                   = 1;    // 主活动id
-    uint32 act_rel_id               = 2;    // 子活动id
-    repeated SmeltGoodsData goods   = 3;    // 熔炼物品
+    uint32 act_id                   = 1;
+    uint32 act_rel_id               = 2;
+    repeated SmeltGoodsData goods   = 3;
 }
 
 message SmeltingRes {
@@ -2663,8 +2578,8 @@ message SmeltingRes {
 }
 
 message SmeltRecordReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2675,32 +2590,32 @@ message SmeltRecordRes {
 }
 
 message SlotMachineDataReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message SlotMachineDataRes {
-    uint64 round_id                                     = 1;    // 当前轮次id
-    uint32 count_down                                   = 2;    // 剩余时间(倒计时. 单位s)
-    BetStatusType status                                = 3;    // 状态
-    repeated SlotMachineBetConfigItem bet_config_data   = 4;    // 投注数据
-    repeated SlotMachinePriceItem price_data            = 5;    // 价格数据
-    map<uint32, SlotMachineBetItem> bet_data            = 6;    // 已投注数据(只有`status`= BetStatusTypeBet || `status` = BetStatusTypeWaitResult, 并且已经下注了, 才会有数据)
-    int64 round_time                                    = 7;    // 轮次时间
+    uint64 round_id                                     = 1;
+    uint32 count_down                                   = 2;
+    BetStatusType status                                = 3;
+    repeated SlotMachineBetConfigItem bet_config_data   = 4;
+    repeated SlotMachinePriceItem price_data            = 5;
+    map<uint32, SlotMachineBetItem> bet_data            = 6;
+    int64 round_time                                    = 7;
 }
 
 message SlotMachineBetReq {
-    uint32 act_id                       = 1;    // 主活动id
-    uint32 act_rel_id                   = 2;    // 子活动id
-    map<uint32, SlotMachineBetPriceItem> bet_lit = 3;    // 投注信息
+    uint32 act_id                       = 1;
+    uint32 act_rel_id                   = 2;
+    map<uint32, SlotMachineBetPriceItem> bet_lit = 3;
 }
 
 message SlotMachineBetRes {
 }
 
 message SlotMachineOpenRecordsReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
 }
@@ -2711,8 +2626,8 @@ message SlotMachineOpenRecordsRes {
 }
 
 message SlotMachineBetRecordsReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
     uint32 page         = 3;
     uint32 page_size    = 4;
     uint64 round_id     = 5;
@@ -2723,131 +2638,124 @@ message SlotMachineBetRecordsRes {
     uint32 total = 2;
 }
 
-// 活动配置初始化
 message WulinConfig{
-    int32 wulin_type    = 1;    // 类型
-    int32 wulin_level   = 2;    // 级别
-    uint64 price        = 3;    // 所需金币
-    uint32 wulin_star   = 4;    // 所需命运之星
-    string vs_win   = 5;        // 赢：命运之星数量，奖励池
+    int32 wulin_type    = 1;
+    int32 wulin_level   = 2;
+    uint64 price        = 3;
+    uint32 wulin_star   = 4;
+    string vs_win   = 5;
 }
 message WulinConfigReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 message WulinConfigRes{
-    WulinUserData udata         = 1; // 用户数据
-    repeated WulinConfig clist  = 2; // 配置数据
+    WulinUserData udata         = 1;
+    repeated WulinConfig clist  = 2;
 }
-// 记录值
 message WulinRecord{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    int32  id = 3;                  // 记录id
-    Player from = 4;                // 发起人
-    Player to   = 5;                // 被发起人
-    int64  wulin_type = 6;          // 武林挑战类型 1 魔王pk（猜拳） 2 江湖pk(匹配) 3 购买次数 4 确认挑战 5 兑换奖励
-    int32  wulin_level = 7;         // 武林场次 1 初级 2 中级 3 高级
-    uint64 wulin_price = 8;         // 挑战金币
-    int32  wulin_select = 9;        // 挑战人物 1 法师 2 战士 3 刺客
-    int32  wulin_method = 10;        // 挑战人物 1 法师 2 战士 3 刺客
-    int32  wulin_nomethod = 11;     // 不出的招式 1 剪刀 2 石头 3 布
-    bool   is_hang = 12;            // 是否挂起  1 挂起 0 不挂起
-    int32  wulin_result = 13;       // 挑战结果 1 胜利 2 失败 3 平局
-    string wulin_award = 14;        // 奖励
-    int64  create_at = 15;          // 创建时间
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    int32  id = 3;
+    Player from = 4;
+    Player to   = 5;
+    int64  wulin_type = 6;
+    int32  wulin_level = 7;
+    uint64 wulin_price = 8;
+    int32  wulin_select = 9;
+    int32  wulin_method = 10;
+    int32  wulin_nomethod = 11;
+    bool   is_hang = 12;
+    int32  wulin_result = 13;
+    string wulin_award = 14;
+    int64  create_at = 15;
 }
 
-// 参与活动
 message WulinActionData{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    uint32 wulin_type   = 3;        // 武林挑战类型 1 魔王pk（猜拳） 2 江湖pk(匹配) 3 购买次数 4 确认挑战 5 取消匹配 6 挂起
-    uint32 wulin_level  = 4;        // 场次 1 初级 2 中级 3 高级
-    int32  wulin_target = 5;        // 目标
-    int32  wulin_select = 6;        // 出拳 1 法师 2 战士 3 刺客
-    uint32 price = 7;               // 出的金币
-    uint32 wulin_star = 8;          // 命运之星
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    uint32 wulin_type   = 3;
+    uint32 wulin_level  = 4;
+    int32  wulin_target = 5;
+    int32  wulin_select = 6;
+    uint32 price = 7;
+    uint32 wulin_star = 8;
 }
-// 活动用户数据
 message WulinUserData{
-    uint32  data_guess  = 1;          // 预测次数
-    uint32  data_vip    = 2;          // 战斗等级
-    uint32  data_star   = 3;          // 命运之星数量
-    uint32  id          = 4;          // 记录id
-    bool    is_hang     = 5;          // 是否挂起
+    uint32  data_guess  = 1;
+    uint32  data_vip    = 2;
+    uint32  data_star   = 3;
+    uint32  id          = 4;
+    bool    is_hang     = 5;
 }
-// 获取列表数据
 message WulinRecordsReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
-    int32  page         = 3;    // 页码
-    int32  page_size    = 4;    // 单页数量
-    int32  record_type  = 5;    // 记录类型 1 魔王记录  2 江湖记录
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    int32  page         = 3;
+    int32  page_size    = 4;
+    int32  record_type  = 5;
 }
-// 记录列表
 message WulinRecordsRes {
     repeated WulinRecord list = 1;
     uint32 total = 2;
 }
 
-//------红包雨活动-----
 message HbyStartReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message  HbyStartRes {
-    int64 game_id        = 1; // 局次id
-    repeated HbDate datas = 2; // 红包信息
+    int64 game_id        = 1;
+    repeated HbDate datas = 2;
 }
 
 message HbDate {
-    int32 award_id             = 1; // 奖品id
-    int32 award_type           = 2; // 奖品类型：1.红包 2.时钟 3.炸弹 4.礼物/特效 5.十万金币
-    string award_name          = 3; // 奖品名
-    int32 is_received          = 4; // 是否领取奖励
-    int64 award_price          = 5; // 奖品价格
-    repeated ExtraHbDate extra = 6; // 时钟额外增加的礼物
-    string img_addr            = 7; // 图片地址
-    int32 time                 = 8; // 时间
-    int32 award_label          = 9; // 奖品标签，0：无，1：稀有，2：限定，3：珍贵，4：活动，5：全服，6：专属，7：新
+    int32 award_id             = 1;
+    int32 award_type           = 2;
+    string award_name          = 3;
+    int32 is_received          = 4;
+    int64 award_price          = 5;
+    repeated ExtraHbDate extra = 6;
+    string img_addr            = 7;
+    int32 time                 = 8;
+    int32 award_label          = 9;
 }
 
 message ExtraHbDate {
-    int32 award_id          = 1; // 奖品id
-    int32 award_type        = 2;   // 奖品类型：1.红包 2.时钟 3.炸弹 4.礼物/特效 5.十万金币
-    string award_name       = 3; // 奖品名
-    int32 award_num         = 4; // 奖品数量
-    string img_addr         = 5; // 图片地址
-    int32 award_label       = 6; // 奖品标签，0：无，1：稀有，2：限定，3：珍贵，4：活动，5：全服，6：专属，7：新
-    int64 award_price       = 7; // 奖品价格
-    int32 is_received       = 8; // 是否领取奖励
+    int32 award_id          = 1;
+    int32 award_type        = 2;
+    string award_name       = 3;
+    int32 award_num         = 4;
+    string img_addr         = 5;
+    int32 award_label       = 6;
+    int64 award_price       = 7;
+    int32 is_received       = 8;
 }
 
 message HbyUserWinReq {
-    uint32   act_id       = 1;    // 主活动id
-    uint32   act_rel_id   = 2;    // 子活动id
-    repeated ExtraHbDate extra = 3; // 本局用户获取的奖品信息
+    uint32   act_id       = 1;
+    uint32   act_rel_id   = 2;
+    repeated ExtraHbDate extra = 3;
 }
 
 message HbyUserWinRes {
 }
 
 message HbyInitReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message HbyInitRes {
-    int64 total_point          = 1; // 总积分
-    int64 game_coin            = 2; // 本局需消耗金币
-    map<int64, int32> awards   = 3; // key:门槛，value：状态  0：不可提現  1：已提現   2：可提現
+    int64 total_point          = 1;
+    int64 game_coin            = 2;
+    map<int64, int32> awards   = 3;
 }
 
 message HbyWithdrawalWindowReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message ExtraHbDates {
@@ -2855,14 +2763,14 @@ message ExtraHbDates {
 }
 
 message HbyWithdrawalDate {
-    int32 award_id          = 1; // 奖品id
-    int32 award_type        = 2; // 奖品类型：1.红包 2.时钟 3.炸弹 4.礼物/特效 5.十万金币
-    string award_name       = 3; // 奖品名
-    int32 award_num         = 4; // 奖品数量
-    int32 is_award          = 5; // 是否可以提现 -1 不可提现  1 可以体现
-    string img_addr         = 6; // 图片地址
-    int32 award_label       = 7; // 奖品标签，0：无，1：稀有，2：限定，3：珍贵，4：活动，5：全服，6：专属，7：新
-    int64 award_price       = 8; // 奖品价格
+    int32 award_id          = 1;
+    int32 award_type        = 2;
+    string award_name       = 3;
+    int32 award_num         = 4;
+    int32 is_award          = 5;
+    string img_addr         = 6;
+    int32 award_label       = 7;
+    int64 award_price       = 8;
 }
 
 message HbyWithdrawalDates {
@@ -2870,13 +2778,13 @@ message HbyWithdrawalDates {
 }
 
 message HbyWithdrawalWindowRes {
-    repeated HbyWithdrawalDates datas = 1; // 礼物列表
-    int32 isWithdrawal                = 2; // 是否可以提现 -1：不可以提现，1：可以提现
+    repeated HbyWithdrawalDates datas = 1;
+    int32 isWithdrawal                = 2;
 }
 
 message HbyWithdrawalReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message HbyWithdrawalRes {
@@ -2884,12 +2792,12 @@ message HbyWithdrawalRes {
 }
 
 message HbyWithdrawalDataReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message HbyWithdrawal {
-    map<string, ExtraHbDates> awards = 1; // key:提现时间
+    map<string, ExtraHbDates> awards = 1;
 }
 
 message HbyWithdrawalDataRes {
@@ -2897,110 +2805,73 @@ message HbyWithdrawalDataRes {
 }
 
 message HbyAwardMessageReq {
-    uint32 act_id       = 1;    // 主活动id
-    uint32 act_rel_id   = 2;    // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message HbyAwardMessageDate {
-    string message = 1; // 获奖信息
-    string user_name = 2; // 用户名
-    int32  type =  3; // 提现类型: 1:十万金币。2:金币
-    int64  coins = 4; // 金额
+    string message = 1;
+    string user_name = 2;
+    int32  type =  3;
+    int64  coins = 4;
 }
 
 message HbyAwardMessageRes {
     repeated  HbyAwardMessageDate dates = 1;
 }
 
-//--- 红包雨活动end -----
 
-//message ActivityInitReq{
-//    uint32 act_id       = 1;        // 主活动id
-//    uint32 act_rel_id   = 2;        // 子活动id
-//}
-//message ActivityInitRes{
-//    string udata  = 1;          // 用户数据 json格式
-//    string clist  = 2;          // 配置数据 json格式
-//}
-//message ActivityMyRecordReq{
-//    uint32 act_id       = 1;        // 主活动id
-//    uint32 act_rel_id   = 2;        // 子活动id
-//    uint32 record_type  = 3;        // 记录类型 默认 0 当活动分多个类型时传对应type
-//    int32  page         = 4;        // 页码
-//    int32  page_size    = 5;        // 单页数量
-//}
-//message ActivityMyRecordRes{
-//    string list = 1;            // 记录列表 json
-//    uint32 total = 2;           // 记录总数
-//}
-//message ActivityActionReq{
-//    uint32 act_id       = 1;        // 主活动id
-//    uint32 act_rel_id   = 2;        // 子活动id
-//    uint32 action_type  = 3;        // 请求类型 一级分类 ，对应活动选项，例如xxx场
-//    string action_val   = 4;        // 请求类型对应的值 二级分类
-//    int32  target_id    = 5;        // 目标id 默认 0 ；目标可以是人物id，记录id，操作对象id等
-//    uint32 price = 6;               // 金币
-//    string activity_param = 7;      // 其他参数 可传json string
-//}
-//message ActivityActionRes{
-//    int32  id = 1;                  // 记录id
-//    Player from = 2;                // 发起人
-//    Player to   = 3;                // 被发起人
-//    int32  action_flag = 4;         // 结果
-//    string action_result = 5;       // 结果集
-//    int64  create_at = 6;           // 创建时间
-//}
 message AuctionAccountInitReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 message AccountData{
-    uint32 account      = 1;  // 靓号
-    uint64 price        = 2;  // 起拍价
-    uint32 account_type = 3;  // 靓号类型 1 摇号 2 竞拍
-    Player player       = 4;  // 拍卖者
-    uint64 end_time     = 5;  // 拍卖结束时间
-    uint64 auction_price = 6; // 当前出价
-    int32 account_status = 7; // 竞拍状态 0 正在竞拍 1 成功拍卖
-    int64 time_now       = 8; // 当前系统时间
-    int64 add_price  = 9; // 加价
+    uint32 account      = 1;
+    uint64 price        = 2;
+    uint32 account_type = 3;
+    Player player       = 4;
+    uint64 end_time     = 5;
+    uint64 auction_price = 6;
+    int32 account_status = 7;
+    int64 time_now       = 8;
+    int64 add_price  = 9;
 }
 message AccountUserData{
-    repeated uint32 account = 1;     // 用户靓号
-    repeated uint32 account_status = 2;     // 用户靓号状态
+    repeated uint32 account = 1;
+    repeated uint32 account_status = 2;
 }
 message AuctionAccountInitRes{
-    AccountUserData udata       = 1; // 用户数据
-    repeated AccountData clist  = 2; // 配置数据
+    AccountUserData udata       = 1;
+    repeated AccountData clist  = 2;
 }
 message AuctionAccountRecordReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    int32  page         = 4;        // 页码
-    int32  page_size    = 5;        // 单页数量
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    int32  page         = 4;
+    int32  page_size    = 5;
 }
 message AuctionAccountRecord{
-    uint32 auction_account = 1;        // 竞拍靓号
-    uint32 auction_price   = 2;        // 竞拍价格
-    int32  create_at       = 3;        // 竞拍时间
+    uint32 auction_account = 1;
+    uint32 auction_price   = 2;
+    int32  create_at       = 3;
 }
 message AuctionAccountRecordRes{
-    repeated AuctionAccountRecord records = 1; // 拍卖记录
-    uint32 total = 2;                  // 记录总数
+    repeated AuctionAccountRecord records = 1;
+    uint32 total = 2;
 }
 message AuctionAccountReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    uint32 auction_account = 3;        // 竞拍靓号
-    uint32 auction_price   = 4;        // 竞拍价格
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    uint32 auction_account = 3;
+    uint32 auction_price   = 4;
 }
 message AuctionAccountRes{
 }
 
 
 message SlotMachine2020DataReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message SlotMachine2020PlayPayInfo{
@@ -3014,41 +2885,41 @@ message SlotMachine2020ItemInfo{
 }
 
 message SlotMachine2020Formula{
-    string formula=1;//公式配置,-隔开,%为万能物品
-    uint32 multiple=2;//赔率
+    string formula=1;
+    uint32 multiple=2;
 }
 
 message SlotMachine2020DataRes{
-    repeated SlotMachine2020PlayPayInfo play_pay_info = 1;//投注信息
-    repeated SlotMachine2020ItemInfo item_info=2;//摇奖物品信息
-    repeated SlotMachine2020Formula formula_info=3;//赔率公式信息
-    uint32 gift_id=4;//活动礼物ID
-    string gift_name=5;//活动礼物名称
+    repeated SlotMachine2020PlayPayInfo play_pay_info = 1;
+    repeated SlotMachine2020ItemInfo item_info=2;
+    repeated SlotMachine2020Formula formula_info=3;
+    uint32 gift_id=4;
+    string gift_name=5;
 }
 
 
 message SlotMachine2020UserDateReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
 }
 
 message SlotMachine2020UserDateRes{
-    uint32 total_win_gold =1;//累计赢取金币
-    uint32 today_win_gold =2;//今日赢取金币
+    uint32 total_win_gold =1;
+    uint32 today_win_gold =2;
 }
 
 message SlotMachine2020WinRecordsReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    int32 page = 3; //页数 从1开始
-    int32 page_size = 4; //数量
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    int32 page = 3;
+    int32 page_size = 4;
 }
 
 message SlotMachine2020WinRecords{
-    string nickname = 1; // 昵称
-    int64 player_id = 2; //
-    uint32 multiple=3;//赔率
-    uint32 win_gold=4;//获得金币
+    string nickname = 1;
+    int64 player_id = 2;
+    uint32 multiple=3;
+    uint32 win_gold=4;
 }
 
 message SlotMachine2020WinRecordsRes{
@@ -3056,29 +2927,25 @@ message SlotMachine2020WinRecordsRes{
 }
 
 message SlotMachine2020BetReq{
-    uint32 act_id       = 1;        // 主活动id
-    uint32 act_rel_id   = 2;        // 子活动id
-    uint32 play_pay_info_id=3;//投注信息id
+    uint32 act_id       = 1;
+    uint32 act_rel_id   = 2;
+    uint32 play_pay_info_id=3;
 }
 
 message SlotMachine2020BetRes{
-    string formula=1;//摇出来的公式
-    uint32 win_gold=2;//获得金币
-    uint32 gift_id=3;//活动礼物ID
-    string gift_name=4;//活动礼物名称
-    uint32 gift_num=5;//活动礼物数量
+    string formula=1;
+    uint32 win_gold=2;
+    uint32 gift_id=3;
+    string gift_name=4;
+    uint32 gift_num=5;
 }
 
 
-////////###############app
 service ActivityExtObj {
-    //app
     rpc GetActivity (GetActivityReq) returns (GetActivityRes);
     rpc ActivityRoomSubInfo (ActivityRoomSubInfoReq) returns (ActivityRoomSubInfoRes);
     rpc CardProgress (CardProgressReq) returns (CardProgressRes);
 
-    //html
-    //靓号
     rpc GetGoodNum (GetGoodNumReq) returns (GetGoodNumRes);
     rpc RandGoodNum (RandGoodNumReq) returns (RandGoodNumRes);
     rpc BindGoodNum (BindGoodNumReq) returns (BindGoodNumRes);
@@ -3091,32 +2958,23 @@ service ActivityExtObj {
 
 
     rpc GetPlayerPay (GetPlayerPayReq) returns (GetPlayerPayRes);
-    // 掷骰子的基本信息
     rpc PlayerDice (GetPlayerDiceReq) returns (GetPlayerDiceRes);
-    // 掷骰子奖励列表
     rpc PlayerDiceRewardList (GetPlayerDiceRewardListReq) returns (GetPlayerDiceRewardListRes);
-    // 掷骰子
     rpc PlayActDice(PlayActDiceReq) returns (PlayActDiceRes);
-    // 获取跑马灯信息
     rpc ActitivyMarqueeMsg(GetActivityMarqueeMsgReq) returns (GetActivityMarqueeMsgRes);
     rpc PlayerSort (PlayerSortReq) returns (PlayerSortRes);
     rpc RoomSort (RoomSortReq) returns (RoomSortRes);
     rpc ManyPlayerSort (ManyPlayerSortReq) returns (ManyPlayerSortRes);
-    // 分组榜单数据显示
     rpc GroupSort(GroupSortReq) returns (GroupSortRes);
 
-    //主题
     rpc GetTheme (GetThemeReq) returns (GetThemeRes);
 
-    //抽奖
     rpc ListWinLottery (ListWinLotteryReq) returns (ListWinLotteryRes);
 
-    //福利
     rpc ReceiveWelfare (ReceiveWelfareReq) returns (ReceiveWelfareRes);
     rpc ListWelfare (ListWelfareReq) returns (ListWelfareRes);
     rpc WelfareReceiveLog (WelfareReceiveLogReq) returns (WelfareReceiveLogRes);
     rpc DoTask (DoTaskReq) returns (DoTaskRes);
-    // 申请做福利(一般用于"手动开始"的开始类型的福利)
     rpc ApplyForDoWelfare(ApplyForDoWelfareReq) returns (ApplyForDoWelfareRes);
 
     rpc PublishComment (PublishCommentReq) returns (PublishCommentRes);
@@ -3126,274 +2984,159 @@ service ActivityExtObj {
     rpc GiveALike (GiveALikeReq) returns (GiveALikeRes);
     rpc GiveALikeComment (GiveALikeCommentReq) returns (GiveALikeCommentRes);
 
-    // 用于H5上传图片分享
     rpc UploadFile(UploadFileReq) returns (UploadFileRes);
 
-    // 用户积分值
     rpc PlayerIntegralValue(PlayerIntegralValueReq) returns (PlayerIntegralValueRes);
-    // 积分抽奖列表
     rpc ListPlayerIntegralLottery(ListPlayerIntegralLotteryReq) returns (ListPlayerIntegralLotteryRes);
-    // 积分抽奖
     rpc PlayPlayerIntegralLottery(PlayPlayerIntegralLotteryReq) returns (PlayPlayerIntegralLotteryRes);
-    // 积分抽奖记录
     rpc PlayerPlayIntegralLotteryRecords(PlayerPlayIntegralLotteryRecordsReq) returns (PlayerPlayIntegralLotteryRecordsRes);
-    // 奖金池领取状态
     rpc PlayerBonusPoolReceiveStatus(PlayerBonusPoolReceiveStatusReq) returns (PlayerBonusPoolReceiveStatusRes);
-    // 预估能领取数
     rpc PlayerBonusPoolReceiceNum(PlayerBonusPoolReceiceNumReq) returns (PlayerBonusPoolReceiceNumRes);
-    // 领取瓜分的金币
     rpc PlayerBonusPoolReceice(PlayerBonusPoolReceiceReq) returns (PlayerBonusPoolReceiceRes);
 
-    // 活动任务进度列表
     rpc ActivityTaskScheduleList(ActivityTaskScheduleListReq) returns (ActivityTaskScheduleListRes);
 
-    // 520告白活动列表
     rpc H5ConfessionList (H5ConfessionListReq) returns (H5ConfessionListRes);
 
-    // 七夕告白活动列表
     rpc H5AuctionList (H5AuctionListReq) returns (H5AuctionListRes);
-    // 土豪冠名
     rpc H5AuctionRank (H5AuctionRankReq) returns (H5AuctionRankRes);
 
-    // 判断能否有首充奖励
     rpc IsPlayerCanHadChargeAward(IsPlayerCanHadChargeAwardReq) returns (IsPlayerCanHadChargeAwardRes);
-    // 歌王
     rpc H5KingOfSinging (H5KingOfSingingReq) returns (H5KingOfSingingRes);
-    // 歌王投票
     rpc H5KingOfSingingVote (H5KingOfSingingVoteReq) returns (H5KingOfSingingVoteRes);
-    // 歌王投票记录
     rpc H5KingOfSingingBeVoteRecord(H5KingOfSingingBeVoteRecordReq) returns (H5KingOfSingingBeVoteRecordRes);
-    // 获取周充值奖励
     rpc GetWeekRechargeAward (WeekRechargeAwardReq) returns (WeekRechargeAwardRes);
-    // 预测投票
     rpc ForecastVote(ForecastVoteReq) returns (ForecastVoteRes);
-    // 预测投票记录
     rpc ForecastVoteRecord(ForecastVoteRecordReq) returns (ForecastVoteRecordRes);
-    // 预测总投注数据
     rpc ForecastBonusPoolNum(ForecastBonusPoolNumReq) returns (ForecastBonusPoolNumRes);
-    // 预测用户投票数
     rpc ForecastPlayerBeVotingNum(ForecastPlayerBeVotingNumReq) returns (ForecastPlayerBeVotingNumRes);
 
-    // 获取房间奖励
     rpc RoomAwardData(RoomAwardDataReq) returns (RoomAwardDataRes);
-    // 领取房间奖励
     rpc RoomAwardReceive(RoomAwardReceiveReq) returns (RoomAwardReceiveRes);
 
-    // 开宝盒礼物
     rpc ActOpenGiftBox (ActOpenGiftBoxReq) returns (ActOpenGiftBoxRes);
     rpc ActGiftBoxRecord (ActGiftBoxRecordReq) returns (ActGiftBoxRecordRes);
-    // 获取幸运值
     rpc LotteryPoint (GetLotteryPointReq) returns (GetLotteryPointRes);
-    // 抽奖
     rpc DrawLucky (DrawLuckyReq) returns (DrawLuckyRes);
-    // 获取通知记录
     rpc ListNoticeRecord (ListNoticeRecordReq) returns (ListNoticeRecordRes);
-    // 获取抽奖记录
     rpc ListLotteryRecord (ListLotteryRecordReq) returns (ListLotteryRecordRes);
-    //获取特殊奖励数值
     rpc ListSpecialAward (ListSpecialAwardReq) returns (ListSpecialAwardRes);
     rpc ListPlayerActAward (ListPlayerActAwardReq) returns (ListPlayerActAwardRes);
 
-    // 获取瓜分记录
     rpc PartitionRecords(PartitionRecordsReq) returns (PartitionRecordsRes);
-    // 获取瓜分总额
     rpc PartitionTotal(PartitionTotalReq) returns (PartitionTotalRes);
 
-    // 判断用户是否已首储
     rpc IsPlayerDidFirstCharge(IsPlayerDidFirstChargeReq) returns (IsPlayerDidFirstChargeRes);
 
-    // 中奖纪录
     rpc WinGoodsRecords(WinGoodsRecordsReq) returns (WinGoodsRecordsRes);
 
-    // 活动奖励流水记录
     rpc ActAwardFlowRecord(ActAwardFlowRecordReq) returns (ActAwardFlowRecordRes);
 
-    // 老用户回归领取邀请用户奖励(输入邀请用户的id)
     rpc OldPlayerGetAwardByOtherPlayerID(OldPlayerGetAwardByOtherPlayerIDReq) returns (OldPlayerGetAwardByOtherPlayerIDRes);
 
-    //--------年兽---------//
-    // 年兽状态数据
     rpc MonsterNianStatus(MonsterNianStatusReq) returns (MonsterNianStatusRes);
-    // 获取道具攻击数据
     rpc MonsterNianGoodAttackData(MonsterNianGoodAttackDataReq) returns (MonsterNianGoodAttackDataRes);
-    // 使用道具攻击
     rpc MonsterNianAttack(MonsterNianAttackReq) returns (MonsterNianAttackRes);
-    // 发送组队邀请
     rpc MonsterNianSendInvite(MonsterNianSendInviteReq) returns (MonsterNianSendInviteRes);
-    // 处理邀请
     rpc MonsterNianHandleInvite(MonsterNianHandleInviteReq) returns (MonsterNianHandleInviteRes);
-    // 我的战队数据
     rpc MonsterNianTeamData(MonsterNianTeamDataReq) returns (MonsterNianTeamDataRes);
-    // 获取邀请组队消息数据
     rpc MonsterNianInviteMsgs(MonsterNianInviteMsgsReq) returns (MonsterNianInviteMsgsRes);
-    // 获取mvp记录
     rpc MonsterNianMvpRecords(MonsterNianMvpRecordsReq) returns (MonsterNianMvpRecordsRes);
 
-    //-------------直男直女答题活动---------------//
-    rpc QaJoin(QAJoinReq) returns (QAJoinRes);                       // 参与活动（确认性别）
-    rpc QASubmit(QASubmitReq) returns (QASubmitRes);                 // 提交答题
-    rpc QAward(QAwardReq) returns (QAwardRes);                       // 查看答题生成的礼物信息
-    rpc QAGetAward(QAGetAwardReq) returns (QAGetAwardRes);           // 领取礼物
-    rpc QAssitFriends(QAssitFriendsReq) returns (QAssitFriendsRes);  // 助力好友
-    rpc QAInit(QAInitReq) returns (QAInitRes);                       // 获取用户最新状态
+    rpc QaJoin(QAJoinReq) returns (QAJoinRes);
+    rpc QASubmit(QASubmitReq) returns (QASubmitRes);
+    rpc QAward(QAwardReq) returns (QAwardRes);
+    rpc QAGetAward(QAGetAwardReq) returns (QAGetAwardRes);
+    rpc QAssitFriends(QAssitFriendsReq) returns (QAssitFriendsRes);
+    rpc QAInit(QAInitReq) returns (QAInitRes);
 
-    //-------------红包雨活动---------------//
-    rpc HbyStart(HbyStartReq) returns (HbyStartRes);            // 抢红包
-    rpc HbyUserWin(HbyUserWinReq) returns (HbyUserWinRes);      // 用户抢到的红包
-    rpc HbyInit(HbyInitReq) returns (HbyInitRes);               // 用户最新状态
-    rpc HbyWithdrawalWindow(HbyWithdrawalWindowReq) returns (HbyWithdrawalWindowRes); // 提现弹窗
-    rpc HbyWithdrawal(HbyWithdrawalReq) returns (HbyWithdrawalRes);  // 一键提现
-    rpc HbyWithdrawalData(HbyWithdrawalDataReq) returns (HbyWithdrawalDataRes); // 提现记录
-    rpc HbyAwardMessage(HbyAwardMessageReq) returns (HbyAwardMessageRes);    // 跑马灯信息
+    rpc HbyStart(HbyStartReq) returns (HbyStartRes);
+    rpc HbyUserWin(HbyUserWinReq) returns (HbyUserWinRes);
+    rpc HbyInit(HbyInitReq) returns (HbyInitRes);
+    rpc HbyWithdrawalWindow(HbyWithdrawalWindowReq) returns (HbyWithdrawalWindowRes);
+    rpc HbyWithdrawal(HbyWithdrawalReq) returns (HbyWithdrawalRes);
+    rpc HbyWithdrawalData(HbyWithdrawalDataReq) returns (HbyWithdrawalDataRes);
+    rpc HbyAwardMessage(HbyAwardMessageReq) returns (HbyAwardMessageRes);
 
-    //---------一元夺宝---------//
-    // 物品列表
     rpc LuckFunGoodsList(LuckFunGoodsListReq) returns (LuckFunGoodsListRes);
-    // 夺宝
     rpc LuckFunSnatchTreasure(LuckFunSnatchTreasureReq) returns (LuckFunSnatchTreasureRes);
-    // 夺宝榜
     rpc LuckFunRankList(LuckFunRankListReq) returns (LuckFunRankListRes);
 
-    // 周年情书
     rpc GetAnniversary(AnniversaryReq) returns (AnniversaryRes);
 
-    //---------双方预测下注-------//
-    // 双方预测投注列表
     rpc DoubleForecastGambleList(DoubleForecastGambleListReq) returns (DoubleForecastGambleListRes);
-    // 双方预测下注
     rpc DoubleForecastBet(DoubleForecastBetReq) returns (DoubleForecastBetRes);
-    // 双方预测下注记录
     rpc DoubleForecastBetRecord(DoubleForecastBetRecordReq) returns (DoubleForecastBetRecordRes);
 
-    //---------彩票活动-------//
-    // 当前奖池状态数据
     rpc NumLotteryStatus(NumLotteryStatusReq) returns (NumLotteryStatusRes);
-    // 选择号码数
     rpc NumLotteryChosenNums(NumLotteryChosenNumsReq) returns (NumLotteryChosenNumsRes);
-    // 开奖结果/开奖历史
     rpc NumLotteryResults(NumLotteryResultsReq) returns (NumLotteryResultsRes);
-    // play
     rpc NumLotteryPlay(NumLotteryPlayReq) returns (NumLotteryPlayRes);
 
-    //---------Pkteam-------//
-    //查看Pk团队信息
     rpc FetchPkteamInfo(FetchPkteamInfoReq) returns (FetchPkteamInfoRes);
-    //修改团队口号
     rpc SetPkteamSlogan(SetPkteamSloganReq) returns (SetPkteamSloganRes);
-    //新建Pk团队
     rpc CreatePkteam(CreatePkteamReq) returns (CreatePkteamRes);
-    //申请加入Pk团队
     rpc ApplyPkteam(ApplyPkteamReq) returns (ApplyPkteamRes);
-    //团长同意某玩家加入Pk团队
     rpc AgreeApplyPkteam(AgreeApplyPkteamReq) returns (AgreeApplyPkteamRes);
-    //申请Pk
     rpc OpenPkteam(OpenPkteamReq) returns (OpenPkteamRes);
-    //查看Pk列表
     rpc FetchPkInfoList(FetchPkInfoListReq) returns (FetchPkInfoListRes);
-    //查看某玩家所在团队Pk信息
     rpc FetchPkInfo(FetchPkInfoReq) returns (FetchPkInfoRes);
-    //  通过pk轮次活动pk结果
     rpc FetchPkInfoByPkNum(FetchPkInfoByPkNumReq) returns (FetchPkInfoByPkNumRes);
-    //查看pk信息历史记录
     rpc FetchPkRecordList(FetchPkRecordListReq) returns (FetchPkRecordListRes);
-    // 助力天团
     rpc HelpTeam(HelpTeamReq) returns (HelpTeamRes);
 
-    // 获取活动时间内的用户房间直播数据
     rpc GetActPlayerRoomLiveData(GetActPlayerRoomLiveDataReq) returns (GetActPlayerRoomLiveDataRes);
 
-    //----------CPSupperzzle------------//
-    // 发送邀请
     rpc SendCPInvitation(SendCPInvitationReq) returns(SendCPInvitationRes);
-    // 邀请列表
     rpc CPInvitationList(CPInvitationListReq) returns (CPInvitationListRes);
-    // 处理邀请
     rpc HandleCPInvitation(HandleCPInvitationReq) returns (HandleCPInvitationRes);
-    // 获取CP信息
     rpc CPData(CPDataReq) returns (CPDataRes);
 
-    //---------------砍价-------------------//
-    // 砍价当前数据
     rpc BargainData(BargainDataReq) returns (BargainDataRes);
-    // 砍价物品列表
     rpc BargainList(BargainListReq) returns (BargainListRes);
-    // 砍价物品
     rpc BargainGoods(BargainGoodsReq) returns (BargainGoodsRes);
-    // 砍价商城列表
     rpc BargainStoreList(BargainStoreListReq) returns (BargainStoreListRes);
-    // 直接购买
     rpc BargainBuy(BargainBuyReq) returns (BargainBuyRes);
-    // 终止砍价
     rpc StopBargaining(StopBargainingReq) returns (StopBargainingRes);
-    // 砍价记录
     rpc BargainRecord(BargainRecordReq) returns (BargainRecordRes);
-    // 购买记录
     rpc BargainBuyRecord(BargainBuyRecordReq) returns (BargainBuyRecordRes);
 
-    //-----------跑跑猫---------------//
-    // 基本配置数据
     rpc RunCatConfigData(RunCatConfigDataReq) returns (RunCatConfigDataRes);
-    // 玩耍
     rpc RunCatPlay(RunCatPlayReq) returns (RunCatPlayRes);
-    // 上报结算结果
     rpc RunCatReportSettlementResult(RunCatReportSettlementResultReq) returns (RunCatReportSettlementResultRes);
-    // 玩耍记录
     rpc RunCatPlayRecord(RunCatPlayRecordReq) returns (RunCatPlayRecordRes);
 
-    //-----------藏宝阁-------------//
-    // 显示列表
     rpc TreasureHouseList(TreasureHouseListReq) returns (TreasureHouseListRes);
 
-    //------scratch_off_lottery------//
-    // 购买组数
     rpc BuyScratchOffLotteryTicks(BuyScratchOffLotteryTicksReq) returns (BuyScratchOffLotteryTicksRes);
-    // 开奖
     rpc ScratchOffLotteryOpen(ScratchOffLotteryOpenReq) returns (ScratchOffLotteryOpenRes);
-    // 状态
     rpc ScratchOffLotteryStatus(ScratchOffLotteryStatusReq) returns (ScratchOffLotteryStatusRes);
-    // 购买顺便直接开奖
     rpc BuyAndOpenScrarchOffLotteryTicks(BuyAndOpenScrarchOffLotteryTicksReq) returns (ScratchOffLotteryOpenRes);
 
-    //-------幸运星座----------//
-    // 一般数据信息
     rpc LuckConstellatoryData(LuckConstellatoryDataReq) returns (LuckConstellatoryDataRes);
-    // 翻牌
     rpc LuckConstellatoryDraw(LuckConstellatoryDrawReq) returns (LuckConstellatoryDrawRes);
-    // 翻牌记录
     rpc LuckConstellatoryRecord(LuckConstellatoryRecordReq) returns (LuckConstellatoryRecordRes);
 
-    //-----------礼物合成--------------//
-    // 熔炼信息
     rpc SmeltData(SmeltDataReq) returns (SmeltDataRes);
-    // 熔炼礼物
     rpc Smelting(SmeltingReq) returns (SmeltingRes);
-    // 熔炼记录
     rpc SmeltRecord(SmeltRecordReq) returns (SmeltRecordRes);
 
-    //-------------老虎机---------------//
-    // 基本信息
     rpc SlotMachineData(SlotMachineDataReq) returns (SlotMachineDataRes);
-    // 下注
     rpc SlotMachineBet(SlotMachineBetReq) returns (SlotMachineBetRes);
-    // 开奖记录
     rpc SlotMachineOpenRecords(SlotMachineOpenRecordsReq) returns (SlotMachineOpenRecordsRes);
-    // 下注记录
     rpc SlotMachineBetRecords(SlotMachineBetRecordsReq) returns (SlotMachineBetRecordsRes);
 
-    //-------------武林大会---------------//
     rpc WulinInitGame(WulinConfigReq) returns (WulinConfigRes);
     rpc WulinPk(WulinActionData) returns (WulinRecord);
     rpc WulinPkRecord(WulinRecordsReq) returns (WulinRecordsRes);
 
-    //------------靓号竞拍活动----------------//
     rpc AuctionAccountInit(AuctionAccountInitReq) returns (AuctionAccountInitRes);
     rpc AuctionAccountRecord(AuctionAccountRecordReq) returns (AuctionAccountRecordRes);
     rpc AuctionAccount(AuctionAccountReq) returns (AuctionAccountRes);
 
-    //------------老虎机2020----------------//
-    rpc SlotMachine2020Data(SlotMachine2020DataReq) returns (SlotMachine2020DataRes);//老虎机基础数据
-    rpc SlotMachine2020UserDate(SlotMachine2020UserDateReq) returns (SlotMachine2020UserDateRes);//老虎机用户活动金币信息
-    rpc SlotMachine2020WinRecords(SlotMachine2020WinRecordsReq) returns (SlotMachine2020WinRecordsRes);//老虎机获奖记录
-    rpc SlotMachine2020Bet(SlotMachine2020BetReq) returns (SlotMachine2020BetRes);//下注
+    rpc SlotMachine2020Data(SlotMachine2020DataReq) returns (SlotMachine2020DataRes);
+    rpc SlotMachine2020UserDate(SlotMachine2020UserDateReq) returns (SlotMachine2020UserDateRes);
+    rpc SlotMachine2020WinRecords(SlotMachine2020WinRecordsReq) returns (SlotMachine2020WinRecordsRes);
+    rpc SlotMachine2020Bet(SlotMachine2020BetReq) returns (SlotMachine2020BetRes);
 }
 

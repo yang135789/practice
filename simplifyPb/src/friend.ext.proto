@@ -4,78 +4,72 @@ option objc_class_prefix = "PB3";
 package pb;
 
 import "pb/common.ext.proto";
-//说明 Friender create_at 改名created 驼峰命名全改为下划线
 
 enum FriendErr {
-    ErrNone = 0; //占位
+    ErrNone = 0;
     ErrCodeAlready = 30001;
     ErrCodePushFail = 30002;
     ErrCodeFollowLimit = 30003;
     ErrCodeNoPlayer = 30004;
-    ErrCustomMax = 30020;  // 超过最大自定限制
+    ErrCustomMax = 30020;
 }
 
-// 200
 enum FriendCmdId {
-    NONE200 = 0; //占位
-    OPER_CMD_ID = 200103; //Friender 推送操作通知 如关注
-    ONLINE_CMD_ID = 200104; //Friender 用户上下线
-    ENTER_ROOM = 200105; //RoomNotice
+    NONE200 = 0;
+    OPER_CMD_ID = 200103;
+    ONLINE_CMD_ID = 200104;
+    ENTER_ROOM = 200105;
 
-    GreetNovice = 200200;  // 广播打招呼推送（接引人收到）
-    GreetNotice = 200201;  // 收到接待 （新手收到）
+    GreetNovice = 200200;
+    GreetNotice = 200201;
 }
 
 enum OperType {
-    NONE2001 = 0; //占位
-    FOLLOW = 1; // 关注
-    UNFOLLOW = 2; //取消关注
-    BLOCK = 3; //屏蔽用户
-    UNBLOCK = 4; //取消屏蔽
+    NONE2001 = 0;
+    FOLLOW = 1;
+    UNFOLLOW = 2;
+    BLOCK = 3;
+    UNBLOCK = 4;
 }
-// 好友类型
 enum FriendType {
-    FT_STRANGER = 0; // 陌生人
-    FT_BAN = -1; // 屏蔽
-    FT_FOLLOW = 1; // 关注
-    FT_FRIEND = 2; // 互粉
+    FT_STRANGER = 0;
+    FT_BAN = -1;
+    FT_FOLLOW = 1;
+    FT_FRIEND = 2;
 }
 
-// 消息类型
 enum PrivateMessageType {
     PMT_ZERO = 0;
-    PMT_TEXT = 1; // 文本消息
-    PMT_PICTURE = 2; // 图片
-    PMT_VOICE = 3; // 语音
-    PMT_VIDEO = 4; // 小视频
+    PMT_TEXT = 1;
+    PMT_PICTURE = 2;
+    PMT_VOICE = 3;
+    PMT_VIDEO = 4;
 }
 
 enum PrivateMessageRecordType {
     PMR_ZERO = 0;
-    PMR_SEND = 1; // 自己发送
-    PMR_RECEIVE = 2; // 收到
-    PMR_DELETE = 3; // 删除单条-- attachment：额外信息, 删除时记录消息ID
-    PMR_DELETE_PLAYER = 4;//删除个人  --attachment：playerId(玩家id)
+    PMR_SEND = 1;
+    PMR_RECEIVE = 2;
+    PMR_DELETE = 3;
+    PMR_DELETE_PLAYER = 4;
 }
 
-// 关注来源类型
 enum FollowSourceType {
-    FROM_ZERO=0;        // 默认
-    FROM_ROOM = 1;      // 来源于房间
+    FROM_ZERO=0;
+    FROM_ROOM = 1;
 }
 
-// 私聊消息, 有[S]标志的字段由发送端提供
 message PrivateMessage {
-    PrivateMessageType type = 1; // [S]
-    uint32 sent_at = 2; // 发送时间
+    PrivateMessageType type = 1;
+    uint32 sent_at = 2;
 
-    sint64 from = 5; // 发送者ID
+    sint64 from = 5;
     string from_name = 6;
 
-    sint64 to = 10; // [S]目标ID
+    sint64 to = 10;
 
-    string content = 15; // [S] 内容，非文本时可以存文件地址
-    string addon = 16; // [S] 附加数据，各种消息类型根据需要写入，如语音消息的音频长度
+    string content = 15;
+    string addon = 16;
 }
 
 message PrivateMessageRecord {
@@ -84,87 +78,78 @@ message PrivateMessageRecord {
     string attachment = 3;
 }
 
-//在线状态
 message Online {
     uint64 id = 1;
     bool online = 2;
 }
 
-// 好友
 message Friender {
     uint64 id = 1;
-    int32 type = 2; // [default=FT_STRANGER];
-    string alias = 3; // 备注名
+    int32 type = 2;
+    string alias = 3;
     string name = 4;
     int32 sex = 5;
     string icon = 6;
-    sint64 created = 8; // unix time
-    sint64 flag = 9; // PlayerFlags
+    sint64 created = 8;
+    sint64 flag = 9;
     bool online = 10;
-    int32 oper_type = 11;  //操作类型
-    int32 room_id = 12; //好友所在房间
-    string signature = 13; //签名
-    int64 countDownTime = 14;  // 如果小于或等于0 则表示可以 
-    int64 id2=15;   // 用户靓号
+    int32 oper_type = 11;
+    int32 room_id = 12;
+    string signature = 13;
+    int64 countDownTime = 14;
+    int64 id2=15;
 }
 
 message RoomNotice {
     uint64 player_id = 1;
-    int32 room_id = 2;  //推送房间传0
+    int32 room_id = 2;
 }
 
-//好友数量统计
 message FriendCount {
     int64 id = 1;
     int64 count = 2;
 }
 
-////无返回，错误在error中返回,error为空则表示发送成功
 message FriendCommonRes {
 }
 
-//好友列表
 message FriendListReq {
-    FriendType type = 1; //
-    int64 player_id = 2; //对外客户端不需要填写，主要用于对内rpc.GetFriendList
-    int32 page = 3;         // 请求的页面
-    int32 page_size = 4;    // 每页多少条数据
+    FriendType type = 1;
+    int64 player_id = 2;
+    int32 page = 3;
+    int32 page_size = 4;
 }
 
 message FriendListRes {
     repeated Friender list = 1;
-    int32 total = 2;    // 总计数量
+    int32 total = 2;
 }
 
-//设置备注
 message FriendAliasReq {
     uint64 id = 1;
     string name = 2;
 }
 
-//关注 屏蔽等操作
 message FriendOperReq {
     uint64 id = 1;
     OperType oper = 2;
-    FollowSourceType source_type=3; // 
+    FollowSourceType source_type=3;
 }
 
 message FriendOperRes {
     Friender friend = 1;
 }
 
-//批量关注 屏蔽等操作
 message FriendBatchOperReq {
     repeated int64 player_id = 1;
     OperType oper = 2;
-    FollowSourceType source_type=3; // 
+    FollowSourceType source_type=3;
 }
 
 message FriendBatchOperRes {
     repeated Friender friend = 1;
 }
 
-//获取用户的验证sig
 message UserSigReq {
 
 }
@@ -173,7 +158,6 @@ message UserSigRes {
     string sig = 1;
 }
 
-//好友操作
 message FriendsOperReq {
 
 }
@@ -182,7 +166,6 @@ message FriendsOperRes {
 
 }
 
-//好友批量取消关注
 message FriendsUnFollowReq {
     repeated int64 id = 1;
 }
@@ -191,27 +174,24 @@ message FriendsUnFollowRes {
 
 }
 
-//获取用户历史消息
 message PrivateMessageListReq {
-    int64 time = 1; //时间戳
+    int64 time = 1;
 }
 
 message PrivateMessageListRes {
     repeated PrivateMessageRecord record = 1;
 }
 
-//获得粉丝列表
 message FriendFansListReq {
-    int32 page = 1;         // 请求的页面
-    int32 page_size = 2;    // 每页多少条数据
-    FriendType type = 3; //
+    int32 page = 1;
+    int32 page_size = 2;
+    FriendType type = 3;
 }
 
 message FriendFansListRes {
     repeated Friender list = 1;
-    int32 total = 2;    // 总计数量
+    int32 total = 2;
 }
-//好友类型列表
 message FriendTypeListReq {
     repeated int64 ids = 1;
 }
@@ -221,9 +201,7 @@ message FriendTypeListRes {
 }
 
 
-// ---------- 打招呼 -------------
 
-// 新手
 message Novice {
     int64 player_id = 1;
     string player_name = 2;
@@ -231,23 +209,21 @@ message Novice {
     string icon = 4;
 }
 
-// cmdId=200200 广播打招呼推送
 message BroadcastNovice {
     repeated Novice list = 1;
-    int32 expire_time = 2;  // 此次推送的消息过期时间，unix时间截，跟服务器心跳时间对比
+    int32 expire_time = 2;
 }
 
-// cmdId=200201 收到接待
 message BroadcastGreet {
     string content = 1;
-    int64 player_id = 2; // 接待人
+    int64 player_id = 2;
     string player_name = 3;
-    int64 room_id = 4;  // 所在房间
+    int64 room_id = 4;
 }
 
 
 message AcceptGreetReq {
-    string content = 1;  // 聊天内容
+    string content = 1;
 }
 message AcceptGreetRes {
 }
@@ -260,17 +236,17 @@ message CancelGreetRes {
 message GreetContentListReq {
 }
 message GreetContentListRes {
-    map<int32, string> list = 1;  // key=id；value=content
-    repeated string system_content = 2;  // 快捷语
-    int32 custom_size = 3; // 自定义数量
+    map<int32, string> list = 1;
+    repeated string system_content = 2;
+    int32 custom_size = 3;
 }
 
 message AddGreetContentReq {
-    int32 id = 1;       // id > 0时修改
+    int32 id = 1;
     string content = 2;
 }
 message AddGreetContentRes {
-    int32 id = 1;     // 成功的id
+    int32 id = 1;
 }
 
 message DelGreetContentReq {
@@ -280,108 +256,91 @@ message DelGreetContentRes {
 }
 
 message ReplyGreetReq {
-    int64 player_id = 1; // 接待人id
+    int64 player_id = 1;
 }
 
 message ReplyGreetRes {
 }
 
-// 消息置顶
 message MessageTopReq {
-    int64 player_id = 1; // 好友id
-    int32 type=2; // 0:获取;1:要置顶;2:不置顶
+    int64 player_id = 1;
+    int32 type=2;
 }
 
 message MessageTopRes {
-    int32 type=1; // // 0:获取;1:要置顶;2:不置顶
-    int64 value=2; // 0:失败；1:成功;
-    repeated int64 list=3; //获取用户id;
+    int32 type=1;
+    int64 value=2;
+    repeated int64 list=3;
 }
-// 清空聊天記錄日期
 message MessageClearDataReq {
-    int64 player_id = 1; // 好友id
-    int32 type=2; // 0:设置;1:获取
+    int64 player_id = 1;
+    int32 type=2;
 }
 
 message MessageClearDataRes {
-    int32 type=1; // 0:设置;1:获取
-    int64 value=2; // 时间戳
+    int32 type=1;
+    int64 value=2;
 }
 
 
 message InviteAllFriendReq {
-  int64 room_id   = 1; // id
-  int64 player_id = 2;  //被邀請人Id
-  int32 pattern   = 3;  //房间模式
+  int64 room_id   = 1;
+  int64 player_id = 2;
+  int32 pattern   = 3;
 }
 
 message InviteAllFriendRes {
-  int64 countDownTime = 1;  // 如果小于或等于0 则表示可以 
-  string message      = 2;  // 空不提示 
+  int64 countDownTime = 1;
+  string message      = 2;
 }
 
-// 客户端上报位置信息
 message ReportDistanceReq {
-    double latitude = 1; // 纬度
-    double longitude = 2; // 经度
+    double latitude = 1;
+    double longitude = 2;
 }
 message ReportDistanceRes {
-    int32  interval = 1;//客户端上报位置时间间隔(秒)最低2分钟
+    int32  interval = 1;
 }
 
-// 好友相隔距离
 message NearbyDistanceReq {
     int64 friend_id = 1;
 }
 message NearbyDistanceRes {
-    int32 distance = 1; // 距离m  -1 不显示
+    int32 distance = 1;
 }
-// 好友的版本号过低
 
 message FriendVersionListReq {
-    FriendType type = 1; //
+    FriendType type = 1;
 }
 
 message FriendVersionListRes {
-    map<int64, int32> m = 1;  // int64 好友id； int32 FriendType
+    map<int64, int32> m = 1;
 }
 
-// ---------- end -------------
 
 service FriendExtObj {
-    rpc FriendOper (FriendOperReq) returns (FriendOperRes); //好友操作 关注 屏蔽等
-    rpc FriendBatchOper (FriendBatchOperReq) returns (FriendBatchOperRes); //好友操作 关注 屏蔽等
-    rpc UserSig (UserSigReq) returns (UserSigRes); //获取用户的sig
-    rpc FriendAlias (FriendAliasReq) returns (FriendCommonRes); //修改好友备注
-    rpc FriendList (FriendListReq) returns (FriendListRes); //好友列表
-    rpc PrivateMessageList (PrivateMessageListReq) returns (PrivateMessageListRes); //获取私聊记录
-    rpc FriendsUnFollow (FriendsUnFollowReq) returns (FriendsUnFollowRes); //获取私聊记录
-    rpc FriendFansList (FriendFansListReq) returns (FriendFansListRes); //获得粉丝列表
-    rpc GetFriendTypeList (FriendTypeListReq) returns (FriendTypeListRes); //好友类型列表
+    rpc FriendOper (FriendOperReq) returns (FriendOperRes);
+    rpc FriendBatchOper (FriendBatchOperReq) returns (FriendBatchOperRes);
+    rpc UserSig (UserSigReq) returns (UserSigRes);
+    rpc FriendAlias (FriendAliasReq) returns (FriendCommonRes);
+    rpc FriendList (FriendListReq) returns (FriendListRes);
+    rpc PrivateMessageList (PrivateMessageListReq) returns (PrivateMessageListRes);
+    rpc FriendsUnFollow (FriendsUnFollowReq) returns (FriendsUnFollowRes);
+    rpc FriendFansList (FriendFansListReq) returns (FriendFansListRes);
+    rpc GetFriendTypeList (FriendTypeListReq) returns (FriendTypeListRes);
 
-    /*** 打招呼 ***/
+    
     rpc AcceptGreet (AcceptGreetReq) returns (AcceptGreetRes);
-    // 忽略打招呼
     rpc CancelGreet (CancelGreetReq) returns (CancelGreetRes);
-    // 新人回复打招呼
     rpc ReplyGreet (ReplyGreetReq) returns (ReplyGreetRes);
-    // 获取接待语
     rpc GreetContentList (GreetContentListReq) returns (GreetContentListRes);
-    // 添加接待语
     rpc AddGreetContent (AddGreetContentReq) returns (AddGreetContentRes);
-    // 删除接待语
     rpc DelGreetContent (DelGreetContentReq) returns (DelGreetContentRes);
-    // 消息置顶
     rpc GetMessageTop (MessageTopReq) returns (MessageTopRes);
-    // 清空聊天記錄日期
     rpc GetMessageClearData (MessageClearDataReq) returns (MessageClearDataRes);
-    //一键邀请全部好友功能
     rpc InviteAllFriend (InviteAllFriendReq) returns (InviteAllFriendRes);
-    // 客户端上报位置信息
     rpc ReportDistance (ReportDistanceReq) returns (ReportDistanceRes);
-    // 好友相隔距离
     rpc GetFriendDistance (NearbyDistanceReq) returns (NearbyDistanceRes);
-    // 好友的版本号过低
     rpc FriendVersionList (FriendVersionListReq) returns (FriendVersionListRes); 
 
 

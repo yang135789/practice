@@ -3,32 +3,32 @@ option objc_class_prefix = "PB3";
 package pb;
 
 enum CommonErr {
-  ErrCodeNone = 0;           //占位
-  ErrCodeRedis = 10001;      //系统繁忙  redis错误用系统繁忙替代
-  ErrCodeMysql = 10002;      //系统繁忙  mysql错误用系统繁忙替代
-  ErrCodeFrequency = 10003;  //请求过于频繁
-  ErrCodeParam = 10004;      //参数错误
-  ErrCodeNoMatchObj = 10005; //调用对象不匹配
-  ErrCodeBusy = 10006; //系统繁忙 一些极少出现，且不适合返回的错误
-  ErrCodeMaintain = 16666; // 服务器维护
+  ErrCodeNone = 0;
+  ErrCodeRedis = 10001;
+  ErrCodeMysql = 10002;
+  ErrCodeFrequency = 10003;
+  ErrCodeParam = 10004;
+  ErrCodeNoMatchObj = 10005;
+  ErrCodeBusy = 10006;
+  ErrCodeMaintain = 16666;
 }
 
 enum AwardType {
-  AT_None = 0;        // 站位
-  AT_Gift = 1;        // 礼物
-  AT_Gold = 2;        // 金币
-  AT_Effect = 3;      // 特效
-  AT_Diamond = 4;     // 钻石
-  AT_CatCurrency = 5; //喵券（喵币）
+  AT_None = 0;
+  AT_Gift = 1;
+  AT_Gold = 2;
+  AT_Effect = 3;
+  AT_Diamond = 4;
+  AT_CatCurrency = 5;
 }
 
 enum PhoneAre {
-  None = 0;          // 无
-  ChinaMainland = 1; // 中国大陆
-  ChinaTaiwan = 2;   // 中国台湾
-  ChinaHongKong = 3; // 中国香港
-  ChinaMacao = 4;    // 中国澳门
-  Other = 5;         // 其他
+  None = 0;
+  ChinaMainland = 1;
+  ChinaTaiwan = 2;
+  ChinaHongKong = 3;
+  ChinaMacao = 4;
+  Other = 5;
 }
 
 enum SexType {
@@ -37,151 +37,137 @@ enum SexType {
   FEMAIL = 2;
 }
 
-// 房间类型
 enum RoomType {
-  RT_GUILD = 0;    // 公会
-  RT_PERSONAL = 1; // 个人
-  RT_REWARD = 2;   // 返利房
+  RT_GUILD = 0;
+  RT_PERSONAL = 1;
+  RT_REWARD = 2;
 }
 
-// 审核类型
 enum AuditType {
-  AT_NONE = 0;       // 未审核
-  AT_INPROGRESS = 1; // 审核中
-  AT_SUCCESS = 2;    // 审核成功
-  AT_FAIL = 3;       // 审核失败
+  AT_NONE = 0;
+  AT_INPROGRESS = 1;
+  AT_SUCCESS = 2;
+  AT_FAIL = 3;
 }
 
-// 粉丝团勋章状态
 enum FansClubMedalStatus {
-  FC_NONE = 0;    // 未点亮
-  FC_NORMAL = 1;  // 已点亮
-  FC_FAST = 2;    // 加速中
-  FC_LOSING = 3;  // 衰退中
-  FC_FAILURE = 4; // 失效中
+  FC_NONE = 0;
+  FC_NORMAL = 1;
+  FC_FAST = 2;
+  FC_LOSING = 3;
+  FC_FAILURE = 4;
 }
 
-// 房间模式
 enum RoomPattern {
-  RP_GAME = 0;                    // 开黑
-  RP_STANDARD = 1;                // 娱乐美音
-  RP_HIGH_QUALITY = 2;            // 天籁之音
-  RP_PERSONAL = 20;               // 个人模式
-  RP_INTIMATE = 21;               // 挚友模式
-  RP_INTIMATE_ROOM = 22;          // 陪伴模式
-  RP_MATE = 60;                   // 交友
-  RP_JACK_BLACK = 61;             // 21点游戏模式
-  RP_JACK_BLACK_Competitive = 62; // 21点游戏竞技模式
+  RP_GAME = 0;
+  RP_STANDARD = 1;
+  RP_HIGH_QUALITY = 2;
+  RP_PERSONAL = 20;
+  RP_INTIMATE = 21;
+  RP_INTIMATE_ROOM = 22;
+  RP_MATE = 60;
+  RP_JACK_BLACK = 61;
+  RP_JACK_BLACK_Competitive = 62;
 }
 
-// 场景类型
 enum SceneType {
   ST_ZERO = 0;
-  ST_HOME = 1; // 直播房间
+  ST_HOME = 1;
 }
 
-// 房间管理员类型
 enum RoomAdminType {
-  RAT_GUEST = 0;        // 不属于本场景
-  RAT_NORMAL = 10;      // 普通成员
-  RAT_ADMIN = 20;       // 管理员
-  RAT_OWNER = 30;       // 房主
-  RAT_SUPER_ADMIN = 40; // 超级管理员
-  RAT_BLACK = -5;       // 黑名单
+  RAT_GUEST = 0;
+  RAT_NORMAL = 10;
+  RAT_ADMIN = 20;
+  RAT_OWNER = 30;
+  RAT_SUPER_ADMIN = 40;
+  RAT_BLACK = -5;
 }
 
-//守护团等级类型
 enum GuardType {
-  GT_ZERO = 0;    //枚举零值， 表示没有开通
-  GT_INVALID = 1; //剩余时间为0， 失效了
-  GT_BRONZE = 10; //青铜
-  GT_SILVER = 20; //白银
-  GT_GOLD = 30;   //黄金
+  GT_ZERO = 0;
+  GT_INVALID = 1;
+  GT_BRONZE = 10;
+  GT_SILVER = 20;
+  GT_GOLD = 30;
 }
 
 enum OnlineStateType {
-  OST_OFFLINE = 0;       // 离线
-  OST_DISCONNECTED = 20; // 连接断开
-  OST_BACKGROUND = 80;   // 后台在线
-  OST_ONLINE = 100;      // 在线
+  OST_OFFLINE = 0;
+  OST_DISCONNECTED = 20;
+  OST_BACKGROUND = 80;
+  OST_ONLINE = 100;
 }
 
 /**
  * 在线状态
  */
 message OnlineStatus {
-  OnlineStateType state = 1; // [default=OST_OFFLINE];
+  OnlineStateType state = 1;
   sint64 roomId = 2;
 }
 
-// 所使用客户端类型
 enum DeviceType {
   DT_UNKNOWN = 0;
   DT_FLASHPLAYER = 1;
   DT_ANDROID_PHONE = 20;
   DT_IOS_PHONE = 40;
-  DT_WINDOWS_ASSISTANT = 80; // 助手
+  DT_WINDOWS_ASSISTANT = 80;
   DT_ROBOT = 100;
-  DT_TOURIST = 120; // 游客
+  DT_TOURIST = 120;
 }
 
-// 系统提送token类型
 enum PushTokenType {
   PTT_ZERO = 0;
-  PTT_FIREBASE = 1; // firebase 推送
-  PTT_UMENG = 2;    //有盟      推送
+  PTT_FIREBASE = 1;
+  PTT_UMENG = 2;
 }
 
-// 用户个性标签类目
 message Catalog {
-  int64 id = 1;    // 类目ID
-  string name = 2; // 标签类目名
+  int64 id = 1;
+  string name = 2;
 }
 
-// 用户个性标签
 message Tag {
-  int64 id = 1;    // 标签ID
-  string name = 2; // 标签名
+  int64 id = 1;
+  string name = 2;
 }
 
-// 用于用户标签返回
 message TagBelong {
-  Tag tag = 1;    // 个性标签
-  int64 c_id = 2; // 标签所属类目ID
+  Tag tag = 1;
+  int64 c_id = 2;
 }
 
-// 玩家信息
 message Player {
-  sint64 id = 1; // 游客ID<=0
+  sint64 id = 1;
   string nickname = 2;
   SexType sex = 3;
-  sint64 id2 = 4;  // 靓号. ==0时没有
-  string icon = 5; // 图标
-  sint64 flags = 6; // 标志，按位存储。各位表示意思参考PlayerFlags
-  sint64 flags2 = 30; // 标志，按位存储。各位表示意思参考PlayerFlags_2
+  sint64 id2 = 4;
+  string icon = 5;
+  sint64 flags = 6;
+  sint64 flags2 = 30;
   sint64 charm = 8;
-  sint32 charmLevel = 15;  // 魅力等级
-  sint32 wealthLevel = 32; // 财富等级
-  sint32 wealth = 9;       // 财富值
-  uint32 online_exp = 10;  // 在线经验
-  uint32 createAt = 11;    // 注册时间
-  int32 vip_level = 12; // vip等级, 0: 非vip; 其他则是, 并且有等级
-  PlayerRoyalInfo royal_info = 13; //用户贵族特权数据
-  bool royal_rebate_can_take = 14;        //能否获取返赠金币
+  sint32 charmLevel = 15;
+  sint32 wealthLevel = 32;
+  sint32 wealth = 9;
+  uint32 online_exp = 10;
+  uint32 createAt = 11;
+  int32 vip_level = 12;
+  PlayerRoyalInfo royal_info = 13;
+  bool royal_rebate_can_take = 14;
 }
 
 message UserInfo {
   sint64 user_id = 1;
   string city = 2;
-  string signature = 3;     // 签名
-  string birthday = 4;      // 生日
-  sint32 intimate_slot = 5; // 挚友位数
-  string mind = 6;          // 心声
-  sint32 short_id_slot = 7; // 靓号槽数
-  bool city_switch = 8;     // 地区城市开关
+  string signature = 3;
+  string birthday = 4;
+  sint32 intimate_slot = 5;
+  string mind = 6;
+  sint32 short_id_slot = 7;
+  bool city_switch = 8;
 }
 
-// 跟随空间需要房间数据
 message FollowShowRoomData {
   int64 room_id = 1;
   bool show_room_info = 2;
@@ -189,253 +175,242 @@ message FollowShowRoomData {
   string room_icon = 4;
 }
 
-// 玩家信息
 message PlayerInfo {
   Player player = 1;
   UserInfo user = 2;
-  repeated Effect effect = 3;  //特效
-  repeated Certif certifs = 4; // 认证
-  ClanInfo clan = 6;           // 公会信息
+  repeated Effect effect = 3;
+  repeated Certif certifs = 4;
+  ClanInfo clan = 6;
 
-  int32 fans_num = 10;                  // 粉丝数
-  int64 room_id = 11;                   // 所在房间id
-  string friend_alias = 12;             // 好友别名
-  repeated RankShowInfo rank_list = 13; // 玩家排行信息（周榜，明显榜==）
-  FollowShowRoomData room_info = 14; //当前所在房间信息
-  repeated TagBelong tags = 15;      // 用户标签
-  OnlineStateType online_state = 16; // 在线状态
-  repeated int32 cert_ids = 17;      //认证列表(红人认证 。。。)
-  int32 account_type = 18;           // 账号类型：104：游客
-  RoyalType r_type = 19;             // 贵族类型
+  int32 fans_num = 10;
+  int64 room_id = 11;
+  string friend_alias = 12;
+  repeated RankShowInfo rank_list = 13;
+  FollowShowRoomData room_info = 14;
+  repeated TagBelong tags = 15;
+  OnlineStateType online_state = 16;
+  repeated int32 cert_ids = 17;
+  int32 account_type = 18;
+  RoyalType r_type = 19;
 }
 
 enum AccountFlags {
   AF_ZERO = 0;
-  AF_PHONE_VERIFIED = 1; // 手机号码是否验证
+  AF_PHONE_VERIFIED = 1;
 }
 
 message BagItem {
-  uint32 gift_id = 1;   // 礼物id
-  uint32 amount = 2;    // 数量
-  string cteate_at = 3; // 时间
+  uint32 gift_id = 1;
+  uint32 amount = 2;
+  string cteate_at = 3;
 }
 
 message AgodaKey { string permission_key = 1; }
 
 message FansClubPlayerData {
-  FansClubMedalStatus medal_status = 1; // 勋章状态
-  int64 medal_id = 2;                   // 勋章id
-  string fans_club_name = 3;            // 粉丝团名
-  int32 level = 4;                      // 用户粉丝等级
-  int64 exp = 5;                        // 粉丝经验值
-  int64 next_level_need_exp = 6; // 下一等级所需经验值(若为0, 则等级已满)
-  float fast_multiple = 7;    // 加速倍数
-  int32 continuous_days = 8;  // 连续天数
-  int64 losing_exp = 9;       // 衰退经验值
-  float losing_multiple = 10; // 衰退百分比
-  bool is_wear = 11;          // 是否佩戴中
-  int64 medal_room_id = 12;   // 勋章佩戴所属粉丝团房间id
+  FansClubMedalStatus medal_status = 1;
+  int64 medal_id = 2;
+  string fans_club_name = 3;
+  int32 level = 4;
+  int64 exp = 5;
+  int64 next_level_need_exp = 6;
+  float fast_multiple = 7;
+  int32 continuous_days = 8;
+  int64 losing_exp = 9;
+  float losing_multiple = 10;
+  bool is_wear = 11;
+  int64 medal_room_id = 12;
 }
 
-// Room.flags按位存储，
-//常量值表示对应位存储的内容
-//不是具体值
 enum RoomFlags {
   RF_ZERO = 0;
-  RF_GUARD_1 = 1;      // 天使庇护第1/2/3 改为 1个
-  RF_WEEKSTARROOM = 5; // 周星房间
+  RF_GUARD_1 = 1;
+  RF_WEEKSTARROOM = 5;
 }
 
-// [M] Player.flags按位存储，
-//常量值表示对应位存储的内容
-//不是具体值
 enum PlayerFlags {
   PF_ZERO = 0;
-  PF_CHARGE_0_GIFT = 1; // 是否领取任意充值礼包
-  PF_NEWYEAR_BAG = 2;   // 是否已领取了新年礼包
-  PF_BIND_AP = 3;       // 是否绑定支F宝
-  PF_BIND_BANK = 4;     // 是否绑定银行卡
-  PF_INVITE = 5;        // 是否邀请功能
-  PF_WEEKSTAR_0 = 18;   // 周星擂主
-  PF_WEEKSTAR_1 = 6;    // 周星第1
-  PF_WEEKSTAR_2 = 7;    // 周星第2
-  PF_WEEKSTAR_3 = 8;    // 周星第3
-  PF_VOICE_SILVER = 9;  // 声音大赛银话筒
-  PF_VOICE_GOLD = 10;   // 声音大赛金话筒
-  PF_CERTIF = 11;       // 是否陪玩认证
+  PF_CHARGE_0_GIFT = 1;
+  PF_NEWYEAR_BAG = 2;
+  PF_BIND_AP = 3;
+  PF_BIND_BANK = 4;
+  PF_INVITE = 5;
+  PF_WEEKSTAR_0 = 18;
+  PF_WEEKSTAR_1 = 6;
+  PF_WEEKSTAR_2 = 7;
+  PF_WEEKSTAR_3 = 8;
+  PF_VOICE_SILVER = 9;
+  PF_VOICE_GOLD = 10;
+  PF_CERTIF = 11;
 
-  PF_GUARD_PLAYER_1 = 12; // 天使第1
-  PF_GUARD_PLAYER_2 = 13; // 天使第2
-  PF_GUARD_PLAYER_3 = 14; // 天使第3
-  PF_GUARD_FANS_1 = 15;   // 守护第1
-  PF_GUARD_FANS_2 = 16;   // 守护第2
-  PF_GUARD_FANS_3 = 17;   // 守护第3
+  PF_GUARD_PLAYER_1 = 12;
+  PF_GUARD_PLAYER_2 = 13;
+  PF_GUARD_PLAYER_3 = 14;
+  PF_GUARD_FANS_1 = 15;
+  PF_GUARD_FANS_2 = 16;
+  PF_GUARD_FANS_3 = 17;
 
-  PF_CHARGE_FIRST = 32; // 新贵
+  PF_CHARGE_FIRST = 32;
 
-  PF_OFFICIAL_GUIDE = 30; // 官方指导员 (有管理权限)
+  PF_OFFICIAL_GUIDE = 30;
 
-  PF_HIGH_QUALITY = 35; // 优质认证
-  PF_SINGER = 36;       // 歌手认证
+  PF_HIGH_QUALITY = 35;
+  PF_SINGER = 36;
 
-  PF_BIND_PP = 37; // 是否绑定PP
+  PF_BIND_PP = 37;
 
-  PF_OFFICIAL_INSTRUCTOR = 38; // 官方指导员 (无权限，仅仅客户端显示图标)
-  PF_OFFICIAL_VOLUNTEER = 39; // 官方志愿者 (无权限，仅仅客户端显示图标)
-  PF_Greet = 40;              // 是否接引人
-  PF_COMPERE = 41;            // 主持认证
-  PF_ACCOMPLISHMENT = 42; // 才艺认证
-  PF_VOICE_GRADE = 43;    // 声优认证
-  PF_BIND_TW_BANK = 44;   // 是否绑定台湾银行卡
-  PF_JOURNALIST = 46;     // 记者认证
+  PF_OFFICIAL_INSTRUCTOR = 38;
+  PF_OFFICIAL_VOLUNTEER = 39;
+  PF_Greet = 40;
+  PF_COMPERE = 41;
+  PF_ACCOMPLISHMENT = 42;
+  PF_VOICE_GRADE = 43;
+  PF_BIND_TW_BANK = 44;
+  PF_JOURNALIST = 46;
 
-  PF_BIND_HK_BANK = 47;     // 是否绑定香港银行卡
-  PF_BIND_MYS_BANK = 48;    // 是否绑定马来西亚银行卡
-  PF_CRACKEGG_ALREADY = 49; // 是否砸过蛋
-  PF_RED_PERSON = 50;       // 红人认证
-  PF_BIND_INDIA_BANK = 51;  // 是否绑定印度银行卡
+  PF_BIND_HK_BANK = 47;
+  PF_BIND_MYS_BANK = 48;
+  PF_CRACKEGG_ALREADY = 49;
+  PF_RED_PERSON = 50;
+  PF_BIND_INDIA_BANK = 51;
 }
 
 enum PlayerFlags2 {
   PF2_ZERO = 0;
 
-  PF_CRACKEGG_BALL = 13; // 砸蛋喵球
+  PF_CRACKEGG_BALL = 13;
 
-  PF_MIZHUA_ANNUAL = 16;     // 咪爪周年尾灯
-  PF_SCENE_INFLUENTIAL = 17; // 最具影响力进场特效
-  PF_CHAIR_INFLUENTIAL = 18; // 最具影响力上麦特效
+  PF_MIZHUA_ANNUAL = 16;
+  PF_SCENE_INFLUENTIAL = 17;
+  PF_CHAIR_INFLUENTIAL = 18;
 
-  PF_MOON_FESTIVAL_CAKE = 19;   // 月饼
-  PF_MOON_FESTIVAL_RABBIT = 20; // 兔子
-  PF_MOON_FESTIVAL_CARD = 21;   // 中秋名片
-  PF_DE_LOVELY = 22;            //小可爱尾灯
-  PF_THE_PIT = 23;              //上坑特效
-  PF_CALLING_CARD = 24;         //名片特效
-  PF_DANDANJUN = 25;            // 蛋蛋菌尾灯
+  PF_MOON_FESTIVAL_CAKE = 19;
+  PF_MOON_FESTIVAL_RABBIT = 20;
+  PF_MOON_FESTIVAL_CARD = 21;
+  PF_DE_LOVELY = 22;
+  PF_THE_PIT = 23;
+  PF_CALLING_CARD = 24;
+  PF_DANDANJUN = 25;
 
-  PF_EVENT_DOUBLEDENIER_CHAIR_CHARM = 30;      //双旦上坑特效
-  PF_EVENT_DOUBLEDENIER_OPTIMUM_CP_LIGHT = 31; //最佳cp尾灯
-  PF_EVENT_DOUBLEDENIER_CP_LIGHT = 32;         // cp尾灯
-  PF_EVENT_DOUBLEDENIER_INFLUENTIAL1 = 34;     //咪爪第一携手进场特效
-  PF_EVENT_DOUBLEDENIER_INFLUENTIAL2 = 35;     //咪爪第二携手进场特效
-  PF_EVENT_DOUBLEDENIER_INFLUENTIAL3 = 36;     //咪爪第三携手进场特效
+  PF_EVENT_DOUBLEDENIER_CHAIR_CHARM = 30;
+  PF_EVENT_DOUBLEDENIER_OPTIMUM_CP_LIGHT = 31;
+  PF_EVENT_DOUBLEDENIER_CP_LIGHT = 32;
+  PF_EVENT_DOUBLEDENIER_INFLUENTIAL1 = 34;
+  PF_EVENT_DOUBLEDENIER_INFLUENTIAL2 = 35;
+  PF_EVENT_DOUBLEDENIER_INFLUENTIAL3 = 36;
 }
 
-// 自己可见,别的玩家不可见
 enum PlayerFlags3 {
   PF3_ZERO = 0;
-  PF_NO_TICKET = 1; // 送礼不增加甜豆
+  PF_NO_TICKET = 1;
 }
 
-// 开关类型
 enum OnOffType {
-  YEAR_BAG = 0;                   // 占位不能使用
-  CRACK_EGG = 1;                  // 砸蛋
-  INVITE = 7;                     // 邀请
-  INDEX_CATEGORY = 8;             // 首页分类屏蔽,
-  CERTIF = 9;                     // 认证开关,
-  GUARD = 10;                     // 守护天使
-  WEEK_STAR = 11;                 // 周星
-  EVENT_520 = 12;                 // 520活动开关
-  REAL_IDENTITY = 14;             // 实名认证开关
-  ANNIVERSARY = 16;               // 周年庆开关
-  NOVICE_GIFT = 17;               // 新版新手礼包开关
-  TJ_USER = 18;                   // 推荐用户设置开关
-  TJ_PERSONAL = 19;               // 推荐优质个人设置开关
-  MOON_FESTIVAL = 20;             // 中秋节开关
-  MIWO_WEALTH = 21;               // 咪窝财富栏开关
-  DE_LOVELY = 22;                 // 小可爱开关
-  EVENT_11 = 23;                  // 双十一活动开关
-  TJ_NEW = 24;                    // 推荐最新设置开关
-  TJ_USERDEFINE = 25;             // 推荐自定义设置开关
-  ROOM_TIP = 26;                  // 房间标签设置开关
-  BONUS_POOL = 27;                // 奖金池开关
-  SHORT_ID = 28;                  // 靓号库开关
-  TIME_COUNT = 29;                // 倒计时
-  HEAD_LINE = 30;                 // 广播交友头条开关
-  TIAO_TIAO = 31;                 // 跳跳开关
-  IOS_CERTIF_2 = 32;              // ios马甲包审核开关
-  TIAO_TIAO_SCREEN = 33;          // 跳跳界面开关
-  ROOM_ENTER = 34;                // 进入房间开关，客户端无需接入
-  ICE_BREAKING = 35;              // 破冰活动开关
-  CRACKEGG_FREEREWARD_ONOFF = 36; // 砸蛋免费礼物开关 客户端无需接入
-  CRACKEGG_SHIFT_ONOFF = 37;      // 砸蛋变身灰度开关
-  INVITE_AWARD_ONOFF = 38;        // 邀请有奖开关
-  HOT_SONG = 39;                  // 热门歌曲开关
-  CHARGE_AWARD_FIRST = 40;        // 首充奖励活动开关
-  CLAN = 41;                      // 公会开关
-  ROOM_PATTERN_HIGH_QUALITY = 42; // 房间天籁开关，客户端无需接入
-  ROOM_PATTERN_PERSONAL = 43;     // 房间个人模式开关
-  VIP = 44; // vip会员开关入口(仅仅入口, 不影响功能)
-  WEEK_RECHARGE_AWARD = 45;       // 周充值奖励活动开关
-  GAME_TAROT = 46;                // 塔罗牌 占星 开关
-  FANS_CLUB = 47;                 // 粉丝团开关
-  WEEK_STAR_NEW = 48;             // 周星2.0
-  GAME_RPS = 60;                  // 猜拳游戏
-  UPLOAD_IMG = 61;                // 上传图片开关
-  GUARD_TEAM = 62;                // 守护团开关
-  PERSONAL_MISSION = 63;          // 个人任务开关
-  RECEIVE_WINDOW = 64;            // 首页接引弹窗开关
-  VIDEO = 65;                     // 小视频开关
-  CHARGE_GUIDE = 66;              // 上8坑付费引导弹窗开关
-  FIRST_STORE_GIFT = 67;          // 首储大礼
-  COMMUNITY_TREND_ALL = 68;       // 社区动态开关（对所有人可见）
-  COMMUNITY_TREND_CLAN_OLLY = 69; // 社区动态开关（仅对工会可见）
-  COMMUNITY_TREND_GIF = 70;       // 社区动态开关（能否发送GIF）
-  SETTING_PRIVACY_ONOFF = 71;     // 隐私开关
-  MULTILINGUAL_ONOFF = 72;        // 多语言开关
-  SCAN_IMAGE_SEXY_ONOFF = 73;     // 鉴黄开关
-  SCAN_IMAGE_SEXY_REVIEW_ONOFF = 74; // 鉴黄暧昧开关
-  CHAT_ONLINE_ONOFF = 75;            // 在线聊天开关
-  COMMUNITY_TREND_AUTH_IMG = 76;     // 动态阅后即焚开关
-  ANCHOR_MISSION = 77;               // 主播任务
-  COMMUNITY_TREND_AUDIO = 78;        // 声频动态开关
-  CAT_CURRENCY_EXCHANGE_BTN = 79;    // 喵券兑换按钮（是否显示）
-  ROOM_MIKE_CHARM_ONOFF = 80;        // 麦序魅力值玩法开关
-  COMMUNITY_TREND_ANONYMOUS = 81;    // 匿名动态开关
-  CHARM_CURRENCY_EXCHANGE_BTN = 82;  // 魅力兑换按钮（是否显示）
-  ROYAL = 83;                        // 贵族开关
+  YEAR_BAG = 0;
+  CRACK_EGG = 1;
+  INVITE = 7;
+  INDEX_CATEGORY = 8;
+  CERTIF = 9;
+  GUARD = 10;
+  WEEK_STAR = 11;
+  EVENT_520 = 12;
+  REAL_IDENTITY = 14;
+  ANNIVERSARY = 16;
+  NOVICE_GIFT = 17;
+  TJ_USER = 18;
+  TJ_PERSONAL = 19;
+  MOON_FESTIVAL = 20;
+  MIWO_WEALTH = 21;
+  DE_LOVELY = 22;
+  EVENT_11 = 23;
+  TJ_NEW = 24;
+  TJ_USERDEFINE = 25;
+  ROOM_TIP = 26;
+  BONUS_POOL = 27;
+  SHORT_ID = 28;
+  TIME_COUNT = 29;
+  HEAD_LINE = 30;
+  TIAO_TIAO = 31;
+  IOS_CERTIF_2 = 32;
+  TIAO_TIAO_SCREEN = 33;
+  ROOM_ENTER = 34;
+  ICE_BREAKING = 35;
+  CRACKEGG_FREEREWARD_ONOFF = 36;
+  CRACKEGG_SHIFT_ONOFF = 37;
+  INVITE_AWARD_ONOFF = 38;
+  HOT_SONG = 39;
+  CHARGE_AWARD_FIRST = 40;
+  CLAN = 41;
+  ROOM_PATTERN_HIGH_QUALITY = 42;
+  ROOM_PATTERN_PERSONAL = 43;
+  VIP = 44;
+  WEEK_RECHARGE_AWARD = 45;
+  GAME_TAROT = 46;
+  FANS_CLUB = 47;
+  WEEK_STAR_NEW = 48;
+  GAME_RPS = 60;
+  UPLOAD_IMG = 61;
+  GUARD_TEAM = 62;
+  PERSONAL_MISSION = 63;
+  RECEIVE_WINDOW = 64;
+  VIDEO = 65;
+  CHARGE_GUIDE = 66;
+  FIRST_STORE_GIFT = 67;
+  COMMUNITY_TREND_ALL = 68;
+  COMMUNITY_TREND_CLAN_OLLY = 69;
+  COMMUNITY_TREND_GIF = 70;
+  SETTING_PRIVACY_ONOFF = 71;
+  MULTILINGUAL_ONOFF = 72;
+  SCAN_IMAGE_SEXY_ONOFF = 73;
+  SCAN_IMAGE_SEXY_REVIEW_ONOFF = 74;
+  CHAT_ONLINE_ONOFF = 75;
+  COMMUNITY_TREND_AUTH_IMG = 76;
+  ANCHOR_MISSION = 77;
+  COMMUNITY_TREND_AUDIO = 78;
+  CAT_CURRENCY_EXCHANGE_BTN = 79;
+  ROOM_MIKE_CHARM_ONOFF = 80;
+  COMMUNITY_TREND_ANONYMOUS = 81;
+  CHARM_CURRENCY_EXCHANGE_BTN = 82;
+  ROYAL = 83;
 }
 
 message OnOffStatus {
-  sint32 status = 1; // 0关，1开
+  sint32 status = 1;
   OnOffType type = 2;
 }
 
-//房间类型的开关
 enum RoomOnOffType {
-  ROOT_NONE = 0;                    //占位不使用
-  ROOT_RED_ENVELOPE = 1;            // 红包开关
-  ROOT_SITCHAIR_CLAN = 2;           // 家族与上麦开关
-  ROOT_AC_ROOM_CHARGE_NOTICE = 3;   // 活动房间首充提示开关
-  ROOT_AC_ROOM_GAME_BLACK_LIST = 4; //游戏模式黑名单
-  ROOT_AC_ROOM_GAME_WHITE_LIST = 5; // 竞技模式白名单
-  ROOT_AC_ROOM_ACTIVITY = 6; // 特殊处理大型活动房间装饰开关
-  ROOT_AC_ROOM_TICKET_WHITE_LIST = 7; // 房间门票白名单
-  ROOM_INTIMATE_PATTERN = 8;          // 房亲密模式开关
+  ROOT_NONE = 0;
+  ROOT_RED_ENVELOPE = 1;
+  ROOT_SITCHAIR_CLAN = 2;
+  ROOT_AC_ROOM_CHARGE_NOTICE = 3;
+  ROOT_AC_ROOM_GAME_BLACK_LIST = 4;
+  ROOT_AC_ROOM_GAME_WHITE_LIST = 5;
+  ROOT_AC_ROOM_ACTIVITY = 6;
+  ROOT_AC_ROOM_TICKET_WHITE_LIST = 7;
+  ROOM_INTIMATE_PATTERN = 8;
 
-  ROOT_AC_ROOM_MINE_NORMAL_WHITE_LIST = 9;     //丢雷普通模式白名单
-  ROOT_AC_ROOM_MINE_AMUSEMENT_WHITE_LIST = 10; //丢雷娱乐模式白名单
+  ROOT_AC_ROOM_MINE_NORMAL_WHITE_LIST = 9;
+  ROOT_AC_ROOM_MINE_AMUSEMENT_WHITE_LIST = 10;
 }
 
 message RoomOnOffStatus {
   RoomOnOffType type = 1;
-  sint32 status = 2; // 0关，1开
+  sint32 status = 2;
 }
 
 message IndexTips {
-  int32 id = 1;          // id
-  string color = 2;      // 颜色
-  string url = 3;        // 首页标签url
-  string msg = 4;        // 中文说明
-  bool room_display = 5; // 默认false 为标签在房间显示，true不显示
-  string room_out_side_url = 6; // 房间外url
+  int32 id = 1;
+  string color = 2;
+  string url = 3;
+  string msg = 4;
+  bool room_display = 5;
+  string room_out_side_url = 6;
 }
 
 message IndexTipRooms {
-  int64 room_id = 1; //房间id
-  int32 tip_id = 2;  //标签id
-  //    bool   room_display = 3;  //是否在该房间显示。
+  int64 room_id = 1;
+  int32 tip_id = 2;
 }
 
 message RoomIndexConfig {
@@ -443,226 +418,208 @@ message RoomIndexConfig {
   IndexTips index_tips = 2;
 }
 
-// 搜索条目
 message SearchPlayerEntry {
   sint64 id = 1;
-  sint64 id2 = 2; // 靓号. ==0时没有
+  sint64 id2 = 2;
   string nickname = 3;
   SexType sex = 4;
-  string icon = 5; // 图标
+  string icon = 5;
   sint64 charm = 6;
-  sint32 charm_level = 7;  // 魅力等级
-  sint64 wealth = 8;       // 财富值
-  sint32 wealthl_evel = 9; // 财富等级
-  bool online = 10;        // [default=false];
-  sint64 room_id = 11;     //用户当前所在房间
+  sint32 charm_level = 7;
+  sint64 wealth = 8;
+  sint32 wealthl_evel = 9;
+  bool online = 10;
+  sint64 room_id = 11;
   bool has_passwd =
-      13; //用户在线并身处某房间时，标识该房间是否有密码,true为有密码，false为没有密码
-  sint64 flags = 14; // 标志，按位存储。各位表示意思参考PlayerFlags
-  repeated int32 cert_ids = 15; //认证id列表
+      13;
+  sint64 flags = 14;
+  repeated int32 cert_ids = 15;
 }
 
-// 首页条目
 message IndexEntry {
-  int64 id = 1; // 房间ID
+  int64 id = 1;
   RoomType type = 2;
-  sint64 id2 = 3; // 短号
+  sint64 id2 = 3;
   string name = 4;
-  string icon = 5; // 图标路径
+  string icon = 5;
   uint32 online = 6;
   bool has_passwd = 7;
-  sint32 is_show = 8;     // 0不在线,1在线
-  sint32 category = 9;    // 房间标签
-  sint32 pattern = 10;    //房间模式
-  string detailsImg = 11; //房间简介图片 （公告栏）
-  uint32 flags = 12;      // 房间标志位
+  sint32 is_show = 8;
+  sint32 category = 9;
+  sint32 pattern = 10;
+  string detailsImg = 11;
+  uint32 flags = 12;
   sint64 rank = 13;
-  bool isTop = 14;               // 是否置顶
-  string tjWord = 15;            //推荐语
-  sint64 fans = 16;              //关注量
-  sint64 room_id = 17;           // 用户所在的房间ID
-  sint32 highQualityOnline = 18; //优质主播在线人数
-  string label_url = 19; // 房间标签url， 不为空时，显示：http://cdn+label_url
-  string greeting = 20; // 简介
-  IndexTips tip = 21;   // tip
+  bool isTop = 14;
+  string tjWord = 15;
+  sint64 fans = 16;
+  sint64 room_id = 17;
+  sint32 highQualityOnline = 18;
+  string label_url = 19;
+  string greeting = 20;
+  IndexTips tip = 21;
 }
 
-// 特效类型
-enum EffectType {            // 300
-  EffectTypeNone = 0;        //
-  EffectTypeChatLight = 1;   //尾灯
-  EffectTypeEnterEffect = 2; //进场特效
-  EffectTypeChairEffect = 3; //上麦特效
-  EffectTypeEnterLight = 4;  //进场尾灯
-  EffectTypeUserCard = 5;    //个人名片
-  EffectTypeBubble = 6;      // 气泡
-  EffectTypeFansClub = 7;    // 粉丝团
+enum EffectType {
+  EffectTypeNone = 0;
+  EffectTypeChatLight = 1;
+  EffectTypeEnterEffect = 2;
+  EffectTypeChairEffect = 3;
+  EffectTypeEnterLight = 4;
+  EffectTypeUserCard = 5;
+  EffectTypeBubble = 6;
+  EffectTypeFansClub = 7;
 }
-enum EffectTimeType {      // 300
-  EffectTimeTypeAwary = 0; //  一直计时
-  EffectTimeTypeUse = 1;   //  使用
+enum EffectTimeType {
+  EffectTimeTypeAwary = 0;
+  EffectTimeTypeUse = 1;
 }
-enum EffectTipsType {        // 300
-  EffectTipsTypeGain = 0;    //  获得提示
-  EffectTipsTypeTimeout = 1; //  临时提示
+enum EffectTipsType {
+  EffectTipsTypeGain = 0;
+  EffectTipsTypeTimeout = 1;
 }
-// 特效
 message Effect {
-  int32 id = 1;        // id
-  int32 flag = 2;      //标志预留
-  string str = 3;      //说明预留
-  EffectType type = 4; // 类型
+  int32 id = 1;
+  int32 flag = 2;
+  string str = 3;
+  EffectType type = 4;
 }
 
 message EffectConfig {
-  int32 id = 1;                              // id
-  EffectType type = 2;                       // type
-  string name = 3;                           //名字
-  string url = 4;                            //资源
-  string ver = 5;                            //版本
-  int32 target = 6;                          //目标
-  int32 timeout = 7;                         //时长
-  int32 sort = 8;                            //排序
-  string bg_url = 9;                         //资源2
-  string show_url = 10;                      //打开资源
-  string postfix_url = 11;                   //后缀资源
-  EffectTimeType time_type = 12;             //计时类型
-  string astrology_credit_exchange_url = 13; //占星积分兑换图像url
-  string head_url = 14;                      //头图
-  string body_url = 15;                      //中图
-  string foot_url = 16;                      //尾图
-  bool is_personality = 17;                  //是否个性装扮
-  int32 personality_sort = 18;               //装扮广场排序
+  int32 id = 1;
+  EffectType type = 2;
+  string name = 3;
+  string url = 4;
+  string ver = 5;
+  int32 target = 6;
+  int32 timeout = 7;
+  int32 sort = 8;
+  string bg_url = 9;
+  string show_url = 10;
+  string postfix_url = 11;
+  EffectTimeType time_type = 12;
+  string astrology_credit_exchange_url = 13;
+  string head_url = 14;
+  string body_url = 15;
+  string foot_url = 16;
+  bool is_personality = 17;
+  int32 personality_sort = 18;
   int32 tag =
-      19; //装扮广场标识 1: 活动 2：登入 3：个人任务 4：周星 5：vip 6：主播任务
-  string tag_text = 20;                  //装扮广场标识值
-  string description = 21;               //装扮广场详情描述
-  repeated ItemCurrency price_list = 22; //商品价格列表（用户展示）
-  int32 shop_item_id = 23;               // 关联商品id（用户购买）
-  bool is_royal = 24;               // 是否贵族特效
+      19;
+  string tag_text = 20;
+  string description = 21;
+  repeated ItemCurrency price_list = 22;
+  int32 shop_item_id = 23;
+  bool is_royal = 24;
 }
 
-// 认证类型
 enum CertifType {
-  CT_VOICE = 0;  // 声优陪聊
-  CT_GAME = 1;   // 游戏陪玩
-  CT_CHAT = 255; // 挂机陪聊
+  CT_VOICE = 0;
+  CT_GAME = 1;
+  CT_CHAT = 255;
 }
-// 认证
 message Certif {
-  CertifType type = 1; // t
-  int32 level = 2;     // 等级l. 段位=(等级/5)+1
+  CertifType type = 1;
+  int32 level = 2;
 
-  int32 exp = 3;        // 经验值
-  int32 notify = 4;     // 1开启/0关闭 // n
-  int64 gold_total = 5; // 累计咪爪数/100 // g
-  int32 exp_total = 6;  // 累计接单数 // e
+  int32 exp = 3;
+  int32 notify = 4;
+  int64 gold_total = 5;
+  int32 exp_total = 6;
 }
-// 认证列表
 message CertifList { repeated Certif entries = 1; }
 
-// 新开关模式状态
 enum ModelOnOffStatus {
-  ALL_OFF = 0;   // 全关
-  ALL_ON = 1;    // 全开
-  WHITELIST = 2; // 白名单
+  ALL_OFF = 0;
+  ALL_ON = 1;
+  WHITELIST = 2;
 }
 
-// vip开通类型
 enum VipOpenType {
-  Open = 0;       // 开通
-  Renewal = 1;    // 续费
-  Free = 2;       // 免费
-  Give = 3;       // 赠送
-  AcceptGive = 4; // 接受赠送
+  Open = 0;
+  Renewal = 1;
+  Free = 2;
+  Give = 3;
+  AcceptGive = 4;
 }
 
-// 新开关模式
 message ModelOnOff {
   OnOffType onOff = 1;
   ModelOnOffStatus status = 2;
 }
 
-// 排行榜
 message Rank {
   sint64 id = 1;
   string name = 2;
   SexType sex = 3;
-  uint32 level = 4; //财富或魅力等级
-  uint64 value = 5; //财富或魅力值
+  uint32 level = 4;
+  uint64 value = 5;
   uint32 res_time = 6;
-  uint32 gap_val = 7; // 差距值
+  uint32 gap_val = 7;
   string icon = 8;
-  uint32 ranking = 9;              // 排名
-  uint32 giftId = 10;              //礼物Id
-  sint32 gift_num = 11;            //总数
-  sint64 id2 = 12;                 // 靓号
-  int64 room_id = 13;              // 跟随
-  PlayerRoyalInfo royal_info = 14; // 贵族信息
+  uint32 ranking = 9;
+  uint32 giftId = 10;
+  sint32 gift_num = 11;
+  sint64 id2 = 12;
+  int64 room_id = 13;
+  PlayerRoyalInfo royal_info = 14;
 }
 
 enum RankType {
-  RT_ZERO = 0;   // 占位，不使用
-  RT_CHARM = 1;  // 魅力榜
-  RT_WEALTH = 2; // 财富榜
-  RT_GIFT = 3;   // 礼物榜
+  RT_ZERO = 0;
+  RT_CHARM = 1;
+  RT_WEALTH = 2;
+  RT_GIFT = 3;
 }
 
 enum LoadClickType {
-  LCT_ZERO = 0;            // 占位不使用
-  LCT_INTIMATE_DETAIL = 1; // 挚友详情
-  LCT_INTIMATE_STORE = 2;  // 挚友商城
+  LCT_ZERO = 0;
+  LCT_INTIMATE_DETAIL = 1;
+  LCT_INTIMATE_STORE = 2;
 }
 
 enum PayChannels {
   PC_UNKNOWN = 0;
-  PC_AP = 2; // 支付宝
+  PC_AP = 2;
   PC_WEIXIN = 5;
-  PC_AIP = 6;        // APPLE_IAP
-  PC_GP_BILLING = 8; // GOOGLE_PLAY
-  PC_PP = 10;        // PAYPAL
-  PC_NP = 12;        // 蓝新
+  PC_AIP = 6;
+  PC_GP_BILLING = 8;
+  PC_PP = 10;
+  PC_NP = 12;
   PC_MY_CARD = 14;
-  PC_EP = 16;                          // ExpressPay
-  PC_AgentDeliverGold = 17;            // 代理金币分发
-  PC_AgentChargeGold = 18;             // 代理金币充值
-  PC_AgentAdminDeductGold = 19;        // 代理后台扣币
-  PC_PS = 22;                          // Payssion
-  PC_AgentDeliverPresentGold = 23;     // 代理赠送金币分发
-  PC_AgentChargePresentGold = 24;      // 代理赠送金币充值
-  PC_AgentAdminDeductPresentGold = 25; // 代理赠送金币后台扣币
-  PC_MANUAL = 254;                     // 人工
-  PC_DEV = 255;                        // 开发
+  PC_EP = 16;
+  PC_AgentDeliverGold = 17;
+  PC_AgentChargeGold = 18;
+  PC_AgentAdminDeductGold = 19;
+  PC_PS = 22;
+  PC_AgentDeliverPresentGold = 23;
+  PC_AgentChargePresentGold = 24;
+  PC_AgentAdminDeductPresentGold = 25;
+  PC_MANUAL = 254;
+  PC_DEV = 255;
 }
 
-// 公会信息
 message ClanInfo {
-  int64 id = 1; // 公会id； 当状态开关列表中公会开启时，
-                // 判断clan_id>0时，显示公会入口, 入口url找h5同事提供
-  string icon_word = 2;  // 公会图标文字
-  string level_icon = 3; // 公会等级图片
-  string level_name = 4; // 公会等级名称
-  string name = 5;       // 公会名称
-  int64 level = 6;       //公会等级
+  int64 id = 1;
+  string icon_word = 2;
+  string level_icon = 3;
+  string level_name = 4;
+  string name = 5;
+  int64 level = 6;
 }
 
 message ClanInfoList { repeated ClanInfo list = 1; }
 
-// 资产收益类型
 enum AssetsMoneyType {
-  AssetsMoneyNone = 0; //无背景
-  //-------------------------金钱-----------------------------------
-  //获得
-  MTGGift = 1;       // 礼物收益
-  MTGGuardTeam = 47; // 守护团收益
+  AssetsMoneyNone = 0;
+  MTGGift = 1;
+  MTGGuardTeam = 47;
 
-  //失去
 
-  MTLGift = 10001;      //送出礼物
-  MTLGuardTeam = 10039; // 购买守护团
+  MTLGift = 10001;
+  MTLGuardTeam = 10039;
 }
 
-// 榜单信息
 message RankShowInfo {
   RankType type = 1;
   uint32 day_rank = 2;
@@ -670,17 +627,15 @@ message RankShowInfo {
   uint32 month_rank = 4;
 }
 
-//金币分发类型
 enum AgentType {
   AT_Zero = 0;
-  AT_Charge = 1;      //儲值
-  AT_Deliver = 2;     //發放
-  AT_AdminDeduct = 3; //后台扣发
+  AT_Charge = 1;
+  AT_Deliver = 2;
+  AT_AdminDeduct = 3;
 
-  //客户端显示使用
-  AT_ChargePresent = 4;      //儲值(赠送金币)
-  AT_DeliverPresent = 5;     //發放(赠送金币)
-  AT_AdminDeductPresent = 6; //后台扣发(赠送金币)
+  AT_ChargePresent = 4;
+  AT_DeliverPresent = 5;
+  AT_AdminDeductPresent = 6;
 }
 
 enum AccountType {
@@ -696,234 +651,216 @@ enum AccountType {
   AT_ROBOT = 200;
 }
 
-// 支持的短信渠道
 enum SmsChannelType {
-  SCT_SYSTEM = 0; // 系统默认，
+  SCT_SYSTEM = 0;
   SCT_MODTECH = 1;
 }
 
-// 短信验证类型
 enum SmsVerifyType {
   SVT_ZERO = 0;
-  SVT_BIND_PHONE = 1; //绑定手机
+  SVT_BIND_PHONE = 1;
 
-  SVT_END = 2; // 新增类型请在end前添加
+  SVT_END = 2;
 }
 
-// 升级提示方式
 enum ReleaseNoticeType {
-  RNT_NONE = 0;      // 不提示升级
-  RNT_RECOMMEND = 1; // 建议升级
-  RNT_FORCE = 2;     // 强制升级
+  RNT_NONE = 0;
+  RNT_RECOMMEND = 1;
+  RNT_FORCE = 2;
 }
-// 更新方式
 enum ReleaseUpdateType {
-  RUT_LINK = 0;  // 跳转链接
-  RUT_INAPP = 1; // 应用内更新
+  RUT_LINK = 0;
+  RUT_INAPP = 1;
 }
-//提示类型
 enum ReleaseNoticePageType {
-  RNPT_NONE = 0;  // 没有提示类型
-  RNPT_HOME = 1;  // app首页
-  RNPT_LOGIN = 2; // 登录首页
+  RNPT_NONE = 0;
+  RNPT_HOME = 1;
+  RNPT_LOGIN = 2;
 }
 
 enum PresentPlace {
-  PresentPlaceRoom = 0; // 在房间中
-  PresentPlaceIM = 1;   // 在IM中
+  PresentPlaceRoom = 0;
+  PresentPlaceIM = 1;
 }
 
-//发红包类型
 enum SendRedEnvelopeType {
-  SRET_PLAYER = 0; // 玩家自己发红包
-  SRET_ADMIN = 1;  // 系统发红包
+  SRET_PLAYER = 0;
+  SRET_ADMIN = 1;
 }
 
-// 黑白名单
 enum RosterType {
   RT_Zero = 0;
-  RT_BlackAnchorMission = 1;           //黑名单: 主播任务
-  RT_WhiteAnchorMissionGiftRebate = 2; //白名单: 主播任务礼物返点
+  RT_BlackAnchorMission = 1;
+  RT_WhiteAnchorMissionGiftRebate = 2;
 }
 
-// im自定义消息类型
 enum TimMsgType {
   TIM_ENTER_ROOM_INVITE = 0;
-  TIM_ENTER_ROOM_GREET = 5;       //接引人信息
-  TIM_ENTER_ROOM_START_LIVE = 6;  //開播信息
-  TIM_DIRECTION_SYS_MSG = 7;      //定向系统消息
-  TIM_COMMUNITY_INVITE = 8;       //动态小組邀请
-  TIM_COMMUNITY_SHARE = 9;        //动态分享
-  TIM_COMMUNIT_GROUP_SHARE = 10;  //小組分享
-  TIM_IM_EMOJI_MSG = 11;          //表情消息
-  TIM_IM_CHAT_GIFT = 12;          // im禮物
-  TIM_IM_CHAT_FAMILY_INVITE = 13; //家族邀请
-  TIM_GIVE_VIP = 14;              //赠送VIP
+  TIM_ENTER_ROOM_GREET = 5;
+  TIM_ENTER_ROOM_START_LIVE = 6;
+  TIM_DIRECTION_SYS_MSG = 7;
+  TIM_COMMUNITY_INVITE = 8;
+  TIM_COMMUNITY_SHARE = 9;
+  TIM_COMMUNIT_GROUP_SHARE = 10;
+  TIM_IM_EMOJI_MSG = 11;
+  TIM_IM_CHAT_GIFT = 12;
+  TIM_IM_CHAT_FAMILY_INVITE = 13;
+  TIM_GIVE_VIP = 14;
 }
 
-// 物品类型(物品子类型，物品绑定其他物品而添加类型)
 enum ItemType {
-  IT_ZERO = 0;                 //
-  IT_Gift = 1;                 // 礼物物品
-  IT_VIP = 2;                  // VIP物品
-  IT_Intimate_Background = 3;  // 亲密背景
-  IT_Intimate_TailLight = 4;   // 亲密尾灯
-  IT_Intimate_Head = 5;        // 亲密头框
-  IT_GEMSTONE = 6;             // 宝石
-  IT_LIANG = 7;                // 靓号
-  IT_DRESS_TAILLIGHT = 8;      // 尾灯 --- 绑定特效尾灯
-  IT_DRESS_APPROACH = 9;       // 进场---绑定特效进场
-  IT_DRESS_UPMIKE = 10;        // 上麦---绑定特效上麦
-  IT_DRESS_PERSONAL_CARD = 11; // 个人名片--绑定特效名片
-  IT_DRESS_BUBBLE = 12;        // 气泡---绑定特效气泡
-  IT_ROYAL_OPEN = 13;        // 贵族--开通物品
-  IT_ROYAL_RENEW = 14;        // 贵族--续费物品
+  IT_ZERO = 0;
+  IT_Gift = 1;
+  IT_VIP = 2;
+  IT_Intimate_Background = 3;
+  IT_Intimate_TailLight = 4;
+  IT_Intimate_Head = 5;
+  IT_GEMSTONE = 6;
+  IT_LIANG = 7;
+  IT_DRESS_TAILLIGHT = 8;
+  IT_DRESS_APPROACH = 9;
+  IT_DRESS_UPMIKE = 10;
+  IT_DRESS_PERSONAL_CARD = 11;
+  IT_DRESS_BUBBLE = 12;
+  IT_ROYAL_OPEN = 13;
+  IT_ROYAL_RENEW = 14;
 }
 
-// 商城页签类型
 enum ShopTagType {
-  STT_ZERO = 0;     // 保留
-  STT_GEMSTONE = 1; // 宝石
-  STT_TOOLS = 2;    // 道具
-  STT_LIANG = 3;    // 靓号
-  STT_DRESS = 4;    // 装扮
+  STT_ZERO = 0;
+  STT_GEMSTONE = 1;
+  STT_TOOLS = 2;
+  STT_LIANG = 3;
+  STT_DRESS = 4;
 }
 
-// 物品货币类型
 enum ItemCurrencyType {
-  ICT_ZERO = 0;     //
-  ICT_Gold = 1;     // 金币
-  ICT_Ticke = 2;    // 钻石
-  ICT_Integral = 3; // 积分
+  ICT_ZERO = 0;
+  ICT_Gold = 1;
+  ICT_Ticke = 2;
+  ICT_Integral = 3;
 }
-// 期限类型 1 3 7 30 90 180 365
 enum ItemTermType {
-  ITT_ZERO = 0;        //
-  ITT_One_Day = 1;     // 1天
-  ITT_Three_Day = 2;   // 3天
-  ITT_One_Week = 3;    // 7天
-  ITT_One_Month = 4;   // 1个月
-  ITT_Three_Month = 5; // 3个月
-  ITT_Six_Month = 6;   //半年
-  ITT_One_Year = 7;    // 1年
+  ITT_ZERO = 0;
+  ITT_One_Day = 1;
+  ITT_Three_Day = 2;
+  ITT_One_Week = 3;
+  ITT_One_Month = 4;
+  ITT_Three_Month = 5;
+  ITT_Six_Month = 6;
+  ITT_One_Year = 7;
 }
 
-// 商城类型
 enum ShopType {
-  ST_UNKNOWN = 0;  //
-  ST_Mizos = 1;    // 商城
-  ST_Intimate = 2; // 亲密商城
+  ST_UNKNOWN = 0;
+  ST_Mizos = 1;
+  ST_Intimate = 2;
 }
-// 商城用户类型
 enum ShopUserType {
-  SUT_ZERO = 0;      //
-  SUT_Buy = 1;       // 购买
-  SUT_Give = 2;      // 赠送
-  SUT_Buy_Give = 3;  // 购买 和赠送
-  SUT_Show_Only = 4; // 仅展示
+  SUT_ZERO = 0;
+  SUT_Buy = 1;
+  SUT_Give = 2;
+  SUT_Buy_Give = 3;
+  SUT_Show_Only = 4;
 }
 message ShopItem {
-  int32 level = 1;                      //等级
-  int32 sort = 2;                       //排序
-  ShopType shop_type = 3;               //商城类型
-  ShopUserType user_type = 4;           //用户类型
-  repeated ItemCurrency price_list = 5; //价格列表
-  int32 stock = 6;                      //库存  0-不限制 n-代表n次
-  int32 term = 7;                       //期限 分钟为单位
-  string image = 8;                     //图片
-  string description = 9;               //说明
-  int32 item_id = 10;                   //物品id
-  string item_name = 11;                //物品名字
-  ItemType item_type = 12;              //物品类型
-  string big_image = 13;                //大图片
-  string middle_image = 14;             //中图片
-  string smile_image = 15;              //小图片
-  int32 asset_id = 16;                  // 关联资源id
-  int32 asset_sub_id = 17;              // 关联资源子id
-  string background_image = 18;         // 背景图
-  string content_color = 19;            // 内容颜色
-  string right_corner_image = 20;       // 商品角标
-  bool need_vip = 21; //  vip (是否需要成为vip才能购买 true为是)
+  int32 level = 1;
+  int32 sort = 2;
+  ShopType shop_type = 3;
+  ShopUserType user_type = 4;
+  repeated ItemCurrency price_list = 5;
+  int32 stock = 6;
+  int32 term = 7;
+  string image = 8;
+  string description = 9;
+  int32 item_id = 10;
+  string item_name = 11;
+  ItemType item_type = 12;
+  string big_image = 13;
+  string middle_image = 14;
+  string smile_image = 15;
+  int32 asset_id = 16;
+  int32 asset_sub_id = 17;
+  string background_image = 18;
+  string content_color = 19;
+  string right_corner_image = 20;
+  bool need_vip = 21;
 }
 
 message ItemCurrency {
-  ItemCurrencyType currency_type = 1; //货币类型
-  ItemTermType term_type = 2;         //期限类型
-  int32 price = 3;                    //价格
-  int32 original_price = 4;           // 原价
-  bool is_discount = 5;               // 是否打折
+  ItemCurrencyType currency_type = 1;
+  ItemTermType term_type = 2;
+  int32 price = 3;
+  int32 original_price = 4;
+  bool is_discount = 5;
 }
 message MineNotifyPunishment {
-  int64 time = 1;        //惩罚到何时时间搓
-  string url = 2;        // url
-  int64 uid = 3;         //用户id
-  int64 server_time = 4; //服务器时间搓
+  int64 time = 1;
+  string url = 2;
+  int64 uid = 3;
+  int64 server_time = 4;
 }
 
-// 贵族
 enum RoyalType {
 
-  UNUSE = 0;    //无效
-  VISCOUNT = 1; //子爵
-  EARL = 2;     //伯爵
-  MARQUIS = 3;  //侯爵
-  DUKE = 4;     //公爵
-  KING = 5;     //国王
+  UNUSE = 0;
+  VISCOUNT = 1;
+  EARL = 2;
+  MARQUIS = 3;
+  DUKE = 4;
+  KING = 5;
 }
 
-// 贵族特权
 enum PrivilegeType {
-  unuse = 0;                //无效
-  OPEN_EFFECT = 1;          //开通特效
-  ROYAL_STATUS = 2;         //尊贵身份
-  INROOM_WELCOME = 3;       //进房欢迎
-  EXCLUSIVE_GIFT = 4;       //专属礼物
-  HOT_ADDITION = 5;         //热度加成
-  RANK_UP = 6;              //排名靠前
-  INROOM_SHOW = 7;          //进场特效
-  EXCLUSIVE_CS = 8;         //专属客服
-  WORLD_NOTICE = 9;         //全平台通知
-  CARD_FRAME = 10;          //名片边框
-  ANTI_HARASSMENT = 11;     //防骚扰
-  SPEAK_SHOW = 12;          //发言特效
-  UN_MUTE = 13;             //防禁言
-  UN_FOLLOW = 14;           //防跟随
-  INROOM_STEALTH = 15;      //隐身进房
-  RANK_ANONYMITY = 16;      //榜单匿名
-  CHAIR_ANONYMITY = 17;     //匿名上麦
-  UN_KICK_OUT = 18;         //防踢出
-  MORE_INTIMATE = 19;       //更多挚友
-  COMMUNITY_UNLIMLTED = 20; //喵圈无限制
+  unuse = 0;
+  OPEN_EFFECT = 1;
+  ROYAL_STATUS = 2;
+  INROOM_WELCOME = 3;
+  EXCLUSIVE_GIFT = 4;
+  HOT_ADDITION = 5;
+  RANK_UP = 6;
+  INROOM_SHOW = 7;
+  EXCLUSIVE_CS = 8;
+  WORLD_NOTICE = 9;
+  CARD_FRAME = 10;
+  ANTI_HARASSMENT = 11;
+  SPEAK_SHOW = 12;
+  UN_MUTE = 13;
+  UN_FOLLOW = 14;
+  INROOM_STEALTH = 15;
+  RANK_ANONYMITY = 16;
+  CHAIR_ANONYMITY = 17;
+  UN_KICK_OUT = 18;
+  MORE_INTIMATE = 19;
+  COMMUNITY_UNLIMLTED = 20;
 }
 
-// 贵族开通类型
 enum RoyalOpenChannelType {
-  notuse = 0;     //无效
-  APP = 1;       // app内购买
-  SELF = 2;      //内购
-  ADMIN = 3;     //后台开通
-  GIFT_CARD = 4; //礼物卡
+  notuse = 0;
+  APP = 1;
+  SELF = 2;
+  ADMIN = 3;
+  GIFT_CARD = 4;
 }
 
 message RoyalPrivilegeOnOffStatus {
-  PrivilegeType on_off_type = 1; // 开关类型
-  bool is_open = 2;              // 是否开启 true 为开启
+  PrivilegeType on_off_type = 1;
+  bool is_open = 2;
 }
 
 enum RoyalStatusType {
-  NONE = 0;               //无状态
-  ON_ROYAL = 1;           //贵族身份
-  OUT_TIME = 2;           //已过期
-  OUT_PROTECTOR_TIME = 3; //超过保护期
+  NONE = 0;
+  ON_ROYAL = 1;
+  OUT_TIME = 2;
+  OUT_PROTECTOR_TIME = 3;
 }
 
-// 贵族信息(用户过期/在保护期内数据也不返回)
 message PlayerRoyalInfo {
-  RoyalType r_type = 1;            // 贵族类型
-  int64 end_time = 2;              //贵族到期时间
-  bool rebate_can_take = 3;        //能否获取返赠金币(推荐不用)
-  map<int32, bool> switch_map = 4; //开关列表
-  int64 protector_time = 5;        //贵族到期保护期时间
-  RoyalStatusType r_status = 6;    //贵族状态
-  string name = 7;                 //贵族名称
+  RoyalType r_type = 1;
+  int64 end_time = 2;
+  bool rebate_can_take = 3;
+  map<int32, bool> switch_map = 4;
+  int64 protector_time = 5;
+  RoyalStatusType r_status = 6;
+  string name = 7;
 }

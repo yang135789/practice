@@ -5,66 +5,59 @@ import "pb/common.ext.proto";
 
 enum AssetsErr {
     AE_Success = 0;
-    ErrCodeAssetsNoGold = 32002; //金币不足，请及时充值哦
+    ErrCodeAssetsNoGold = 32002;
 }
-enum AssetsCmdId { //300
-                   AssetsNone1 = 0; //
-                   AssetsMoneyCmdId = 300101; //AssetsMoney 推送资产
-                   AssetsBagCmdId = 300102; //AssetsBag 推送背包变化
-                   AssetsEffectPlayer = 300103; //BcPlayerEffect 推送个人特效变化
-                   AssetsEffectRoom = 300104; //BcRoomEffect 推送到房间特效变化
-                   AssetsEffectTips = 300105; //EffectTips 推送特效提示
-                   AssetsEffectCleanUp = 300106; //BcEffectCleanUp 推送到房间清除特效
-                   AssetsAuthenticateConfig = 300107; //认证资源推送
+enum AssetsCmdId {
+                   AssetsNone1 = 0;
+                   AssetsMoneyCmdId = 300101;
+                   AssetsBagCmdId = 300102;
+                   AssetsEffectPlayer = 300103;
+                   AssetsEffectRoom = 300104;
+                   AssetsEffectTips = 300105;
+                   AssetsEffectCleanUp = 300106;
+                   AssetsAuthenticateConfig = 300107;
 }
-// 金钱资产
 message AssetsMoneyReq {
 }
 
 message AssetsMoney {
-    int32 gold         = 1;            //金币
-    uint32 silver       = 2;            //银币，暂时没有用
-    uint32 gift_ticket   = 3;            //钻石
-    uint32 charge       = 4;            //累计金额
-    uint32 cat_gold     =5;// 喵币
+    int32 gold         = 1;
+    uint32 silver       = 2;
+    uint32 gift_ticket   = 3;
+    uint32 charge       = 4;
+    uint32 cat_gold     =5;
 }
 
 message AssetsBag {
-    repeated BagItem items  = 1;            // 背包道具列表
+    repeated BagItem items  = 1;
 }
 
-// 金钱资产返回
 message AssetsMoneyRes {
-    uint32 flag         = 1;            //1请求返回，2推送
+    uint32 flag         = 1;
     AssetsMoney money   = 2;
 }
 
-// 背包请求
 message AssetsBagReq {
 }
 
-// 背包返回
 message AssetsBagRes {
-    uint32 flag             = 1;            //1请求返回全部，2推送单个更新
-    repeated BagItem items  = 2;            // 背包道具列表
+    uint32 flag             = 1;
+    repeated BagItem items  = 2;
 
 }
 
 
-//广播个人特效
 message BcPlayerEffect {
-  int64 player_id                       = 1;            //  
-  repeated Effect effect                 = 2;            //  
+  int64 player_id                       = 1;
+  repeated Effect effect                 = 2;
 }
-//广播房间特效
 message BcRoomEffect {
-  int64 player_id                       = 1;            //  
-  repeated Effect effect                 = 2;            //  
+  int64 player_id                       = 1;
+  repeated Effect effect                 = 2;
 }
-// 推送到房间清除特效
 message BcEffectCleanUp {
-  int64 player_id                       = 1;            //  
-  int32 effect_id                       = 2;//特效id
+  int64 player_id                       = 1;
+  int32 effect_id                       = 2;
 }
 message EffectConfigReq {
 }
@@ -72,29 +65,28 @@ message EffectConfigRes {
      map<int32, EffectConfig> list = 1;
 }
 message GetEffectReq {
-  int64 player_id               = 1;                 // 发起者
+  int64 player_id               = 1;
 }
 message GetEffectRes {
-  int32 flag                       = 1;            //  
-  int64 player_id               = 2;                 // 发起者
-  repeated Effect effect                 = 3;            //  
+  int32 flag                       = 1;
+  int64 player_id               = 2;
+  repeated Effect effect                 = 3;
 }
-//特效提示(个人)公屏
 message EffectTips {
-  int32 effect_id                       = 1;            //  
-  string effect_name                    = 2;            //  
-  EffectTipsType tip_type               = 3;            // 提示类型 
-  repeated int32 timeout                = 4;	// 结束时间 [年,月, 日, 时, 分, 秒]
-  int32 timeout_second                  = 5;	// 剩余秒数
-  EffectType type                       = 6;            //type
-  EffectTimeType time_type              = 7;            //计时类型
-  string msg                            = 8;            //自定义文字
+  int32 effect_id                       = 1;
+  string effect_name                    = 2;
+  EffectTipsType tip_type               = 3;
+  repeated int32 timeout                = 4;	
+  int32 timeout_second                  = 5;	
+  EffectType type                       = 6;
+  EffectTimeType time_type              = 7;
+  string msg                            = 8;
 }
 
 enum AssetsType {
-    AT_ZERO = 0; // 占位不使用
-    AT_Hammer = 1; // 锤子
-    AT_POINTS = 2; // 积分
+    AT_ZERO = 0;
+    AT_Hammer = 1;
+    AT_POINTS = 2;
 }
 message AsstesDetail {
     int32 id = 1;
@@ -106,24 +98,21 @@ message AsstesCollection {
 message GetAssetsConfReq {
 }
 message GetAssetsConfRes {
-    map<sint32, AsstesCollection> assets_conf = 1; // sint32 对应 AssetsType
+    map<sint32, AsstesCollection> assets_conf = 1;
 }
 
 
-//认证资源信息
 message AuthenticateData{
-  int32 id =1;            // 认证id
-  string icon=2;            // 认证图片
-  string dialog_icon=3;   // 弹窗图片
-  string name=4;    // 认证名称
+  int32 id =1;
+  string icon=2;
+  string dialog_icon=3;
+  string name=4;
 }
-// 加载认证资源
 message LoadAuthenticateDataReq {
 }
 message LoadAuthenticateDataRes {
   repeated AuthenticateData list=1;
 }
-//认证资源变更通知
 message NotifyAuthenticateDataChangeRes{
   repeated AuthenticateData list=1;
 }
@@ -134,71 +123,64 @@ message GoldCatExchangeReq{
 }
 
 enum ExchangeType {
-    Exchange_Type_ZERO = 0; // 占位不使用
-    Exchange_Type_Cat = 1; // 金币换猫币
-    Exchange_Type_Gold = 2; // 猫币换金币
-    Exchange_Type_Charm_To_Gold = 3; // 魅力换金币
-    Exchange_Type_Gold_To_Charm = 4; // 金币换魅力
+    Exchange_Type_ZERO = 0;
+    Exchange_Type_Cat = 1;
+    Exchange_Type_Gold = 2;
+    Exchange_Type_Charm_To_Gold = 3;
+    Exchange_Type_Gold_To_Charm = 4;
 }
 message GoldCatExchangeRes{
 
 }
 
-// 获取个人账单明细
 message PersonalBillReq {
 	sint64 playerId = 1;
-	uint32 type = 2;	// 1=收人；2=支出
-	uint32 page = 3;	// 页 从1开始，每页20条
+	uint32 type = 2;	
+	uint32 page = 3;	
 }
 message PersonalBillRes {
-	uint32 type = 1;	// 1=收人；2=支出
-	uint32 page = 2;	// 页
+	uint32 type = 1;	
+	uint32 page = 2;	
 	repeated PersonalBillInfo data = 3;
-  int64 total_give_gold = 4;  //送礼总金币值/钻石
-  int64 total_receive_gold = 5; //收礼总金币值/钻石
+  int64 total_give_gold = 4;
+  int64 total_receive_gold = 5;
 }
-// 账单信息
 message PersonalBillInfo {
-	uint32 type = 1; 	 // 类型
-	sint64 fansId = 2;	 // 粉丝id
+	uint32 type = 1; 	
+	sint64 fansId = 2;	
 	string fansName = 3;	 
-	uint32 giftId = 4;	// 礼物id/物品id
-	uint32 giftNum = 5;	// 礼物数量/物品数量
-	sint32 gold = 6;	// 金币值/钻石
-	uint32 createAt = 7;	// 创建时间
-	string remark = 8;	// 其它信息
+	uint32 giftId = 4;	
+	uint32 giftNum = 5;	
+	sint32 gold = 6;	
+	uint32 createAt = 7;	
+	string remark = 8;	
 	string fansIcon = 9;
-  string value = 10;//项目条目
-  bool is_anonymous=11;   // 是否匿名记录
+  string value = 10;
+  bool is_anonymous=11;
 }
 
-// GoldCharmExchangeReq GoldCharmExchangeReq
 message GoldCharmExchangeReq{
   int64 currency=1;
   ExchangeType op_type=2;
 }
 
-// GoldCharmExchangeRes GoldCharmExchangeRes
 message GoldCharmExchangeRes{
 }
 
 
 service AssetsExtObj {
-    rpc GetMoney (AssetsMoneyReq) returns (AssetsMoneyRes);     // 获取资产
-    rpc GetBag (AssetsBagReq) returns (AssetsBagRes);           // 获取背包
-    rpc GetEffect (GetEffectReq) returns (GetEffectRes);        // 获取个人特效
-    rpc GetEffectConf (EffectConfigReq) returns (EffectConfigRes);        // 获取特效配置
+    rpc GetMoney (AssetsMoneyReq) returns (AssetsMoneyRes);
+    rpc GetBag (AssetsBagReq) returns (AssetsBagRes);
+    rpc GetEffect (GetEffectReq) returns (GetEffectRes);
+    rpc GetEffectConf (EffectConfigReq) returns (EffectConfigRes);
 
-    //h5界面获取资产
     rpc H5Money (AssetsMoneyReq) returns (AssetsMoneyRes);
 
-    // 资产配置
     rpc GetAssetsConf (GetAssetsConfReq) returns (GetAssetsConfRes);
-      // 加载认证资源
     rpc LoadAuthenticateData(LoadAuthenticateDataReq)returns(LoadAuthenticateDataRes);
-    rpc GoldCatExchange(GoldCatExchangeReq)returns(GoldCatExchangeRes);//金币猫币互换
-    rpc GetPersonalBill(PersonalBillReq) returns (PersonalBillRes); // 获取个人账单明细
-    rpc GoldCharmExchange(GoldCharmExchangeReq)returns(GoldCharmExchangeRes);//金币魅力值互换
+    rpc GoldCatExchange(GoldCatExchangeReq)returns(GoldCatExchangeRes);
+    rpc GetPersonalBill(PersonalBillReq) returns (PersonalBillRes);
+    rpc GoldCharmExchange(GoldCharmExchangeReq)returns(GoldCharmExchangeRes);
 }
 
 
