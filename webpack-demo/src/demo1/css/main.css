@@ -1,0 +1,48 @@
+.csspic{
+    height: 400px;
+    width:800px;
+    /* background: url('../image/id=22631188 (しる).jpg') no-repeat 100% 100% / 100% 100%; */
+}
+.pic{
+    height: 400px;
+    width:800px;
+    background: url('../image/id=22631188 (しる).jpg') no-repeat 100% 100% / 100% 100%;
+}
+input[type=file]{
+    display: none;
+}
+
+#fileBox,#dirFileBox,#dirImgBox div{
+    width: 100px;
+    height: 150px;
+    padding: 5px;
+    border: 1px dashed #f1c000;
+    color: #b7b7b7;
+    text-align: center;
+    margin: 10px 0;
+}
+#fileBox i,#dirFileBox i {
+    display: inline-block;
+    font-size: 70px;
+    line-height: 150px;
+    margin: 0 auto;
+    font-style: normal;
+}
+#fileBox.hasImg i,#dirFileBox.hasImg i{
+    display: none;
+}
+#dirImgBox {
+    position: relative;
+    height: 172px;
+}
+#dirImgBox div{
+    transition: all 1s;
+    position: absolute;
+    float: left;
+    margin:5px;
+}
+#dirImgBox::after{
+    content: "";
+    display: block;
+    clear: both;
+}

@@ -6,7 +6,7 @@
   npm init -y 
 ```
 
-2. 安裝webpack和webpack-cli依賴
+2. 安裝webpack和webpack-cli依賴以及webpack-dev-server开发环境工具
 ``` 
   yarn add webpack webpack-cli --save-de
   
@@ -36,4 +36,12 @@
 ┃       ┣── index.js 項目入口
 ┃       ┗── index.html html模板
 ┗━━ package.json 
+```
+
+4. 依赖
+```
+webpack 打包工具
+webpack-cli 脚手架
+webpack-dev-server 本地开发服务
+commander 命令行解析工具
 ```
