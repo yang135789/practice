@@ -15,23 +15,34 @@ module.exports = {
   module: {
     rules: [{
         test: /\.s?css$/i, // 解析css, scss
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] // 解析順序,從右到左
+        use: [
+          // MiniCssExtractPlugin.loader,
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, "./.postcssrc"),
+              }
+            }
+          },
+          'sass-loader'
+        ] // 解析順序,從右到左
       },
       {
         test: /\.m?js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules/, // 排除符合条件的模块
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['@babel/preset-env', { targets: "defaults" }]
-            ]
+            configFile: path.resolve(__dirname,'./.babelrc') // 修改配置文件位置， 默认根目录
           }
         }
       }]
   },
   plugins:[ // 插件
-    new MiniCssExtractPlugin(),
+    // new MiniCssExtractPlugin(),
     new htmlWebpackPlugin({ // html模板插件
       filename: `${output}/index.html`, // 文件名
       chunks: ['index'], // 导入js文件

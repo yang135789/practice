@@ -1,17 +1,36 @@
 # webpack 搭建
 
-從零開始
-
-1. 新建目錄並初始化package.json文件  
+## 使用的工具
+```
+webpack5 打包程序
+babel7+corejs3 js兼容处理
+sass style预处理
+postcss css兼容处理
+vue3 项目框架
+```
+1. 初始化
 
 ``` 
-  npm init -y 
+  使用npm
+  npm install
+  使用yarn
+  yarn
 ```
 
-2. 安裝webpack和webpack-cli依賴以及webpack-dev-server开发环境工具
-``` 
-  yarn add webpack webpack-cli webpack-dev-server --dev
-  
+2. 命令
++ 本地开发
+```
+  使用npm
+  npm run dev proj=项目名
+  使用yarn
+  yarn dev proj=项目名
+```
++ 打包
+```
+  使用npm
+  npm run build proj=项目名
+  使用yarn
+  yarn build proj=项目名
 ```
 
 3. 项目结构
@@ -24,6 +43,7 @@
 ┃   ┣── libs js库
 ┃   ┗── utils 工具
 ┣━━ config 配置相关
+┃   ┣── .babelrc babel配置文件
 ┃   ┣── webpack.common.js webpack公用配置文件
 ┃   ┣── webpack.prod.js webpack生產配置文件
 ┃   ┗── webpack.dev.js webpack開發配置文件
@@ -53,34 +73,32 @@
 
 5. 項目依赖
 ```
-webpack 打包工具
-webpack-cli 脚手架
-webpack-dev-server 本地开发服务
-html-webpack-plugin html模板插件
-mini-css-extract-plugin 提取CSS到单独的文件
-css-loader css文件解析
-style-loader style解析
-sass-loader node-sass sass文件解析
-babel-loader @babel/core @babel/preset-env babel
+webpack // 打包工具
+webpack-cli // 脚手架
+webpack-dev-server // 本地开发服务
+html-webpack-plugin@next // html模板插件
+mini-css-extract-plugin // 提取CSS到单独的文件
+css-loader // 解析js中的css文件
+style-loader // 将css文件用style标签插入html
+sass-loader node-sass // sass文件解析
+postcss postcss-loader // 样式兼容处理
+postcss-preset-env // post预设环境
+babel-loader @babel/core // js兼容处理
+@babel/preset-env core-js //  babel预设环境，根据配置转换js， 按需加载需要用到corejs
 ```
-  
-6. 通過命令行啟動webpack  
-在package.json裡的script添加啟動命令  
-"build": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=prod"
-"dev": "./node_modules/.bin/webpack serve -c config/webpack.dev.js --env NODE_ENV=local"
-```
-  ./node_modules/.bin/webpack 局部運行webpack的路徑
-  serve 啟動本地開發, 需安裝webpack-dev-server, 沒有該參數默認打包
-   -c config/webpack.dev.js 根據webpack配置文件打包
-  --env NODE_ENV=local 環境變量
-```
-
-因為項目結構原因, 開發打包命令需要添加proj=項目名稱  
-如: yarn dev proj=demo
 
 99. 問題處理
-`
-安裝node-sass失敗
++ 安裝node-sass失敗
+```
 先卸載npm uninstall node-sass -D
 在yarn add node-sass --dev
-`
+```
++ 遇到警告
+```
+[DEP_WEBPACK_COMPILATION_ASSETS] DeprecationWarning: Compilation.assets will be frozen in future, all modifications are deprecated.
+Do changes to assets earlier, e. g. in Compilation.hooks.processAssets.
+Make sure to select an appropriate stage from Compilation.PROCESS_ASSETS_STAGE_*
+```
+```
+  安装html-webpack-plugin@next
+```

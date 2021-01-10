@@ -1,9 +1,5 @@
 body {
-  $a: 50px;
-  > div {
-    height: $a;
-  }
-  background-color: #aced;
+  background-color: #bad;
   box-sizing: border-box;
   display: flex;
   justify-content: space-evenly;
