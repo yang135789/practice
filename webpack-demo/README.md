@@ -6,7 +6,7 @@ webpack5 打包程序
 babel7+corejs3 js兼容处理
 sass style预处理
 postcss css兼容处理
-vue3 项目框架
+vue3 js框架
 ```
 1. 初始化
 
@@ -43,7 +43,9 @@ vue3 项目框架
 ┃   ┣── libs js库
 ┃   ┗── utils 工具
 ┣━━ config 配置相关
-┃   ┣── .babelrc babel配置文件
+┃   ┣── .babelrc babel配置文件，js兼容处理
+┃   ┣── .postcssrc postcss配置文件，css兼容处理
+┃   ┣── .browserslistrc browserslist配置文件，项目运行环境
 ┃   ┣── webpack.common.js webpack公用配置文件
 ┃   ┣── webpack.prod.js webpack生產配置文件
 ┃   ┗── webpack.dev.js webpack開發配置文件
@@ -85,6 +87,8 @@ postcss postcss-loader // 样式兼容处理
 postcss-preset-env // post预设环境
 babel-loader @babel/core // js兼容处理
 @babel/preset-env core-js //  babel预设环境，根据配置转换js， 按需加载需要用到corejs
+vue@next // vue3
+vue-loader@next @vue/compiler-sfc@next // vue文件解析 @vue/compiler-sfc需要vue的版本一致
 ```
 
 99. 問題處理
@@ -101,4 +105,15 @@ Make sure to select an appropriate stage from Compilation.PROCESS_ASSETS_STAGE_*
 ```
 ```
   安装html-webpack-plugin@next
+```
+
++ 引入.vue模块报错
+```
+Module build failed (from ./node_modules/vue-loader/lib/index.js):
+TypeError: Cannot read property 'parseComponent' of undefined
+    at parse (F:\practice\webpack-demo\node_modules\@vue\component-compiler-utils\dist\parse.js:15:23)
+    at Object.module.exports (F:\practice\webpack-demo\node_modules\vue-loader\lib\index.js:67:22)
+```
+```
+升级vue-loader到最新版本
 ```

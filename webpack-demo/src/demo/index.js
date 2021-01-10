@@ -1,4 +1,8 @@
-import './assets/style/index.css';
+import { createApp } from 'vue';
+import index from './index.vue';
+
+let app = createApp(index).mount('#app');
+console.log(app);
 // function a () {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
