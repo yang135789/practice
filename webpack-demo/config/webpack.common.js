@@ -3,14 +3,14 @@ const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
 const { VueLoaderPlugin } = require('vue-loader'); // vue解析插件
-const projPath = path.resolve(__dirname, `../src/${global.env.proj}/`);
-const output = path.resolve(__dirname, `../dist/${global.env.proj}/`);
+const entryPath = path.resolve(__dirname, `../src/${global.env.proj}/`);
+const outputPath = path.resolve(__dirname, `../dist/${global.env.proj}/`);
 module.exports = {
   entry: {
-    index: `${projPath}/index.js`
+    index: `${entryPath}/index.js`
   }, // 入口文件
   output: {
-    path: output, // 輸出項目路徑
+    path: outputPath, // 輸出項目路徑
     filename: 'js/[name].js', // 文件夹名 [name]就可以将出口文件名和入口文件名一一对应
     publicPath: '/' // 输出解析文件的目录
   },
@@ -27,15 +27,6 @@ module.exports = {
             outputPath: 'img'
           }
         }]
-      },
-      {
-        test: /\.(mp3)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 100 * 1024, // 大於100k轉碼
-          name: '[name].[hash:7].[ext]',
-          outputPath: 'static'
-        }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体处理
@@ -83,37 +74,38 @@ module.exports = {
           }
         }
       }
-      // , {
-      //   test: /\.html$/,
-      //   use: [ {
-      //     loader: 'html-loader',
-      //     options: {
-      //       attributes: false,
-      //       minimize: true
-      //     }
-      //   }]
-      // }
     ]
   },
   plugins:[ // 插件
-    new MiniCssExtractPlugin(),
-    new VueLoaderPlugin(),
-    // new CopyWebpackPlugin([{
-        // from: `${projPath}/static`,
-        // to: 'static',
-        // ignore: ['.*', '*.md'],
-      // }]),
+    new MiniCssExtractPlugin(), // css提取插件
+    new VueLoaderPlugin(), // vue-loader 插件
+    // copy custom static assets
+    new CopyWebpackPlugin({ // 复制插件,将static复制到打包路径里
+        patterns: [
+          {
+            from: path.join(entryPath, '/static'), // 从哪复制
+            to: path.join(outputPath, '/static'), // 复制到哪
+            // noErrorOnMissing: true, // 不提示未找到文件
+            globOptions: {
+              dot: true,
+              gitignore: true,
+              ignore: ['.*']
+            },
+            // 
+          },
+        ],
+      }),
     new htmlWebpackPlugin({ // html模板插件
-      filename: `${output}/index.html`, // 文件名
+      filename: `${outputPath}/index.html`, // 文件名
       chunks: ['index'], // 导入js文件
       inject: 'body', // 插入js位置
-      template: `${projPath}/index.html`, // 模板文件位置
+      template: `${entryPath}/index.html`, // 模板文件位置
     })
   ],
   resolve: {
     extensions: ['.js', '.json', 'scss', 'css', '.vue'], // 引入文件可以省略後綴
     alias: { // 別名
-      '@src': projPath
+      '@src': entryPath
     }
   }
 }

@@ -24,6 +24,7 @@ vue3 js框架
   npm run dev proj=项目名
   使用yarn
   yarn dev proj=项目名
+  本地开发模式下浏览器输入http://127.0.0.1:8080/webpack-dev-server， 可查看文件结构
 ```
 + 打包
 ```

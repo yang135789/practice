@@ -2,7 +2,7 @@
   <div class='mp3Play'>
     <audio
       ref="audio"
-      src="../static/Lupins.mp3"
+      src="/static/Lupins.mp3"
       v-show="false" 
       @pause="changeStatus('pause')"
       @play="changeStatus('play')"
