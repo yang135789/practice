@@ -100,6 +100,7 @@ module.exports = {
       chunks: ['index'], // 导入js文件
       inject: 'body', // 插入js位置
       template: `${entryPath}/index.html`, // 模板文件位置
+      clearCache: `<script>console.log(1111)</script>` // 自定义模板传参<%= htmlWebpackPlugin.options.clearCache %>
     })
   ],
   resolve: {
