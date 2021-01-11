@@ -1,16 +1,27 @@
 <template>
   <div class="home">
-    <h1>h1{{ tag }}</h1>
-    <p>p{{ tag }}</p>
+    <mp3Play></mp3Play>
+    <!-- <div><img src="./assets/image/29.jpg" alt=""></div> -->
   </div>
 </template>
-
 <script>
+import mp3Play from './components/mp3Play'
 export default {
+  components: {mp3Play},
   data () {
     return {
       tag: '标签'
     }
+  },
+  computed: {
+    test () {
+      let a = {a: 1, b: 2, c: 3};
+      let arr = Object.values(a);
+      return arr;
+    }
+  },
+  mounted () {
+
   }
 }
 </script>
@@ -19,7 +30,6 @@ export default {
 .home {
   width: 500px;
   height: 300px;
-  background: #adce;
   h1 {
     color: #bcad;
   }

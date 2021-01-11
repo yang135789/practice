@@ -2,7 +2,7 @@
   <div class='mp3Play'>
     <audio
       ref="audio"
-      :src="src"
+      src="../static/Lupins.mp3"
       v-show="false" 
       @pause="changeStatus('pause')"
       @play="changeStatus('play')"
@@ -14,7 +14,7 @@
       <div class="bar" :style="{width: `${time / duration * 100}%`}"></div>
       {{ currentTime }}
       </div>
-    <div class="playing"  :class="{run : browser.isIOS && isPlay}" ref="playing">
+    <div class="playing"  :class="{run :  isPlay}" ref="playing">
       <span class="playing__bar playing__bar1" :style="{height: arr[3] && `${(arr[3] / 255)  * 100}%`}"></span>
       <span class="playing__bar playing__bar2" :style="{height: arr[6] && `${(arr[6] / 255)  * 100}%`}"></span>
       <span class="playing__bar playing__bar3" :style="{height: arr[9] && `${(arr[9] / 255)  * 100}%`}"></span>
@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import { Browser } from 'UTILS/arouse'
 export default {
   data () {
     return {
@@ -37,7 +36,6 @@ export default {
       analyser: null,
       config: { attributes: true, childList: true, subtree: true },
       arr: [],
-      browser: Browser.getBrowser(), // 判斷瀏覽器
       index: 0
     }
   },
@@ -46,7 +44,7 @@ export default {
   },
   computed: {
     src () {
-      return `${location.origin}${location.pathname.replace('/index.html', '/')}static/Lupins.mp3?t=${window.timestamp}`
+      // return `${location.origin}${location.pathname.replace('/index.html', '/')}static/Lupins.mp3?t=${window.timestamp}`
     },
     currentTime () {
       let ts = parseInt(this.time);
@@ -60,12 +58,11 @@ export default {
       console.log(val)
       if (val === 'pause') {
         this.isPlay = false;
-        !this.browser.isIOS && cancelAnimationFrame(this.index);
+        cancelAnimationFrame(this.index);
       } else if (val === 'play') {
         this.duration = parseInt(this.audio.duration);
         this.isPlay = true;
-        console.log(!this.browser.isIOS && !this.audioCtx);
-        if (!this.browser.isIOS && !this.audioCtx) {
+        if (!this.audioCtx) {
           this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
           let source = this.audioCtx.createMediaElementSource(this.audio);
           let gainNode = this.audioCtx.createGain();
@@ -76,7 +73,7 @@ export default {
           gainNode.connect(this.audioCtx.destination);
           console.log(this.analyser, this.audioCtx.createMediaElementSource, source);
         }
-    	  !this.browser.isIOS && requestAnimationFrame(this.anime);
+    	  requestAnimationFrame(this.anime);
       } else if (val === 'start') {
         this.isPlay ? this.audio.pause() : this.audio.play();
       } else {

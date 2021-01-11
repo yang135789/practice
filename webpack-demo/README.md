@@ -82,6 +82,9 @@ html-webpack-plugin@next // html模板插件
 mini-css-extract-plugin // 提取CSS到单独的文件
 css-loader // 解析js中的css文件
 style-loader // 将css文件用style标签插入html
+url-loader // 
+file-loader //
+html-loader // 
 sass-loader node-sass // sass文件解析
 postcss postcss-loader // 样式兼容处理
 postcss-preset-env // post预设环境
@@ -89,6 +92,7 @@ babel-loader @babel/core // js兼容处理
 @babel/preset-env core-js //  babel预设环境，根据配置转换js， 按需加载需要用到corejs
 vue@next // vue3
 vue-loader@next @vue/compiler-sfc@next // vue文件解析 @vue/compiler-sfc需要vue的版本一致
+copy-webpack-plugin // 文件複製插件
 ```
 
 99. 問題處理

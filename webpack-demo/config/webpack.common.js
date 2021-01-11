@@ -1,6 +1,7 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
 const { VueLoaderPlugin } = require('vue-loader'); // vue解析插件
 const projPath = path.resolve(__dirname, `../src/${global.env.proj}/`);
 const output = path.resolve(__dirname, `../dist/${global.env.proj}/`);
@@ -9,19 +10,37 @@ module.exports = {
     index: `${projPath}/index.js`
   }, // 入口文件
   output: {
-    path: output, // 輸出路徑
+    path: output, // 輸出項目路徑
     filename: 'js/[name].js', // 文件夹名 [name]就可以将出口文件名和入口文件名一一对应
-    publicPath: './' // 导入文件的根路径
+    publicPath: '/' // 输出解析文件的目录
   },
   module: {
-    rules: [
-      {
-        test: /\.(png|svg|jpg|gif)$/i, // 解析图片
+    rules: [{
+        test: /\.(png|svg|jpe?g|gif)$/i, // 解析图片
+        // include: /to64\/*/,
+        // include: /\/static/,
         use: [{
-          loader: 'url-loader'
+          loader: 'url-loader',
+          options: {
+            limit: 100 * 1024, // 大於100k轉碼
+            name: '[name].[hash:7].[ext]', //文件名
+            outputPath: 'img'
+          }
         }]
-      }
-      ,{
+      },
+      {
+        test: /\.(mp3)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 100 * 1024, // 大於100k轉碼
+          name: '[name].[hash:7].[ext]',
+          outputPath: 'static'
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体处理
+        use: ['file-loader']
+      }, {
         test: /\.s?css$/i, // 解析css, scss
         use: [
           // MiniCssExtractPlugin.loader,
@@ -38,8 +57,23 @@ module.exports = {
           'sass-loader',
           // 'vue-style-loader'
         ] // 解析順序,從右到左
-      },
-      {
+      },{
+        test: /\.vue$/i, // .vue文件解析
+        exclude: /node_modules/,
+        use: [{
+          loader: 'vue-loader',
+          options: {
+            transformAssetUrls: {
+              video: ['src', 'poster'],
+              audio: 'src',
+              source: 'src',
+              img: 'src',
+              image: ['xlink:href', 'href'],
+              use: ['xlink:href', 'href']
+            }
+          }
+        }]
+      },  {
         test: /\.m?js$/, // js文件解析
         exclude: /node_modules/, // 排除符合条件的模块
         use: {
@@ -48,16 +82,27 @@ module.exports = {
             configFile: path.resolve(__dirname,'./.babelrc') // 修改配置文件位置， 默认根目录
           }
         }
-      }, {
-        test: /\.vue$/i,
-        use: [{
-          loader: 'vue-loader'
-        }]
-      }]
+      }
+      // , {
+      //   test: /\.html$/,
+      //   use: [ {
+      //     loader: 'html-loader',
+      //     options: {
+      //       attributes: false,
+      //       minimize: true
+      //     }
+      //   }]
+      // }
+    ]
   },
   plugins:[ // 插件
-    // new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin(),
     new VueLoaderPlugin(),
+    // new CopyWebpackPlugin([{
+        // from: `${projPath}/static`,
+        // to: 'static',
+        // ignore: ['.*', '*.md'],
+      // }]),
     new htmlWebpackPlugin({ // html模板插件
       filename: `${output}/index.html`, // 文件名
       chunks: ['index'], // 导入js文件
@@ -65,4 +110,10 @@ module.exports = {
       template: `${projPath}/index.html`, // 模板文件位置
     })
   ],
+  resolve: {
+    extensions: ['.js', '.json', 'scss', 'css', '.vue'], // 引入文件可以省略後綴
+    alias: { // 別名
+      '@src': projPath
+    }
+  }
 }
