@@ -1,8 +1,7 @@
   
-  function getUserMsg () {} // 處理客戶端調取方法報錯
 
   // 用來清除cdn緩存
-  var reg = /timestamp\s?=\s?\"([0-9]+)\"/; // 獲取打包時間戳
+  var reg = /timestamp\s?=\s?([0-9]+)/; // 獲取打包時間戳
   // 獲取url參數
   function getUrlParam (searchKey) {
     let searchParam = location.search;
@@ -60,7 +59,7 @@
   }
   
   requireHtml().then((res) => {
-    if (res === timestamp) {
+    if (Number(res) === timestamp) {
       console.log('打包時間:', new Date(Number(res)).toLocaleString());
     } else {
       location.replace(setUrlParam('t', res));

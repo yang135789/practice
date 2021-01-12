@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
@@ -100,7 +101,8 @@ module.exports = {
       chunks: ['index'], // 导入js文件
       inject: 'body', // 插入js位置
       template: `${entryPath}/index.html`, // 模板文件位置
-      clearCache: `<script>console.log(1111)</script>` // 自定义模板传参<%= htmlWebpackPlugin.options.clearCache %>
+      timestamp: `<script>var timestamp = ${Date.now()};</script>`,
+      clearCache: `<script>${fs.readFileSync(path.resolve(__dirname, 'clearCache.js'))}</script>` // 自定义模板传参<%= htmlWebpackPlugin.options.clearCache %>
     })
   ],
   resolve: {

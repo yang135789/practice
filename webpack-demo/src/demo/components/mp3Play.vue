@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     src () {
-      // return `${location.origin}${location.pathname.replace('/index.html', '/')}static/Lupins.mp3?t=${window.timestamp}`
+      return `${location.origin}${location.pathname.replace('/index.html', '/')}static/Lupins.mp3?t=${window.timestamp}`
     },
     currentTime () {
       let ts = parseInt(this.time);

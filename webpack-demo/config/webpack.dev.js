@@ -12,7 +12,7 @@ module.exports = env => {
     mode:'development', // 模式,'development' 开发 或 'production'生产
     devServer:{         //开发服务配置
       // publicPath: '/',
-      contentBase: `/static`, // 項目路徑
+      // contentBase: `/static`, // 項目路徑
       // contentBasePublicPath: '/static',
       // host: '0.0.0.0', // 設為0.0.0.0才能在局域網內訪問
       progress: true, // 進度打印在控制台
