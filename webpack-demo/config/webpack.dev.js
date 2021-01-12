@@ -1,10 +1,12 @@
 module.exports = env => {
-  global.env = env; // 将环境变量设为全局, 所有使用到该变量的必须再次后面引入
+  // global.env = env; // 将环境变量设为全局, 所有使用到该变量的必须再次后面引入
+  let [proj] = Object.keys(env).filter(key => /^:.*/.test(key));
+  global.proj = proj.slice(1);
+  console.log(global.proj, 111);
   const merge = require('webpack-merge');
   const path = require('path');
   const common = require('./webpack.common'); // 公用配置
-  const output = path.resolve(__dirname, `../dist/${global.env.proj}/`);
-  console.log(output);
+  const output = path.resolve(__dirname, `../dist/${global.proj}/`);
   // env 环境变量
   return merge(common, {
     // 原始源代码（仅限行）

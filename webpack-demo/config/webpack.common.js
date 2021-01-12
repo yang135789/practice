@@ -4,8 +4,8 @@ const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
 const { VueLoaderPlugin } = require('vue-loader'); // vue解析插件
-const entryPath = path.resolve(__dirname, `../src/${global.env.proj}/`);
-const outputPath = path.resolve(__dirname, `../dist/${global.env.proj}/`);
+const entryPath = path.resolve(__dirname, `../src/${global.proj}/`);
+const outputPath = path.resolve(__dirname, `../dist/${global.proj}/`);
 module.exports = {
   entry: {
     index: `${entryPath}/index.js`
