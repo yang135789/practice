@@ -22,6 +22,7 @@
     <div class="currentTime">
       {{ currentTime }}
     </div>
+    <div class="tip" @click="time++">{{ time }}</div>
   </div>
 </template>
 <script>

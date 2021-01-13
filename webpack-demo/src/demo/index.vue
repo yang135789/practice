@@ -8,6 +8,7 @@
       <img src="/static/29.jpg">
     </div>
     <mp3PlayToAudioJs></mp3PlayToAudioJs>
+    <router-view></router-view>
   </div>
 </template>
 <script>
