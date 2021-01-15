@@ -1,5 +1,5 @@
 syntax = "proto3";
-option objc_class_prefix = "PB3";
+option objc_class_prefix_cad = "PB3";
 package pb;
 import "pb/common.ext.proto";
 import "pb/friend.ext.proto";

@@ -343,6 +343,7 @@ function tokenize(source, alternateCommentMode) {
                 return null;
             push(token);
         }
+        console.log('peek', stack)
         return stack[0];
     }
 

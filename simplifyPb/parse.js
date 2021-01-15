@@ -15,7 +15,13 @@ var base10Re    = /^[1-9][0-9]*$/,
     fqTypeRefRe = /^(?:\.[a-zA-Z_][a-zA-Z_0-9]*)+$/,
     typeRefRe = /^(?:\.?[a-zA-Z_][a-zA-Z_0-9]*)(?:\.[a-zA-Z_][a-zA-Z_0-9]*)*$/;
 
-function parse(source, root = {nested: []}, filename) {
+/**
+ * 
+ * @param {*} source proto文件數據
+ * @param {*} rootJson 保存json數據
+ * @param {*} filename proto文件名
+ */
+function parse(source, rootJson, filename) {
 
   let head = true,
     pkg,
@@ -29,9 +35,9 @@ function parse(source, root = {nested: []}, filename) {
 
   var tn = tokenize(source),
     next = tn.next, // 跳到下一个非空字符
-    push = tn.push,
-    peek = tn.peek,
-    skip = tn.skip,
+    push = tn.push, // 保存到數組stack, 數組有值時, peek獲取stack第0個值, next獲取stack第一個值並刪除
+    peek = tn.peek, // 獲取下一個字符串並保存到數組stack中
+    skip = tn.skip, // 跳過一個字符
     cmnt = tn.cmnt;
 
   var token;
@@ -49,8 +55,8 @@ function parse(source, root = {nested: []}, filename) {
     if (!typeRefRe.test(pkg))
         throw illegal(pkg, "name");
     // 没有加载过该包添加对象
-    if (!root.nested[pkg]) {
-      root.nested[pkg] = {};
+    if (!rootJson.nested[pkg]) {
+      rootJson.nested[pkg] = {};
     }
     // ptr = ptr.define(pkg);
     skip(";");
@@ -70,7 +76,7 @@ function parse(source, root = {nested: []}, filename) {
     return values.join("");
   }
 
-  // 解析引入的包
+  // 解析引入的包import
   function parseImport() {
     var token = peek();
     var whichImports; // 引入的包，数组
@@ -91,7 +97,7 @@ function parse(source, root = {nested: []}, filename) {
     whichImports.push(token);
   }
 
-  // 解析语法版本
+  // 解析语法版本Syntax
   function parseSyntax() {
     skip("=");
     syntax = readString();
@@ -104,9 +110,9 @@ function parse(source, root = {nested: []}, filename) {
     skip(";");
   }
 
-   // 解析选项
+   // 解析选项option
   function parseOption(parent, token) {
-    var isCustom = skip("(", true); // true未没找到则报错
+    var isCustom = skip("(", true); // 選項true, 未找到不報錯
   
     /* istanbul ignore if */
     if (!typeRefRe.test(token = next()))
@@ -116,7 +122,7 @@ function parse(source, root = {nested: []}, filename) {
     var option = name;
     var propName;
   
-    if (isCustom) {
+    if (isCustom) { // 
         skip(")");
         name = "(" + name + ")";
         option = name;
@@ -128,9 +134,78 @@ function parse(source, root = {nested: []}, filename) {
         }
     }
     skip("=");
-    console.log(name,  option, propName);
-    // var optionValue = parseOptionValue(parent, name);
+    var optionValue = parseOptionValue(parent, name);
     // setParsedOption(parent, option, optionValue, propName);
+  }
+
+  // 給
+  function setOption(parent, name, value) {
+    if (!parent.options || parent.options[name] === undefined)
+        (parent.options || (parent.options = {}))[name] = value;
+    // if (parent.setOption)
+    //     parent.setOption(name, value);
+  }
+
+  function readValue(acceptTypeRef) {
+    var token = next();
+    switch (token) {
+        case "'":
+        case "\"":
+            push(token);
+            return readString();
+        case "true": case "TRUE":
+            return true;
+        case "false": case "FALSE":
+            return false;
+    }
+    try {
+        return parseNumber(token, /* insideTryCatch */ true);
+    } catch (e) {
+
+        /* istanbul ignore else */
+        if (acceptTypeRef && typeRefRe.test(token))
+            return token;
+
+        /* istanbul ignore next */
+        throw illegal(token, "value");
+    }
+  }
+
+  // 解析選項的值
+  function parseOptionValue(parent, name) {
+    if (skip("{", true)) { // 如果格式是 { a: "foo" b { c: "bar" } }
+        var result = {};
+        while (!skip("}", true)) {
+            /* istanbul ignore if */
+            if (!nameRe.test(token = next()))
+                throw illegal(token, "name");
+
+            var value;
+            var propName = token;
+            if (peek() === "{")
+                value = parseOptionValue(parent, name + "." + token);
+            else {
+                skip(":");
+                if (peek() === "{")
+                    value = parseOptionValue(parent, name + "." + token);
+                else {
+                    value = readValue(true);
+                    setOption(parent, name + "." + token, value);
+                }
+            }
+            var prevValue = result[propName];
+            if (prevValue)
+                value = [].concat(prevValue).concat(value);
+            result[propName] = value;
+            skip(",", true);
+        }
+        return result;
+    }
+
+    var simpleValue = readValue(true);
+    setOption(parent, name, simpleValue);
+    return simpleValue;
+    // Does not enforce a delimiter to be universal
   }
 
   // 抛出错误
@@ -171,7 +246,7 @@ function parse(source, root = {nested: []}, filename) {
 
         case "option":
 
-          parseOption(root, token);
+          parseOption(rootJson, token);
           skip(";");
           break;
 
@@ -187,4 +262,5 @@ function parse(source, root = {nested: []}, filename) {
       //     throw illegal(token);
     }
   }
+  console.log('輸出', rootJson);
 }

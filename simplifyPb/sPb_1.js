@@ -16,12 +16,13 @@ function findFiles(src) {
   let protoRoot = new protobuf.Root();
   // 筛选proto文件
   let files = fs.readdirSync(src, { encoding: 'utf-8' }).filter(str => /\.ext\.proto$/.test(str));
+  let root = {
+    nested: {}
+  }
   files.forEach(fileName => {
     // let prefix = fileName.split('.')[0];
-    let root = {
-      nested: {}
-    }
     let fileData = fs.readFileSync(path.resolve(src, fileName), { encoding: 'utf-8' }); // 保存读取的数据
-    parse(fileData, root, fileName)
+    parse(fileData, root, fileName);
   })
+  console.log(root);
 }
