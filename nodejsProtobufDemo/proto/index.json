@@ -67,6 +67,9 @@
           }
         },
         "LoginRes": {
+          "options": {
+            "allow_alias": true
+          },
           "fields": {
             "id": {
               "type": "int32",

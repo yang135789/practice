@@ -1,6 +1,6 @@
 syntax = "proto3";
 option objc_class_prefix = "PROTO";
-package pb;
+package dd;
 
 message RPCInput {
    string obj  = 1;
