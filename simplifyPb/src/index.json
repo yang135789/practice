@@ -1,180 +1,52 @@
 {
-  "options": {
-    "objc_class_prefix": "PB3"
-  },
   "nested": {
     "pb": {
       "nested": {
-        "AssetsMoneyReq": {
-          "fields": {}
-        },
-        "AssetsMoneyRes": {
-          "fields": {
-            "flag": {
-              "type": "uint32",
-              "id": 1
-            },
-            "money": {
-              "type": "AssetsMoney",
-              "id": 2
-            }
-          }
-        },
-        "AssetsMoney": {
-          "fields": {
-            "gold": {
-              "type": "int32",
-              "id": 1
-            },
-            "silver": {
-              "type": "uint32",
-              "id": 2
-            },
-            "giftTicket": {
-              "type": "uint32",
-              "id": 3
-            },
-            "charge": {
-              "type": "uint32",
-              "id": 4
-            },
-            "catGold": {
-              "type": "uint32",
-              "id": 5
-            }
-          }
-        },
-        "AssetsBagReq": {
-          "fields": {}
-        },
-        "AssetsBagRes": {
-          "fields": {
-            "flag": {
-              "type": "uint32",
-              "id": 1
-            },
-            "items": {
-              "rule": "repeated",
-              "type": "BagItem",
-              "id": 2
-            }
-          }
-        },
-        "AssetsExtObj": {
+        "ActivityExtObj": {
           "methods": {
-            "GetMoney": {
-              "requestType": "AssetsMoneyReq",
-              "responseType": "AssetsMoneyRes"
+            "GetActivity": {
+              "requestType": "GetActivityReq",
+              "responseType": "GetActivityRes"
             },
-            "GetBag": {
-              "requestType": "AssetsBagReq",
-              "responseType": "AssetsBagRes"
-            }
-          }
-        },
-        "ActivityType": {
-          "values": {
-            "Type_None": 0,
-            "Type_Normal": 1,
-            "Type_Task": 2
-          }
-        },
-        "ActivityLocation": {
-          "values": {
-            "Location_None": 0,
-            "Location_Left_Top": 1,
-            "Location_Right_Top": 2,
-            "Location_Bottom": 3,
-            "Location_Center": 4
-          }
-        },
-        "PlayerPageType": {
-          "values": {
-            "PlayerPageType_None": 0,
-            "One_Point_Point": 1,
-            "Two_Point_Point": 2,
-            "One_Num_Num": 3,
-            "Two_Num_NUm": 4,
-            "One_Num_Point": 5,
-            "Two_Point_Point_Count": 6
-          }
-        },
-        "RoomSubInfoShow": {
-          "values": {
-            "RoomSubInfoShow_None": 0,
-            "Show_Point": 1,
-            "Show_People": 2
-          }
-        },
-        "RelActivityType": {
-          "values": {
-            "Rel_Type_None": 0,
-            "Rel_Type_GoodNum": 1,
-            "Rel_Type_Sort_Send": 2,
-            "Rel_Type_Sort_Get": 3,
-            "Rel_Type_Mine": 4,
-            "Rel_Type_Sort_Pay": 5,
-            "Rel_Type_Sort_Consume": 6
-          }
-        },
-        "ActivityTaskType": {
-          "values": {
-            "Task_Type_None": 0,
-            "Task_Type_Pay": 1,
-            "Task_Type_Gift_Get": 2,
-            "Task_Type_Room_Gift_Get": 3,
-            "Task_Type_Gift_Send": 4,
-            "Task_Type_Room_Gift_Send": 5,
-            "Task_Type_Buy": 6,
-            "Task_Type_Family_Share": 8,
-            "Task_Type_Room_Online": 9,
-            "Task_Type_Room_Gift_Send_Player_Num": 10,
-            "Task_Type_Gift_Send_Player_Num": 11,
-            "Task_Type_Gift_Get_Player_Num": 12
-          }
-        },
-        "ActivityTaskTriggerType": {
-          "values": {
-            "Task_Trigger_Type_None": 0,
-            "Task_Trigger_Type_Repeated": 1,
-            "Task_Trigger_Type_Once": 2,
-            "Task_Trigger_Type_Day": 3
-          }
-        },
-        "ActivityTaskTriggerPointType": {
-          "values": {
-            "Task_Trigger_Point_Type_None": 0,
-            "Task_Trigger_Point_Type_Num": 1,
-            "Task_Trigger_Point_Type_Point": 2
-          }
-        },
-        "SortTypeExtendType": {
-          "values": {
-            "SortTypeExtendTypeNone": 0,
-            "SortTypeExtendTypePkTeam": 1
-          }
-        },
-        "SortPlayerTagType": {
-          "values": {
-            "SortPlayerTagTypeNone": 0,
-            "SortPlayerTagTypeLead": 1,
-            "SortPlayerTagTypeWin": 2,
-            "SortPlayerTagTypeLose": 3,
-            "SortPlayerTagTypeRebirth": 5
-          }
-        },
-        "RoomAwardDataReq": {
-          "fields": {}
-        },
-        "RoomAwardDataRes": {
-          "fields": {
-            "countDownSec": {
-              "type": "int64",
-              "id": 1
+            "NumLotteryResults": {
+              "requestType": "NumLotteryResultsReq",
+              "responseType": "NumLotteryResultsRes"
             },
-            "awardData": {
-              "type": "GiftConfigItem",
-              "id": 2
+            "NumLotteryChosenNums": {
+              "requestType": "NumLotteryChosenNumsReq",
+              "responseType": "NumLotteryChosenNumsRes"
+            },
+            "NumLotteryStatus": {
+              "requestType": "NumLotteryStatusReq",
+              "responseType": "NumLotteryStatusRes"
+            },
+            "PartitionTotal": {
+              "requestType": "PartitionTotalReq",
+              "responseType": "PartitionTotalRes"
+            },
+            "NumLotteryPlay": {
+              "requestType": "NumLotteryPlayReq",
+              "responseType": "NumLotteryPlayRes"
+            },
+            "PartitionRecords": {
+              "requestType": "PartitionRecordsReq",
+              "responseType": "PartitionRecordsRes"
+            },
+            "ScratchOffLotteryStatus": {
+              "requestType": "ScratchOffLotteryStatusReq",
+              "responseType": "ScratchOffLotteryStatusRes"
+            },
+            "BuyScratchOffLotteryTicks": {
+              "requestType": "BuyScratchOffLotteryTicksReq",
+              "responseType": "BuyScratchOffLotteryTicksRes"
+            },
+            "ScratchOffLotteryOpen": {
+              "requestType": "ScratchOffLotteryOpenReq",
+              "responseType": "ScratchOffLotteryOpenRes"
+            },
+            "BuyAndOpenScrarchOffLotteryTicks": {
+              "requestType": "BuyAndOpenScrarchOffLotteryTicksReq",
+              "responseType": "ScratchOffLotteryOpenRes"
             }
           }
         },
@@ -198,6 +70,50 @@
               "type": "ConfLottery",
               "id": 3
             }
+          }
+        },
+        "Activity": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "status": {
+              "type": "bool",
+              "id": 3
+            },
+            "type": {
+              "type": "ActivityType",
+              "id": 4
+            },
+            "startTime": {
+              "type": "int64",
+              "id": 5
+            },
+            "endTime": {
+              "type": "int64",
+              "id": 6
+            },
+            "resource": {
+              "type": "ActivityResource",
+              "id": 7
+            },
+            "rel": {
+              "rule": "repeated",
+              "type": "RelActivity",
+              "id": 8
+            }
+          }
+        },
+        "ActivityType": {
+          "values": {
+            "Type_None": 0,
+            "Type_Normal": 1,
+            "Type_Task": 2
           }
         },
         "ActivityResource": {
@@ -244,96 +160,31 @@
             }
           }
         },
-        "Int32s": {
-          "fields": {
-            "arr": {
-              "rule": "repeated",
-              "type": "int32",
-              "id": 1
-            }
+        "ActivityLocation": {
+          "values": {
+            "Location_None": 0,
+            "Location_Left_Top": 1,
+            "Location_Right_Top": 2,
+            "Location_Bottom": 3,
+            "Location_Center": 4
           }
         },
-        "ActivityTask": {
-          "fields": {
-            "id": {
-              "type": "int32",
-              "id": 1
-            },
-            "name": {
-              "type": "string",
-              "id": 2
-            },
-            "type": {
-              "type": "ActivityTaskType",
-              "id": 3
-            },
-            "triggerId": {
-              "rule": "repeated",
-              "type": "int32",
-              "id": 4
-            },
-            "triggerType": {
-              "type": "ActivityTaskTriggerType",
-              "id": 5
-            },
-            "triggerPoint": {
-              "type": "int64",
-              "id": 6
-            },
-            "triggerPointType": {
-              "type": "ActivityTaskTriggerPointType",
-              "id": 7
-            },
-            "reward": {
-              "rule": "repeated",
-              "type": "Int32s",
-              "id": 8
-            }
+        "PlayerPageType": {
+          "values": {
+            "PlayerPageType_None": 0,
+            "One_Point_Point": 1,
+            "Two_Point_Point": 2,
+            "One_Num_Num": 3,
+            "Two_Num_NUm": 4,
+            "One_Num_Point": 5,
+            "Two_Point_Point_Count": 6
           }
         },
-        "LotteryAward": {
-          "fields": {
-            "awardId": {
-              "type": "int64",
-              "id": 1
-            },
-            "awardNum": {
-              "type": "int64",
-              "id": 2
-            },
-            "type": {
-              "type": "int32",
-              "id": 3
-            },
-            "value": {
-              "type": "int64",
-              "id": 4
-            },
-            "description": {
-              "type": "string",
-              "id": 5
-            },
-            "imageUrl": {
-              "type": "string",
-              "id": 6
-            },
-            "name": {
-              "type": "string",
-              "id": 7
-            }
-          }
-        },
-        "LotteryStageAward": {
-          "fields": {
-            "stage": {
-              "type": "int64",
-              "id": 1
-            },
-            "list": {
-              "rule": "repeated",
-              "type": "LotteryAward",
-              "id": 2
-            }
+        "RoomSubInfoShow": {
+          "values": {
+            "RoomSubInfoShow_None": 0,
+            "Show_Point": 1,
+            "Show_People": 2
           }
         },
         "RelActivity": {
@@ -392,7 +243,18 @@
             }
           }
         },
-        "Activity": {
+        "RelActivityType": {
+          "values": {
+            "Rel_Type_None": 0,
+            "Rel_Type_GoodNum": 1,
+            "Rel_Type_Sort_Send": 2,
+            "Rel_Type_Sort_Get": 3,
+            "Rel_Type_Mine": 4,
+            "Rel_Type_Sort_Pay": 5,
+            "Rel_Type_Sort_Consume": 6
+          }
+        },
+        "ActivityTask": {
           "fields": {
             "id": {
               "type": "int32",
@@ -402,30 +264,116 @@
               "type": "string",
               "id": 2
             },
-            "status": {
-              "type": "bool",
+            "type": {
+              "type": "ActivityTaskType",
               "id": 3
             },
-            "type": {
-              "type": "ActivityType",
+            "triggerId": {
+              "rule": "repeated",
+              "type": "int32",
               "id": 4
             },
-            "startTime": {
-              "type": "int64",
+            "triggerType": {
+              "type": "ActivityTaskTriggerType",
               "id": 5
             },
-            "endTime": {
+            "triggerPoint": {
               "type": "int64",
               "id": 6
             },
-            "resource": {
-              "type": "ActivityResource",
+            "triggerPointType": {
+              "type": "ActivityTaskTriggerPointType",
               "id": 7
             },
-            "rel": {
+            "reward": {
               "rule": "repeated",
-              "type": "RelActivity",
+              "type": "Int32s",
               "id": 8
+            }
+          }
+        },
+        "ActivityTaskType": {
+          "values": {
+            "Task_Type_None": 0,
+            "Task_Type_Pay": 1,
+            "Task_Type_Gift_Get": 2,
+            "Task_Type_Room_Gift_Get": 3,
+            "Task_Type_Gift_Send": 4,
+            "Task_Type_Room_Gift_Send": 5,
+            "Task_Type_Buy": 6,
+            "Task_Type_Family_Share": 8,
+            "Task_Type_Room_Online": 9,
+            "Task_Type_Room_Gift_Send_Player_Num": 10,
+            "Task_Type_Gift_Send_Player_Num": 11,
+            "Task_Type_Gift_Get_Player_Num": 12
+          }
+        },
+        "ActivityTaskTriggerType": {
+          "values": {
+            "Task_Trigger_Type_None": 0,
+            "Task_Trigger_Type_Repeated": 1,
+            "Task_Trigger_Type_Once": 2,
+            "Task_Trigger_Type_Day": 3
+          }
+        },
+        "ActivityTaskTriggerPointType": {
+          "values": {
+            "Task_Trigger_Point_Type_None": 0,
+            "Task_Trigger_Point_Type_Num": 1,
+            "Task_Trigger_Point_Type_Point": 2
+          }
+        },
+        "Int32s": {
+          "fields": {
+            "arr": {
+              "rule": "repeated",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
+        "LotteryStageAward": {
+          "fields": {
+            "stage": {
+              "type": "int64",
+              "id": 1
+            },
+            "list": {
+              "rule": "repeated",
+              "type": "LotteryAward",
+              "id": 2
+            }
+          }
+        },
+        "LotteryAward": {
+          "fields": {
+            "awardId": {
+              "type": "int64",
+              "id": 1
+            },
+            "awardNum": {
+              "type": "int64",
+              "id": 2
+            },
+            "type": {
+              "type": "int32",
+              "id": 3
+            },
+            "value": {
+              "type": "int64",
+              "id": 4
+            },
+            "description": {
+              "type": "string",
+              "id": 5
+            },
+            "imageUrl": {
+              "type": "string",
+              "id": 6
+            },
+            "name": {
+              "type": "string",
+              "id": 7
             }
           }
         },
@@ -470,19 +418,6 @@
             }
           }
         },
-        "ConfLotteryPoint": {
-          "fields": {
-            "point": {
-              "type": "int32",
-              "id": 1
-            },
-            "rate": {
-              "keyType": "int32",
-              "type": "int32",
-              "id": 2
-            }
-          }
-        },
         "ConfLottery": {
           "fields": {
             "relId": {
@@ -496,691 +431,24 @@
             }
           }
         },
-        "SlotMachine2020DataReq": {
+        "ConfLotteryPoint": {
           "fields": {
-            "actId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "actRelId": {
-              "type": "uint32",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020DataRes": {
-          "fields": {
-            "playPayInfo": {
-              "rule": "repeated",
-              "type": "SlotMachine2020PlayPayInfo",
-              "id": 1
-            },
-            "itemInfo": {
-              "rule": "repeated",
-              "type": "SlotMachine2020ItemInfo",
-              "id": 2
-            },
-            "formulaInfo": {
-              "rule": "repeated",
-              "type": "SlotMachine2020Formula",
-              "id": 3
-            },
-            "giftId": {
-              "type": "uint32",
-              "id": 4
-            },
-            "giftName": {
-              "type": "string",
-              "id": 5
-            }
-          }
-        },
-        "SlotMachine2020PlayPayInfo": {
-          "fields": {
-            "id": {
-              "type": "uint32",
-              "id": 1
-            },
-            "gold": {
-              "type": "uint32",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020ItemInfo": {
-          "fields": {
-            "id": {
-              "type": "string",
-              "id": 1
-            },
-            "icon": {
-              "type": "string",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020Formula": {
-          "fields": {
-            "formula": {
-              "type": "string",
-              "id": 1
-            },
-            "multiple": {
-              "type": "uint32",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020UserDateReq": {
-          "fields": {
-            "actId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "actRelId": {
-              "type": "uint32",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020UserDateRes": {
-          "fields": {
-            "totalWinGold": {
-              "type": "uint32",
-              "id": 1
-            },
-            "todayWinGold": {
-              "type": "uint32",
-              "id": 2
-            }
-          }
-        },
-        "SlotMachine2020WinRecordsReq": {
-          "fields": {
-            "actId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "actRelId": {
-              "type": "uint32",
-              "id": 2
-            },
-            "page": {
-              "type": "int32",
-              "id": 3
-            },
-            "pageSize": {
-              "type": "int32",
-              "id": 4
-            }
-          }
-        },
-        "SlotMachine2020WinRecordsRes": {
-          "fields": {
-            "list": {
-              "rule": "repeated",
-              "type": "SlotMachine2020WinRecords",
-              "id": 1
-            }
-          }
-        },
-        "SlotMachine2020WinRecords": {
-          "fields": {
-            "nickname": {
-              "type": "string",
-              "id": 1
-            },
-            "playerId": {
-              "type": "int64",
-              "id": 2
-            },
-            "multiple": {
-              "type": "uint32",
-              "id": 3
-            },
-            "winGold": {
-              "type": "uint32",
-              "id": 4
-            }
-          }
-        },
-        "SlotMachine2020BetReq": {
-          "fields": {
-            "actId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "actRelId": {
-              "type": "uint32",
-              "id": 2
-            },
-            "playPayInfoId": {
-              "type": "uint32",
-              "id": 3
-            }
-          }
-        },
-        "SlotMachine2020BetRes": {
-          "fields": {
-            "formula": {
-              "type": "string",
-              "id": 1
-            },
-            "winGold": {
-              "type": "uint32",
-              "id": 2
-            },
-            "giftId": {
-              "type": "uint32",
-              "id": 3
-            },
-            "giftName": {
-              "type": "string",
-              "id": 4
-            },
-            "giftNum": {
-              "type": "uint32",
-              "id": 5
-            }
-          }
-        },
-        "PlayerSortReq": {
-          "fields": {
-            "param": {
-              "type": "SortParam",
-              "id": 1
-            },
-            "type": {
-              "type": "int32",
-              "id": 2
-            },
-            "extType": {
-              "type": "SortTypeExtendType",
-              "id": 3
-            }
-          }
-        },
-        "PlayerSortRes": {
-          "fields": {
-            "list": {
-              "rule": "repeated",
-              "type": "SortResult",
-              "id": 1
-            },
-            "player": {
-              "type": "SortResult",
-              "id": 2
-            },
-            "total": {
-              "type": "int64",
-              "id": 3
-            }
-          }
-        },
-        "SortParam": {
-          "fields": {
-            "playerId": {
-              "type": "int64",
-              "id": 1
-            },
-            "activityId": {
-              "type": "int32",
-              "id": 2
-            },
-            "relActivityId": {
-              "type": "int32",
-              "id": 3
-            },
-            "page": {
-              "type": "int32",
-              "id": 4
-            },
-            "pageSize": {
-              "type": "int64",
-              "id": 5
-            }
-          }
-        },
-        "SortSupportedResult": {
-          "fields": {
-            "playerData": {
-              "type": "Player",
-              "id": 1
-            },
             "point": {
-              "type": "int64",
-              "id": 2
-            }
-          }
-        },
-        "RoomSubInfoExtModuleSchedule": {
-          "fields": {
-            "curNum": {
-              "type": "int64",
-              "id": 1
-            },
-            "totalNum": {
-              "type": "int64",
-              "id": 2
-            }
-          }
-        },
-        "SortResult": {
-          "fields": {
-            "sort": {
-              "type": "int64",
-              "id": 1
-            },
-            "id": {
-              "type": "int64",
-              "id": 2
-            },
-            "id2": {
-              "type": "int64",
-              "id": 3
-            },
-            "name": {
-              "type": "string",
-              "id": 4
-            },
-            "icon": {
-              "type": "string",
-              "id": 5
-            },
-            "gold": {
-              "type": "int64",
-              "id": 6
-            },
-            "point": {
-              "type": "int64",
-              "id": 7
-            },
-            "num": {
-              "type": "int64",
-              "id": 8
-            },
-            "roomId": {
-              "type": "int64",
-              "id": 9
-            },
-            "roomName": {
-              "type": "string",
-              "id": 10
-            },
-            "likeNum": {
               "type": "int32",
-              "id": 11
+              "id": 1
             },
-            "isLike": {
-              "type": "bool",
-              "id": 12
-            },
-            "msg": {
-              "type": "string",
-              "id": 13
-            },
-            "lastPlayerId": {
-              "type": "int64",
-              "id": 14
-            },
-            "resource": {
-              "type": "string",
-              "id": 15
-            },
-            "resultCreateTime": {
-              "type": "int64",
-              "id": 16
-            },
-            "tag": {
-              "type": "SortPlayerTagType",
-              "id": 17
-            },
-            "supportList": {
-              "rule": "repeated",
-              "type": "SortSupportedResult",
-              "id": 18
-            },
-            "progress": {
-              "type": "RoomSubInfoExtModuleSchedule",
-              "id": 19
+            "rate": {
+              "keyType": "int32",
+              "type": "int32",
+              "id": 2
             }
           }
         },
-        "ActivityExtObj": {
+        "UserExtObj": {
           "methods": {
-            "RoomAwardData": {
-              "requestType": "RoomAwardDataReq",
-              "responseType": "RoomAwardDataRes"
-            },
-            "GetActivity": {
-              "requestType": "GetActivityReq",
-              "responseType": "GetActivityRes"
-            },
-            "SlotMachine2020Data": {
-              "requestType": "SlotMachine2020DataReq",
-              "responseType": "SlotMachine2020DataRes"
-            },
-            "SlotMachine2020UserDate": {
-              "requestType": "SlotMachine2020UserDateReq",
-              "responseType": "SlotMachine2020UserDateRes"
-            },
-            "SlotMachine2020WinRecords": {
-              "requestType": "SlotMachine2020WinRecordsReq",
-              "responseType": "SlotMachine2020WinRecordsRes"
-            },
-            "SlotMachine2020Bet": {
-              "requestType": "SlotMachine2020BetReq",
-              "responseType": "SlotMachine2020BetRes"
-            },
-            "PlayerSort": {
-              "requestType": "PlayerSortReq",
-              "responseType": "PlayerSortRes"
-            }
-          }
-        },
-        "GiftConfigReq": {
-          "fields": {}
-        },
-        "GiftConfigRes": {
-          "fields": {
-            "gifts": {
-              "rule": "repeated",
-              "type": "GiftConfigItem",
-              "id": 1
-            },
-            "dayOne": {
-              "rule": "repeated",
-              "type": "NewUserGiftItem",
-              "id": 2
-            },
-            "dayTow": {
-              "rule": "repeated",
-              "type": "NewUserGiftItem",
-              "id": 3
-            },
-            "dayThree": {
-              "rule": "repeated",
-              "type": "NewUserGiftItem",
-              "id": 4
-            },
-            "firstCharage": {
-              "rule": "repeated",
-              "type": "NewUserGiftItem",
-              "id": 5
-            }
-          }
-        },
-        "NewUserGiftItem": {
-          "fields": {
-            "giftId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "image": {
-              "type": "string",
-              "id": 2
-            },
-            "name": {
-              "type": "string",
-              "id": 3
-            },
-            "giftDescription": {
-              "type": "string",
-              "id": 4
-            },
-            "newUserGift": {
-              "type": "uint32",
-              "id": 5
-            },
-            "number": {
-              "type": "uint32",
-              "id": 6
-            }
-          }
-        },
-        "GiftExtObj": {
-          "methods": {
-            "GetGiftConfig": {
-              "requestType": "GiftConfigReq",
-              "responseType": "GiftConfigRes"
-            }
-          }
-        },
-        "GetExchangeConfReq": {
-          "fields": {
-            "playerId": {
-              "type": "int64",
-              "id": 1
-            }
-          }
-        },
-        "GetExchangeConfRes": {
-          "fields": {
-            "store": {
-              "rule": "repeated",
-              "type": "Exchange",
-              "id": 1
-            }
-          }
-        },
-        "ExchangeGoods": {
-          "fields": {
-            "giftId": {
-              "type": "int32",
-              "id": 1
-            },
-            "num": {
-              "type": "int64",
-              "id": 2
-            },
-            "unit": {
-              "type": "string",
-              "id": 3
-            },
-            "name": {
-              "type": "string",
-              "id": 4
-            },
-            "imageUrl": {
-              "type": "string",
-              "id": 5
-            },
-            "originalPrice": {
-              "type": "int64",
-              "id": 6
-            },
-            "giftType": {
-              "type": "int32",
-              "id": 7
-            },
-            "goodsLabel": {
-              "type": "int32",
-              "id": 8
-            }
-          }
-        },
-        "Exchange": {
-          "fields": {
-            "id": {
-              "type": "int32",
-              "id": 1
-            },
-            "goods": {
-              "rule": "repeated",
-              "type": "ExchangeGoods",
-              "id": 2
-            },
-            "price": {
-              "rule": "repeated",
-              "type": "ExchangeGoods",
-              "id": 3
-            },
-            "limit": {
-              "type": "int32",
-              "id": 4
-            },
-            "created": {
-              "type": "int64",
-              "id": 5
-            },
-            "flag": {
-              "type": "string",
-              "id": 6
-            },
-            "exchangeNum": {
-              "type": "int32",
-              "id": 7
-            },
-            "limitRange": {
-              "type": "int32",
-              "id": 8
-            },
-            "limitCycle": {
-              "type": "int32",
-              "id": 9
-            },
-            "gold": {
-              "type": "int64",
-              "id": 10
-            },
-            "giftCategory": {
-              "type": "int32",
-              "id": 11
-            },
-            "goldPrice": {
-              "type": "int64",
-              "id": 12
-            },
-            "stock": {
-              "type": "int64",
-              "id": 13
-            },
-            "actId": {
-              "type": "uint32",
-              "id": 14
-            },
-            "actRelId": {
-              "type": "uint32",
-              "id": 15
-            }
-          }
-        },
-        "BuyReq": {
-          "fields": {
-            "id": {
-              "type": "int32",
-              "id": 1
-            },
-            "num": {
-              "type": "int32",
-              "id": 2
-            },
-            "type": {
-              "type": "int32",
-              "id": 3
-            },
-            "remark": {
-              "type": "int32",
-              "id": 4
-            }
-          }
-        },
-        "BuyRes": {
-          "fields": {
-            "gold": {
-              "type": "int64",
-              "id": 1
-            },
-            "num": {
-              "type": "int32",
-              "id": 2
-            },
-            "exchangeGift": {
-              "rule": "repeated",
-              "type": "BuyExchangeGift",
-              "id": 3
-            }
-          }
-        },
-        "BuyExchangeGift": {
-          "fields": {
-            "id": {
-              "type": "uint32",
-              "id": 1
-            },
-            "num": {
-              "type": "uint32",
-              "id": 2
-            },
-            "name": {
-              "type": "string",
-              "id": 3
-            },
-            "icon": {
-              "type": "string",
-              "id": 4
-            }
-          }
-        },
-        "StoreExtObj": {
-          "methods": {
-            "GetExchangeConf": {
-              "requestType": "GetExchangeConfReq",
-              "responseType": "GetExchangeConfRes"
-            },
-            "Buy": {
-              "requestType": "BuyReq",
-              "responseType": "BuyRes"
-            }
-          }
-        },
-        "RPCInput": {
-          "fields": {
-            "obj": {
-              "type": "string",
-              "id": 1
-            },
-            "func": {
-              "type": "string",
-              "id": 2
-            },
-            "req": {
-              "type": "bytes",
-              "id": 3
-            },
-            "opt": {
-              "keyType": "string",
-              "type": "string",
-              "id": 4
-            }
-          }
-        },
-        "RPCOutput": {
-          "fields": {
-            "ret": {
-              "type": "int32",
-              "id": 1
-            },
-            "rsp": {
-              "type": "bytes",
-              "id": 2
-            },
-            "opt": {
-              "keyType": "string",
-              "type": "string",
-              "id": 3
-            },
-            "desc": {
-              "type": "string",
-              "id": 4
-            },
-            "obj": {
-              "type": "string",
-              "id": 5
-            },
-            "func": {
-              "type": "string",
-              "id": 6
+            "GetPlayer": {
+              "requestType": "PlayerReq",
+              "responseType": "PlayerRes"
             }
           }
         },
@@ -1210,285 +478,6 @@
             "clan": {
               "type": "ClanInfo",
               "id": 5
-            }
-          }
-        },
-        "UserExtObj": {
-          "methods": {
-            "GetPlayer": {
-              "requestType": "PlayerReq",
-              "responseType": "PlayerRes"
-            }
-          }
-        },
-        "AwardType": {
-          "values": {
-            "AT_None": 0,
-            "AT_Gift": 1,
-            "AT_Gold": 2,
-            "AT_Effect": 3,
-            "AT_Diamond": 4,
-            "AT_CatCurrency": 5
-          }
-        },
-        "SexType": {
-          "values": {
-            "UNKNOWN": 0,
-            "MAIL": 1,
-            "FEMAIL": 2
-          }
-        },
-        "RoyalType": {
-          "values": {
-            "UNUSE": 0,
-            "VISCOUNT": 1,
-            "EARL": 2,
-            "MARQUIS": 3,
-            "DUKE": 4,
-            "KING": 5
-          }
-        },
-        "RoyalStatusType": {
-          "values": {
-            "NONE": 0,
-            "ON_ROYAL": 1,
-            "OUT_TIME": 2,
-            "OUT_PROTECTOR_TIME": 3
-          }
-        },
-        "EffectType": {
-          "values": {
-            "EffectTypeNone": 0,
-            "EffectTypeChatLight": 1,
-            "EffectTypeEnterEffect": 2,
-            "EffectTypeChairEffect": 3,
-            "EffectTypeEnterLight": 4,
-            "EffectTypeUserCard": 5,
-            "EffectTypeBubble": 6,
-            "EffectTypeFansClub": 7
-          }
-        },
-        "BagItem": {
-          "fields": {
-            "giftId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "amount": {
-              "type": "uint32",
-              "id": 2
-            },
-            "cteateAt": {
-              "type": "string",
-              "id": 3
-            }
-          }
-        },
-        "GiftConfigItem": {
-          "fields": {
-            "giftId": {
-              "type": "uint32",
-              "id": 1
-            },
-            "categoryId": {
-              "type": "uint32",
-              "id": 2
-            },
-            "imageUrl": {
-              "type": "string",
-              "id": 3
-            },
-            "imgSmallAnim": {
-              "type": "string",
-              "id": 4
-            },
-            "mutAnimationUrl": {
-              "type": "string",
-              "id": 5
-            },
-            "version": {
-              "type": "string",
-              "id": 6
-            },
-            "duration": {
-              "type": "uint64",
-              "id": 7
-            },
-            "name": {
-              "type": "string",
-              "id": 8
-            },
-            "giftDescription": {
-              "type": "string",
-              "id": 9
-            },
-            "price": {
-              "type": "uint32",
-              "id": 10
-            },
-            "giftType": {
-              "type": "uint32",
-              "id": 11
-            },
-            "transfer": {
-              "type": "uint32",
-              "id": 12
-            },
-            "dynamic": {
-              "type": "uint32",
-              "id": 13
-            },
-            "giftWealthLevel": {
-              "type": "uint32",
-              "id": 14
-            },
-            "showInRoom": {
-              "type": "bool",
-              "id": 15
-            },
-            "isWeekGift": {
-              "type": "bool",
-              "id": 16
-            },
-            "presentType": {
-              "type": "uint32",
-              "id": 17
-            },
-            "type": {
-              "type": "uint32",
-              "id": 18
-            },
-            "getActivitMark": {
-              "type": "string",
-              "id": 19
-            },
-            "roomPattron": {
-              "type": "uint32",
-              "id": 20
-            },
-            "sort": {
-              "type": "uint32",
-              "id": 21
-            },
-            "giftDetail": {
-              "type": "uint32",
-              "id": 22
-            },
-            "funType": {
-              "type": "uint32",
-              "id": 23
-            },
-            "funArgs": {
-              "type": "string",
-              "id": 24
-            },
-            "roomIds": {
-              "type": "string",
-              "id": 25
-            },
-            "roomTips": {
-              "type": "string",
-              "id": 26
-            },
-            "classify": {
-              "type": "sint32",
-              "id": 27
-            },
-            "begin": {
-              "type": "sint64",
-              "id": 28
-            },
-            "end": {
-              "type": "sint64",
-              "id": 29
-            },
-            "discountMark": {
-              "type": "string",
-              "id": 30
-            },
-            "discountPrice": {
-              "type": "uint32",
-              "id": 31
-            },
-            "boxCountdown": {
-              "type": "uint32",
-              "id": 32
-            },
-            "giftNumber": {
-              "rule": "repeated",
-              "type": "int32",
-              "id": 33
-            },
-            "showInGiftDetail": {
-              "type": "bool",
-              "id": 34
-            },
-            "wishMsg": {
-              "rule": "repeated",
-              "type": "string",
-              "id": 35
-            },
-            "svgaMutAnimationUrl": {
-              "type": "string",
-              "id": 36
-            },
-            "extraData": {
-              "type": "bytes",
-              "id": 37
-            },
-            "tip": {
-              "type": "string",
-              "id": 38
-            },
-            "giftNumberCorner": {
-              "rule": "repeated",
-              "type": "string",
-              "id": 39
-            },
-            "giftDescriptionImage": {
-              "type": "bytes",
-              "id": 40
-            },
-            "isHeadlineProperty": {
-              "type": "bool",
-              "id": 41
-            },
-            "almightyMutAnimationUrl": {
-              "type": "string",
-              "id": 42
-            }
-          }
-        },
-        "PlayerRoyalInfo": {
-          "fields": {
-            "rType": {
-              "type": "RoyalType",
-              "id": 1
-            },
-            "endTime": {
-              "type": "int64",
-              "id": 2
-            },
-            "rebateCanTake": {
-              "type": "bool",
-              "id": 3
-            },
-            "switchMap": {
-              "keyType": "int32",
-              "type": "bool",
-              "id": 4
-            },
-            "protectorTime": {
-              "type": "int64",
-              "id": 5
-            },
-            "rStatus": {
-              "type": "RoyalStatusType",
-              "id": 6
-            },
-            "name": {
-              "type": "string",
-              "id": 7
             }
           }
         },
@@ -1560,6 +549,64 @@
             }
           }
         },
+        "SexType": {
+          "values": {
+            "UNKNOWN": 0,
+            "MAIL": 1,
+            "FEMAIL": 2
+          }
+        },
+        "PlayerRoyalInfo": {
+          "fields": {
+            "rType": {
+              "type": "RoyalType",
+              "id": 1
+            },
+            "endTime": {
+              "type": "int64",
+              "id": 2
+            },
+            "rebateCanTake": {
+              "type": "bool",
+              "id": 3
+            },
+            "switchMap": {
+              "keyType": "int32",
+              "type": "bool",
+              "id": 4
+            },
+            "protectorTime": {
+              "type": "int64",
+              "id": 5
+            },
+            "rStatus": {
+              "type": "RoyalStatusType",
+              "id": 6
+            },
+            "name": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "RoyalType": {
+          "values": {
+            "UNUSE": 0,
+            "VISCOUNT": 1,
+            "EARL": 2,
+            "MARQUIS": 3,
+            "DUKE": 4,
+            "KING": 5
+          }
+        },
+        "RoyalStatusType": {
+          "values": {
+            "NONE": 0,
+            "ON_ROYAL": 1,
+            "OUT_TIME": 2,
+            "OUT_PROTECTOR_TIME": 3
+          }
+        },
         "Effect": {
           "fields": {
             "id": {
@@ -1578,6 +625,18 @@
               "type": "EffectType",
               "id": 4
             }
+          }
+        },
+        "EffectType": {
+          "values": {
+            "EffectTypeNone": 0,
+            "EffectTypeChatLight": 1,
+            "EffectTypeEnterEffect": 2,
+            "EffectTypeChairEffect": 3,
+            "EffectTypeEnterLight": 4,
+            "EffectTypeUserCard": 5,
+            "EffectTypeBubble": 6,
+            "EffectTypeFansClub": 7
           }
         },
         "ClanInfo": {
@@ -1607,8 +666,509 @@
               "id": 6
             }
           }
+        },
+        "AssetsExtObj": {
+          "methods": {
+            "GetMoney": {
+              "requestType": "AssetsMoneyReq",
+              "responseType": "AssetsMoneyRes"
+            }
+          }
+        },
+        "AssetsMoneyReq": {
+          "fields": {}
+        },
+        "AssetsMoneyRes": {
+          "fields": {
+            "flag": {
+              "type": "uint32",
+              "id": 1
+            },
+            "money": {
+              "type": "AssetsMoney",
+              "id": 2
+            }
+          }
+        },
+        "AssetsMoney": {
+          "fields": {
+            "gold": {
+              "type": "int32",
+              "id": 1
+            },
+            "silver": {
+              "type": "uint32",
+              "id": 2
+            },
+            "giftTicket": {
+              "type": "uint32",
+              "id": 3
+            },
+            "charge": {
+              "type": "uint32",
+              "id": 4
+            },
+            "catGold": {
+              "type": "uint32",
+              "id": 5
+            }
+          }
+        },
+        "NumLotteryResultsReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            },
+            "roundId": {
+              "type": "uint64",
+              "id": 3
+            },
+            "isRecords": {
+              "type": "bool",
+              "id": 4
+            },
+            "page": {
+              "type": "uint32",
+              "id": 5
+            },
+            "pageSize": {
+              "type": "uint32",
+              "id": 6
+            }
+          }
+        },
+        "NumLotteryResultsRes": {
+          "fields": {
+            "list": {
+              "rule": "repeated",
+              "type": "NumLotteryResults",
+              "id": 1
+            },
+            "total": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "NumLotteryResults": {
+          "fields": {
+            "numbers": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 1
+            },
+            "isWin": {
+              "type": "bool",
+              "id": 2
+            },
+            "chosenNumList": {
+              "rule": "repeated",
+              "type": "NumLotteryChosenNum",
+              "id": 3
+            },
+            "roundId": {
+              "type": "uint64",
+              "id": 4
+            },
+            "index": {
+              "type": "uint32",
+              "id": 5
+            },
+            "choosenType": {
+              "type": "NumLotteryChoosenType",
+              "id": 6
+            }
+          }
+        },
+        "NumLotteryChosenNum": {
+          "fields": {
+            "numbers": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 1
+            },
+            "betNum": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "NumLotteryChoosenType": {
+          "values": {
+            "NumLotteryChoosenTypeNone": 0,
+            "NumLotteryChoosenTypeRandom": 1,
+            "NumLotteryChoosenTypeManual": 2
+          }
+        },
+        "NumLotteryChosenNumsReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            },
+            "roundId": {
+              "type": "uint64",
+              "id": 3
+            },
+            "page": {
+              "type": "uint32",
+              "id": 4
+            },
+            "pageSize": {
+              "type": "uint32",
+              "id": 5
+            }
+          }
+        },
+        "NumLotteryChosenNumsRes": {
+          "fields": {
+            "list": {
+              "rule": "repeated",
+              "type": "NumLotteryChosenNum",
+              "id": 1
+            },
+            "total": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "NumLotteryStatusReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            }
+          }
+        },
+        "NumLotteryStatusRes": {
+          "fields": {
+            "curRoundId": {
+              "type": "uint64",
+              "id": 1
+            },
+            "curJackpot": {
+              "type": "uint64",
+              "id": 2
+            },
+            "countDownSec": {
+              "type": "uint64",
+              "id": 3
+            }
+          }
+        },
+        "PartitionTotalReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            }
+          }
+        },
+        "PartitionTotalRes": {
+          "fields": {
+            "total": {
+              "type": "uint64",
+              "id": 1
+            }
+          }
+        },
+        "NumLotteryPlayReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            },
+            "numList": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 3
+            }
+          }
+        },
+        "NumLotteryPlayRes": {
+          "fields": {}
+        },
+        "PartitionRecordsReq": {
+          "fields": {
+            "actId": {
+              "type": "int32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 2
+            },
+            "page": {
+              "type": "int32",
+              "id": 3
+            },
+            "pageSize": {
+              "type": "int32",
+              "id": 4
+            },
+            "isAll": {
+              "type": "bool",
+              "id": 5
+            }
+          }
+        },
+        "PartitionRecordsRes": {
+          "fields": {
+            "list": {
+              "rule": "repeated",
+              "type": "PartitionData",
+              "id": 1
+            },
+            "total": {
+              "type": "int32",
+              "id": 2
+            }
+          }
+        },
+        "PartitionData": {
+          "fields": {
+            "playerId": {
+              "type": "int64",
+              "id": 1
+            },
+            "num": {
+              "type": "int64",
+              "id": 2
+            },
+            "createTime": {
+              "type": "int64",
+              "id": 3
+            },
+            "playerData": {
+              "type": "Player",
+              "id": 4
+            },
+            "actId": {
+              "type": "int32",
+              "id": 5
+            },
+            "actRelId": {
+              "type": "int32",
+              "id": 6
+            },
+            "remark": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "ScratchOffLotteryStatusReq": {
+          "fields": {
+            "actId": {
+              "type": "uint32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "ScratchOffLotteryStatusRes": {
+          "fields": {
+            "totalWinGold": {
+              "type": "uint64",
+              "id": 1
+            },
+            "noOpenLuckNums": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "BuyScratchOffLotteryTicksReq": {
+          "fields": {
+            "actId": {
+              "type": "uint32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "uint32",
+              "id": 2
+            },
+            "tickNum": {
+              "type": "uint32",
+              "id": 3
+            }
+          }
+        },
+        "BuyScratchOffLotteryTicksRes": {
+          "fields": {
+            "luckNums": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 1
+            }
+          }
+        },
+        "ScratchOffLotteryOpenReq": {
+          "fields": {
+            "actId": {
+              "type": "uint32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "ScratchOffLotteryOpenRes": {
+          "fields": {
+            "buyNums": {
+              "rule": "repeated",
+              "type": "ChoosenNums",
+              "id": 1
+            },
+            "result": {
+              "type": "ScratchOffLotteryOpenResult",
+              "id": 2
+            }
+          }
+        },
+        "ChoosenNums": {
+          "fields": {
+            "nums": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 1
+            }
+          }
+        },
+        "ScratchOffLotteryOpenResult": {
+          "fields": {
+            "winGold": {
+              "type": "uint64",
+              "id": 1
+            },
+            "results": {
+              "rule": "repeated",
+              "type": "LotteryResult",
+              "id": 2
+            },
+            "luckNum": {
+              "rule": "repeated",
+              "type": "uint32",
+              "id": 3
+            }
+          }
+        },
+        "LotteryResult": {
+          "fields": {
+            "prize": {
+              "type": "uint32",
+              "id": 1
+            },
+            "winNum": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "BuyAndOpenScrarchOffLotteryTicksReq": {
+          "fields": {
+            "actId": {
+              "type": "uint32",
+              "id": 1
+            },
+            "actRelId": {
+              "type": "uint32",
+              "id": 2
+            },
+            "buyNums": {
+              "rule": "repeated",
+              "type": "ChoosenNums",
+              "id": 3
+            }
+          }
+        }
+      }
+    },
+    "dd": {
+      "nested": {
+        "RPCInput": {
+          "fields": {
+            "obj": {
+              "type": "string",
+              "id": 1
+            },
+            "func": {
+              "type": "string",
+              "id": 2
+            },
+            "req": {
+              "type": "bytes",
+              "id": 3
+            },
+            "opt": {
+              "keyType": "string",
+              "type": "string",
+              "id": 4
+            }
+          }
+        },
+        "RPCOutput": {
+          "fields": {
+            "ret": {
+              "type": "int32",
+              "id": 1
+            },
+            "rsp": {
+              "type": "bytes",
+              "id": 2
+            },
+            "opt": {
+              "keyType": "string",
+              "type": "string",
+              "id": 3
+            },
+            "desc": {
+              "type": "string",
+              "id": 4
+            },
+            "obj": {
+              "type": "string",
+              "id": 5
+            },
+            "func": {
+              "type": "string",
+              "id": 6
+            }
+          }
         }
       }
     }
+  },
+  "options": {
+    "objc_class_prefix_cad": "PB3",
+    "objc_class_prefix": "PB3"
   }
 }
