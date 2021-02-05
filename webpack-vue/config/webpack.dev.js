@@ -1,6 +1,5 @@
 const webpackMerge = require('webpack-merge');
 
-console.log(merge)
 module.exports = env => {
   // 获取环境变量，匹配: 开头的键作为项目文件名
   global.proj = Object.keys(env).filter(key => /^:.*/.test(key))[0].slice(1);
@@ -13,7 +12,7 @@ module.exports = env => {
       // publicPath: '/',
       // contentBase: `/static`, // 項目路徑
       // contentBasePublicPath: '/static',
-      // host: '0.0.0.0', // 設為0.0.0.0才能在局域網內訪問
+      host: '0.0.0.0', // 設為0.0.0.0才能在局域網內訪問
       progress: true, // 進度打印在控制台
       port: 8080, // 端口
       open: false, // 啟動後自動打開瀏覽器
