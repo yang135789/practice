@@ -42,7 +42,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                config: path.resolve(__dirname, "./.postcssrc"),
+                config: path.resolve(__dirname, "./.postcssrc.js"),
               }
             }
           },
