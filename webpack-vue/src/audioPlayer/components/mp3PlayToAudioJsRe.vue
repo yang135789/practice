@@ -1,8 +1,9 @@
 <template>
   <div class='audioPlayer'>
     <div class="visualization">
+      <playCanvas :list="arr"></playCanvas>
       <!-- <canvas ref="canvas"></canvas> -->
-      <div class="bar" v-for="(n,i) in arr" :key="i" :style="{height: `${(n / 255) * 100}%`}" ></div>
+      <!-- <div class="bar" v-for="(n,i) in arr" :key="i" :style="{height: `${(n / 255) * 100}%`}" ></div> -->
     </div>
     <div class="ctrl">
       <div  :class="[isPlay ? 'pause' : 'play']" @click="clickStart('start')"></div>
@@ -22,8 +23,10 @@
   </div>
 </template>
 <script>
+import playCanvas from './playCanvas'
 // 通过ajax请求音频,使用js来播放音频, iOS可以使用, 缺点: 不能边缓存边播
 export default {
+  components: {playCanvas},
   data () {
     return {
       isPlay: false, // 正在播放
@@ -159,7 +162,7 @@ export default {
       this.AudioBufferSourceNode.onended = () => { // 音樂播放結束觸發
         console.log('結束播放');
         cancelAnimationFrame(this.index); // 清除動畫定時器
-        this.arr = new Array(16).fill();
+        this.arr = new Array(8*(2**this.num)).fill(0);
         this.audioCtx.suspend(); // 暫停
         // this.audioCtx.listener.positionX.value = 0
         // this.currentTime = this.duration;

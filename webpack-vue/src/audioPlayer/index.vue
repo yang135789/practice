@@ -8,6 +8,7 @@
 import mp3PlayToAudioJs from './components/mp3PlayToAudioJs'
 import mp3PlayToAudioTag from './components/mp3PlayToAudioTag'
 import mp3PlayToAudioJsRe from './components/mp3PlayToAudioJsRe'
+
 export default {
   components: {mp3PlayToAudioJs, mp3PlayToAudioTag, mp3PlayToAudioJsRe},
   data () {
