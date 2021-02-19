@@ -6,10 +6,10 @@
     </div>
     <div class="ctrl">
       <div  :class="[isPlay ? 'pause' : 'play']" @click="clickStart('start')"></div>
-      <div class="time">{{ currentTime }}</div>
       <div class="timeline" @click="changeTime">
-        <div class="timelineLength" :style="{width: `${time / duration * 100}%`}"></div>
+        <div class="timelineLength" :style="{width: `${(runTime - startPlayTime + skipPlayTime) / duration * 100}%`}"></div>
       </div>
+      <div class="time">{{ currentTime }}</div>
       <div class="voices" @click="changeVoices">
         <div class="voicesBar" :style="{left: `${voicesSize * 100}%`}"></div>
       </div>
@@ -29,7 +29,9 @@ export default {
       isPlay: false, // 正在播放
       audioCtx: null,
       duration: 0,
-      time:  0, // 播放時長
+      runTime:  0, // audio运行时间
+      startPlayTime: 0, // 开始播放的时间，相对运行时间
+      skipPlayTime: 0,
       length: 20,
       analyser: null,
       config: { attributes: true, childList: true, subtree: true },
@@ -41,15 +43,19 @@ export default {
       gainNode: null, // 音量控制
       voicesSize: 1, // 聲音長度
       selectAudio: '光良 - 童话',
-      num: 3 // 柱子數量
+      num: 4 // 柱子數量
     }
   },
   created () {
     this.initAudio();
   },
   computed: {
+    dirPath () {
+      return `${location.origin}${location.pathname.replace('/index.html', '/')}static/`
+    },
     list () {
       return {
+        'Rude Boy & White Cherry - Late Night Melancholy': this.audioPath('Rude Boy & White Cherry - Late Night Melancholy.mp3'),
         'Lupins' : `${location.origin}${location.pathname.replace('/index.html', '/')}static/Lupins.mp3?t=${window.timestamp}`,
         '光良 - 童话': `${location.origin}${location.pathname.replace('/index.html', '/')}static/光良 - 童话.mp3?t=${window.timestamp}`,
         '麦振鸿 - 莫失莫忘(逍遥叹 演奏曲)': `${location.origin}${location.pathname.replace('/index.html', '/')}static/麦振鸿 - 莫失莫忘(逍遥叹 演奏曲).mp3?t=${window.timestamp}`,
@@ -57,13 +63,16 @@ export default {
     },
     // 当前播放时间
     currentTime () {
-      let ts = parseInt(this.time);
+      let ts = parseInt(this.runTime - this.startPlayTime + this.skipPlayTime);
       let s = ts % 60;
       let m = Math.floor(ts / 60);
       return `${ m < 10 ? `0${ m }` : m }'${ s < 10 ? `0${ s }` : s }"`
     }
   },
   methods: {
+    audioPath (name) {
+      return `${location.origin}${location.pathname.replace('/index.html', '/')}static/${name}?t=${window.timestamp}`
+    },
     // 封裝ajax
     ajax (options) { // ajax方法
       return new Promise(function (resolve, reject) {
@@ -124,8 +133,7 @@ export default {
       var state = this.audioCtx.state;
       this.analyser.getByteFrequencyData(arr);
       this.arr = arr;
-      // this.time = this.duration - this.audioCtx.currentTime % this.duration;
-      this.time = this.audioCtx.currentTime % this.duration;
+      this.runTime = this.audioCtx.currentTime;
       if (state === "running") {
         this.isPlay = true;
       } else {
@@ -141,7 +149,11 @@ export default {
       this.startPlay(timeline);
       console.log('修改時間軸', timeline);
     },
-    startPlay (timeline) {
+    /**
+     * @description 开始播放
+     * @param {number} timeline 开始播放的时间
+     */
+    startPlay (timeline = 0) {
       this.AudioBufferSourceNode = this.audioCtx.createBufferSource();
       // this.AudioBufferSourceNode.playbackRate // 速度控制
       this.AudioBufferSourceNode.onended = () => { // 音樂播放結束觸發
@@ -150,32 +162,39 @@ export default {
         this.arr = new Array(16).fill();
         this.audioCtx.suspend(); // 暫停
         // this.audioCtx.listener.positionX.value = 0
-        this.time = this.duration;
+        // this.currentTime = this.duration;
         this.isPlay = false;
         this.AudioBufferSourceNode = null;
       }
       this.AudioBufferSourceNode.buffer = this.audioCache[this.selectAudio];
-      this.AudioBufferSourceNode.connect(this.gainNode);
-      this.AudioBufferSourceNode.connect(this.analyser);
+      this.AudioBufferSourceNode.connect(this.gainNode); // 链接声音
+      this.AudioBufferSourceNode.connect(this.analyser); // 链接可视化
       this.AudioBufferSourceNode.start(0, timeline); // 延遲多少秒播放, 從多秒開始播, 播幾秒
+      console.log(this.AudioBufferSourceNode );
+      this.startPlayTime = this.audioCtx.currentTime; // 保存开始的时间
+      this.skipPlayTime = timeline || 0; // 跳过的时间
     },
     changeVoices (e) { // 改變音量大小
-       console.log(e)
        this.voicesSize = this.gainNode.gain.value = e.offsetX / e.target.offsetWidth;
     },
     // 初始化
     initAudio () {
       this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      this.analyser = this.audioCtx.createAnalyser();
+      this.analyser = this.audioCtx.createAnalyser(); // 可视化处理模块
+      this.gainNode = this.audioCtx.createGain(); // 音频处理模块
       this.analyser.fftSize = 16*(2**this.num); // 可視化柱子數量
-      
-      this.gainNode = this.audioCtx.createGain();
-      this.gainNode.connect(this.audioCtx.destination);
+      this.gainNode.connect(this.audioCtx.destination); // 实例链接到音频处理
       console.log('柱子數量:', 8*(2**this.num))
     },
     // 點擊列表 
     clickAudioList (name) {
-      this.selectAudio = name
+      this.selectAudio = name;
+      if (this.isPlay) {
+        // this.AudioBufferSourceNode.onended = () => {};
+        this.AudioBufferSourceNode.stop();
+        this.clickStart();
+
+      }
     },
     //
     decodeAudioData (data) {
@@ -184,9 +203,9 @@ export default {
           this.map3Buffer = buffer;
           this.audioCache[this.selectAudio] = buffer;
           this.duration = Math.round(buffer.duration);
-          this.time = this.duration;
+          // this.runTime = this.duration;
           resolve();
-          console.log('加載結束');
+          console.log('加載結束', buffer);
         }, function(e){
           reject("Error with decoding audio data" + e.err)
         });
@@ -197,11 +216,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 .audioPlayer {
-  width: 800px;
+  width: 1080px;
   height: 100%;
+  position: relative;
   .visualization {
     width: 100%;
-    height: 300px;
+    height: 500px;
     background: url('../static/29.jpg') no-repeat top / cover;
     display: flex;
     justify-content: space-around;
@@ -240,6 +260,7 @@ export default {
       height: 10px;
       background: cornflowerblue;
       .timelineLength {
+        pointer-events: none;
         height: 100%;
         width: 0;
         background: crimson;
@@ -262,11 +283,15 @@ export default {
     }
   }
   .list {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 500px;
     > div {
       // height: 50px;
       padding: 10px 20px;
       box-sizing: border-box;
-      font-size: 28px;
+      font-size: 16px;
       &.active {
         color: #fff;
         background: darkmagenta;
