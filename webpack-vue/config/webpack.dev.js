@@ -35,7 +35,7 @@ module.exports = async env => {
       host, // 設為0.0.0.0才能在局域網內訪問
       progress: true, // 進度打印在控制台
       port: await testPort(port, host), // 端口
-      quiet: true, // 隐藏(bundle)信息。错误和警告仍然会显示。
+      clientLogLevel: 'warning', // 在控制台将显示消息, 可能的值有 none, error, warning 或者 info（默认值）。
       open: false, // 啟動後自動打開瀏覽器
       hot: true // 熱替換，自动使用webpack.HotModuleReplacementPlugin插件
     }
