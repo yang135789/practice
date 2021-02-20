@@ -164,6 +164,7 @@ export default {
         cancelAnimationFrame(this.index); // 清除動畫定時器
         this.arr = new Array(8*(2**this.num)).fill(0);
         this.audioCtx.suspend(); // 暫停
+        this.runTime = this.startPlayTime = this.skipPlayTime = 0;
         // this.audioCtx.listener.positionX.value = 0
         // this.currentTime = this.duration;
         this.isPlay = false;
