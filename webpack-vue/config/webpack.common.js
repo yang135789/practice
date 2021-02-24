@@ -86,7 +86,7 @@ module.exports = {
           {
             from: path.join(entryPath, '/static'), // 从哪复制
             to: path.join(outputPath, '/static'), // 复制到哪
-            // noErrorOnMissing: true, // 不提示未找到文件
+            noErrorOnMissing: true, // 不提示未找到文件
             globOptions: {
               dot: true,
               gitignore: true,
