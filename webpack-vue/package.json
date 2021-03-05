@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/.bin/webpack serve -c config/webpack.dev.js --env NODE_ENV=local",
-    "build": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=prod"
+    "build": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=prod",
+    "cli": "node config/cli/index.js --pyf"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "@vue/component-compiler-utils": "^3.2.0",
     "babel-loader": "^8.2.2",
+    "commander": "^7.1.0",
     "copy-webpack-plugin": "^7.0.0",
     "core-js": "3",
     "css-loader": "^5.0.1",
