@@ -19,6 +19,7 @@ function testPort (port, host) {
 
 module.exports = async env => {
   // 获取环境变量，匹配: 开头的键作为项目文件名
+  console.log('內存使用情況', process.memoryUsage());
   global.proj = Object.keys(env).filter(key => /^:.*/.test(key))[0].slice(1);
   const common = require('./webpack.common'); // 公用配置， 因为用到global.proj变量，所以在后面赋值后引入
   let port = 8080; // 端口

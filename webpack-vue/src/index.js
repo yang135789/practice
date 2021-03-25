@@ -10,19 +10,6 @@ const inquirer = require('inquirer'); // 控制台交互工具
 // const options = program.opts();
 // console.log(options.pyf);
 
-
-function copydir (src, des) {
-  if (!fs.existsSync(src)) {
-    throw '複製文件夾不存在' ; 
-  }
-  if (!fs.existsSync(des)) {
-    fs.mkdirSync(des);
-  }
-  fs.readdirSync(src).forEach(name => {
-    console.log(name);
-  })
-}
-
 // src目錄下的項目
 const srcList = fs.readdirSync(path.resolve(__dirname, '../../src'));
 
@@ -52,9 +39,8 @@ inquirer.prompt([
   }
 ]).then(answers => {
   console.log(answers);
-  copydir(path.resolve(__dirname, './demo'),path.resolve(__dirname, `../../src/${answers.name}`) )
-  // fs.copyFile(path.resolve(__dirname, './'), path.resolve(__dirname, `../../src/`), (err) => {
-  //   console.log('複製錯誤', err);
-  // })
+  fs.copyFile(path.resolve(__dirname, './index.js'), path.resolve(__dirname, `../../src/index.js`), (err) => {
+    console.log('複製錯誤', err);
+  })
 })
 // 解析命令行参数
