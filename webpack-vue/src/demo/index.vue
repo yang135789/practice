@@ -7,7 +7,7 @@
 export default {
   data () {
     return {
-      tag: '标签'
+      tag: '标签a'
     }
   },
   computed: {
@@ -17,9 +17,13 @@ export default {
       return arr;
     }
   },
+  created () {
+    // console.log(RUN_ENV, IS_PHONE);
+  },
   mounted () {
-
-  }
+    // console.log(window.vconsole, 1);
+  },
+  
 }
 </script>
 

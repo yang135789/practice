@@ -1,4 +1,5 @@
 const webpackMerge = require('webpack-merge');
+const common = require('./webpack.common'); // 公用配置， 因为用到global.proj变量，所以在后面赋值后引入
 const net = require('net');
 
  // 端口佔用檢測
@@ -16,19 +17,13 @@ function testPort (port, host) {
     })
   })
 }
-
-module.exports = async env => {
-  // 获取环境变量，匹配: 开头的键作为项目文件名
-  console.log('內存使用情況', process.memoryUsage());
-  global.proj = Object.keys(env).filter(key => /^:.*/.test(key))[0].slice(1);
-  const common = require('./webpack.common'); // 公用配置， 因为用到global.proj变量，所以在后面赋值后引入
+  module.exports = async env => {
   let port = 8080; // 端口
   let host = '0.0.0.0'; // 域名
-
-  return webpackMerge.merge(common, {
+  return webpackMerge.merge(common(env), {
     // 原始源代码（仅限行）
     devtool: 'cheap-module-source-map',
-    mode:'development', // 模式,'development' 开发 或 'production'生产
+    // mode:'development', // 模式,'development' 开发 或 'production'生产
     devServer:{         //开发服务配置
       // publicPath: '/',
       // contentBase: `/static`, // 項目路徑
@@ -39,6 +34,8 @@ module.exports = async env => {
       clientLogLevel: 'warning', // 在控制台将显示消息, 可能的值有 none, error, warning 或者 info（默认值）。
       open: false, // 啟動後自動打開瀏覽器
       hot: true // 熱替換，自动使用webpack.HotModuleReplacementPlugin插件
-    }
+    },
+    plugins: [
+    ]
   })
 };
