@@ -18,6 +18,7 @@ module.exports = env => {
   console.log(isPhone, RUN_ENV)
   return {
     mode: NODE_ENV,
+    devtool: !(RUN_ENV === 'prod') || 'cheap-module-source-map',
     entry: {
       index: `${entryPath}/index.js`
     }, // 入口文件
