@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { program } = require('commander'); // 命令行解析工具
 const inquirer = require('inquirer'); // 控制台交互工具
+const generator = require('./generator');
 
 // program
 //   .version('0.0.1')
@@ -11,23 +12,12 @@ const inquirer = require('inquirer'); // 控制台交互工具
 // console.log(options.pyf);
 
 
-function copydir (src, des) {
-  if (!fs.existsSync(src)) {
-    throw '複製文件夾不存在' ; 
-  }
-  if (!fs.existsSync(des)) {
-    fs.mkdirSync(des);
-  }
-  fs.readdirSync(src).forEach(name => {
-    console.log(name);
-  })
+function mkDir (src, des) {
 }
 
 // src目錄下的項目
 const srcList = fs.readdirSync(path.resolve(__dirname, '../../src'));
-
-// 設置交互問題
-inquirer.prompt([
+const prompt = [
   {
     name: "name",
     type: 'input',
@@ -39,22 +29,24 @@ inquirer.prompt([
     }
   },
   {
-    name: "vuex",
+    name: "store",
     type: 'confirm',
     message: "使用vuex?",
     default: true
   },
   {
-    name: "vue-router",
+    name: "router",
     type: 'confirm',
     message: "使用vue-router?",
     default: true
   }
-]).then(answers => {
-  console.log(answers);
-  copydir(path.resolve(__dirname, './demo'),path.resolve(__dirname, `../../src/${answers.name}`) )
-  // fs.copyFile(path.resolve(__dirname, './'), path.resolve(__dirname, `../../src/`), (err) => {
-  //   console.log('複製錯誤', err);
-  // })
-})
+]
+// 設置交互問題
+inquirer.prompt(prompt).then(res => {
+  let proj = path.resolve('./src', res.name);
+  if (!fs.existsSync(proj)) {
+    fs.mkdirSync(proj);
+  }
+  console.log(res, proj)
+});
 // 解析命令行参数

@@ -8,7 +8,7 @@
     "dev": "./node_modules/.bin/webpack serve -c config/webpack.dev.js --env NODE_ENV=local",
     "buildBeta": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=beta",
     "build": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=prod",
-    "cli": "node config/cli/index.js"
+    "createProj": "node config/cli/index.js"
   },
   "keywords": [],
   "author": "",
