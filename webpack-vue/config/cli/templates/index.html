@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <title><%- htmlTitle %></title>
   <!-- <title>Document</title> -->
+  <%- htmlTimestamp %>
+  <%- htmlClearCache %>
 </head>
-<%= htmlWebpackPlugin.options.timestamp %>
-<%= htmlWebpackPlugin.options.clearCache %>
 <body>
   <div id="app"></div>
 </body>
