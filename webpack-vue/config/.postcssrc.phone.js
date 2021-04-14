@@ -1,16 +1,15 @@
 module.exports = {
   "plugins": {
     'postcss-preset-env': {
-      "browsers": "> 1%",
-      // "browserslist" : [
-      //   "> 1%", // 代表着全球超过1%人使用的浏览器
-      //   "last 2 versions", // 表示所有浏览器兼容到最后
-      //   "not ie <= 8", // 表示IE浏览器版本大于8
-      //   "Chrome >= 20",
-      //   "Firefox >= 20", 
-      //   "Android >= 5", // 表示安卓版本大于5
-      //   "safari >= 7" // 表示safari浏览器版本大于等于7
-      // ],
+      "browserslist" : [
+        "> 1%", // 代表着全球超过1%人使用的浏览器
+        "last 2 versions", // 表示所有浏览器兼容到最后
+        "not ie <= 8", // 表示IE浏览器版本大于8
+        "Chrome >= 20",
+        "Firefox >= 20", 
+        "Android >= 5", // 表示安卓版本大于5
+        "safari >= 7" // 表示safari浏览器版本大于等于7
+      ],
     },
     'postcss-px-to-viewport': {
       unitToConvert: "px", // 要转化的单位

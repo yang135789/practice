@@ -1,17 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const { program } = require('commander'); // 命令行解析工具
 const inquirer = require('inquirer'); // 控制台交互工具
 const Generator = require('./generator'); 
-// program
-//   .version('0.0.1')
-//   .option('-pyf, --pyf <string>', 'Add project:year:folder')
-//   .parse(process.argv);
-// const options = program.opts();
-// console.log(options.pyf);
 
 // src目錄下的項目
 const srcList = fs.readdirSync(path.resolve(__dirname, '../../src'));
+// 设置问题
 const prompt = [
   {
     name: "name",
@@ -39,7 +33,7 @@ const prompt = [
 // 設置交互問題
 inquirer.prompt(prompt).then(res => {
   let proj = path.resolve('./src', res.name);
-  if (!fs.existsSync(proj)) {
+  if (!fs.existsSync(proj)) { // 判断有无文件夹存在，无则创建
     fs.mkdirSync(proj);
   }
   const generator = new Generator(res);

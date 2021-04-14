@@ -1,21 +1,16 @@
 <template>
   <div class="home">
-    <router-view></router-view>
+    <h1>啥都没有</h1>
+    <% if (router) { %><router-view></router-view><% } %>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      tag: '标签'
     }
   },
   computed: {
-    test () {
-      let a = {a: 1, b: 2, c: 3};
-      let arr = Object.values(a);
-      return arr;
-    }
   },
   mounted () {
 
@@ -24,13 +19,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  .pathTest {
-    width: 300px;
-    margin-bottom: 20px;
-    img {
-      max-width: 100%;
-    }
-  }
-}
+.home {}
 </style>

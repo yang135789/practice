@@ -1,5 +1,7 @@
 # webpack 搭建
 
+## 运行环境
+node版本 v10.23.0
 ## 使用的工具
 ```
 webpack5 打包程序
@@ -27,11 +29,27 @@ vue3 js框架
   本地开发模式下浏览器输入http://127.0.0.1:8080/webpack-dev-server， 可查看文件结构
 ```
 + 打包
+  + 打包测试：
+  ```
+      使用npm
+      npm run buildBeta :项目名
+      使用yarn
+      yarn buildBeta :项目名
+  ```
+  + 打包生产：
+  ```
+      使用npm
+      npm run build :项目名
+      使用yarn
+      yarn build :项目名
+  ```
+
++ 创建空白项目
 ```
   使用npm
-  npm run build :项目名
+  npm run createProj
   使用yarn
-  yarn build :项目名
+  yarn createProj
 ```
 
 3. 项目结构
@@ -44,6 +62,10 @@ vue3 js框架
 ┃   ┣── libs js库
 ┃   ┗── utils 工具
 ┣━━ config 配置相关
+┃   ┗── cli 空白项目生成
+┃       ┣── templates 模板文件夹
+┃       ┣── generator.js 模板生成处理
+┃       ┗── create.js 模板生成入口
 ┃   ┣── .babelrc babel配置文件，js兼容处理
 ┃   ┣── .postcssrc postcss配置文件，css兼容处理
 ┃   ┣── .browserslistrc browserslist配置文件，项目运行环境
@@ -95,6 +117,7 @@ vue@next // vue3
 vue-loader@next @vue/compiler-sfc@next // vue文件解析 @vue/compiler-sfc需要vue的版本一致
 copy-webpack-plugin // 文件複製插件
 inquirer // 控制台交互
+yeoman-generator // 脚手架生成
 ```
 
 99. 問題處理
@@ -122,4 +145,9 @@ TypeError: Cannot read property 'parseComponent' of undefined
 ```
 ```
 升级vue-loader到最新版本
+```
+
++ 安装yeoman-generator提示nodejs版本低
+```
+  使用使用^4版本
 ```

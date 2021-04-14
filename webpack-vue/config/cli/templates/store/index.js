@@ -1,4 +1,3 @@
-import { createRouter } from 'vue-router'
 import { createStore } from 'vuex'
 
 let store = createStore({
