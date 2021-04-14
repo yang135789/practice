@@ -1,25 +1,61 @@
 // 使用模板生成项目
+const fs = require('fs');
+const path = require('path');
 const Yeoman = require('yeoman-environment'); // 环境设置
 const Generator = require('yeoman-generator'); // 生成
-const path = require('path');
 module.exports = class extends Generator {
   /**
    * 
    * @param {*} params {name: 项目文件名， store：是否使用vuex，router：是否使用路由}
    */
-  constructor (params) {
+  constructor () {
     super([], { 
       // 自定义环境
       env: Yeoman.createEnv([], {
         // 设置执行命令目录，可通过this.destinationPath()获取
-        cwd: path.resolve('./src', params.name)
+        // cwd: path.resolve('./src', params.name)
       }),
       // 设置模板目录，可通过this.templatePath()获取
       resolved: path.resolve(__dirname, './templates')
     });
-    this.params = params;
+    // this.params = params;
   }
-  writing() {
+  async prompting () { // 触发交互
+    const srcList = fs.readdirSync(path.resolve('./src'));
+    // 设置问题
+    const prompt = [
+      {
+        name: "name",
+        type: 'input',
+        message: "請輸入項目名",
+        validate (val) {
+          if (val === '') return '項目名不能為空';
+          if (srcList.indexOf(val) !== -1) return '已經存在相同名字的項目名'
+          return true
+        }
+      },
+      {
+        name: "store",
+        type: 'confirm',
+        message: "使用vuex?",
+        default: true
+      },
+      {
+        name: "router",
+        type: 'confirm',
+        message: "使用vue-router?",
+        default: true
+      }
+    ]
+    // 設置交互問題
+    let res = await this.prompt(prompt);
+    let proj = path.resolve('./src', res.name);
+    if (!fs.existsSync(proj)) { // 判断有无文件夹存在，无则创建
+      fs.mkdirSync(proj);
+    }
+    this.params = res;
+  }
+  writing() { 
     // 对象解构
     let {name, store, router} = this.params;
     console.log(`生成项目:${name},\n目录：${this.destinationPath()},\n使用vuex：${store},\n使用router：${router}`)
@@ -28,17 +64,21 @@ module.exports = class extends Generator {
     // 如不设置环境或模板文件夹，需要自己指定文件路径
     this.fs.copyTpl(
       this.templatePath(), // 模板目录，该方法获取模板目录
-      this.destinationPath(), // 目标目录，该方法获取执行命令目录
+      path.resolve('./src', name), // 目标目录
+      // this.destinationPath(), // 目标目录，该方法获取执行命令目录
       {name, store, router}  // 给模板传参
     );
     // 选择不适用store不安装则删除store文件夹
     if (!store) {
-      this.fs.delete(this.destinationPath('store'));
+      // this.fs.delete(this.destinationPath('store'));
+      this.fs.delete(path.resolve('./src', name, 'store'));
     }
     // 选择不使用router则删除router以及pages文件夹
     if (!router) {
-      this.fs.delete(this.destinationPath('router'));
-      this.fs.delete(this.destinationPath('pages'));
+      this.fs.delete(path.resolve('./src', name, 'router'));
+      this.fs.delete(path.resolve('./src', name, 'pages'));
+      // this.fs.delete(this.destinationPath('router'));
+      // this.fs.delete(this.destinationPath('pages'));
     }
   }
   end() {

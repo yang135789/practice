@@ -116,7 +116,6 @@ babel-loader @babel/core // js兼容处理
 vue@next // vue3
 vue-loader@next @vue/compiler-sfc@next // vue文件解析 @vue/compiler-sfc需要vue的版本一致
 copy-webpack-plugin // 文件複製插件
-inquirer // 控制台交互
 yeoman-generator // 脚手架生成
 ```
 

@@ -11,10 +11,6 @@
   7. install -- 进行依赖的安装（eg：npm，bower）
   8. end -- 最后调用，做一些clean工作
 
-作者：你叫呆小瓜
-链接：https://www.jianshu.com/p/93211004c5ac
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ## 使用方法：
 根目录下运行命令
 ```
@@ -23,6 +19,7 @@ yarn createProj
 npm run createProj
 ```
 ## 文档链接：
+ [参考](https://www.jianshu.com/p/93211004c5ac)  
  [inquirer](https://github.com/SBoudrias/Inquirer.js)  
  [yeoman-environment](https://yeoman.github.io/generator/Generator.html)  
  [yeoman-generator](http://yeoman.github.io/environment/2.x/Environment.html)  
