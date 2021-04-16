@@ -5,7 +5,6 @@ const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
 const { VueLoaderPlugin } = require('vue-loader'); // vue解析插件
-
 module.exports = env => {
   // 获取环境变量，匹配: 开头的键作为项目文件名
   const proj = Object.keys(env).filter(key => /^:.*/.test(key))[0].slice(1);
@@ -20,7 +19,7 @@ module.exports = env => {
     mode: NODE_ENV,
     devtool: !(RUN_ENV === 'prod') || 'cheap-module-source-map',
     entry: {
-      index: `${entryPath}/index.js`
+      index: {import: `${entryPath}/index.js`}
     }, // 入口文件
     output: {
       path: outputPath, // 輸出項目路徑
@@ -110,9 +109,10 @@ module.exports = env => {
       }),
       new htmlWebpackPlugin({ // html模板插件
         filename: `${outputPath}/index.html`, // 文件名
-        chunks: ['index'], // 导入js文件
+        chunks: ['/dll/vue-dll.js','index'], // 导入js文件
         inject: 'body', // 插入js位置
         template: `${entryPath}/index.html`, // 模板文件位置
+        dll: RUN_ENV !== "local" ? `<script src="./js/dll/vue-dll.js"></script>` : '',
         timestamp: `<script>var timestamp = ${Date.now()};</script>`,
         clearCache: `<script>${fs.readFileSync(path.resolve(__dirname, 'clearCache.js'))}</script>` // 自定义模板传参<%= htmlWebpackPlugin.options.clearCache %>
       }),
@@ -123,7 +123,7 @@ module.exports = env => {
         'env.NODE_ENV': JSON.stringify(NODE_ENV), // 打包環境
         __VUE_PROD_DEVTOOLS__: false, // 啟用vue生產模式調試工具devtools
         __VUE_OPTIONS_API__: true, // 啟用vue編譯器options的api
-      })
+      }),
     ],
     resolve: {
       extensions: ['.js', '.json', 'scss', 'css', '.vue'], // 引入文件可以省略後綴

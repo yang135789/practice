@@ -77,6 +77,10 @@ module.exports = class extends Generator {
   writing() { 
     // 对象解构
     let {name, store, router} = this.params;
+    // 模板目录，该方法获取模板目录
+    let templatePath = this.templatePath(); 
+    //let destinationPath =  this.destinationPath(), // 目标目录，该方法获取执行命令目录
+    let destinationPath = path.resolve('./src', name)
     this.log.info(`生成项目:${name}`);
     this.log.info(`目录：${this.destinationPath()}`);
     this.log.info(`使用vuex：${store}`);
@@ -85,28 +89,25 @@ module.exports = class extends Generator {
     // 复制模板，使用ejs语法
     // 如不设置环境或模板文件夹，需要自己指定文件路径
     this.fs.copyTpl(
-      this.templatePath(), // 模板目录，该方法获取模板目录
-      path.resolve('./src', name), // 目标目录
-      // this.destinationPath(), // 目标目录，该方法获取执行命令目录
+      templatePath, 
+      destinationPath, // 目标目录
       {name, store, router},   // 给模板传参
     );
-    // this.fs.copy(this.templatePath('static'), path.resolve('./src', name), {ignoreNoMatch: false})
     // 选择不适用store不安装则删除store文件夹
     if (!store) {
-      // this.fs.delete(this.destinationPath('store'));
-      this.fs.delete(path.resolve('./src', name, 'store'));
+      this.fs.delete(path.resolve(destinationPath, 'store'));
     }
     // 选择不使用router则删除router以及pages文件夹
     if (!router) {
-      this.fs.delete(path.resolve('./src', name, 'router'));
-      this.fs.delete(path.resolve('./src', name, 'pages'));
+      this.fs.delete(path.resolve(destinationPath, 'router'));
+      this.fs.delete(path.resolve(destinationPath, 'pages'));
       // this.fs.delete(this.destinationPath('router'));
       // this.fs.delete(this.destinationPath('pages'));
     }
     // 创建空文件夹, 解决模板不复制空文件夹问题
     this.createNullDir(
-      this.templatePath(), // 模板目录，该方法获取模板目录
-      path.resolve('./src', name), // 目标目录
+      templatePath, // 模板目录，该方法获取模板目录
+      destinationPath, // 目标目录
     )
   }
   end() {

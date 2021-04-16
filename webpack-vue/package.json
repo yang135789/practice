@@ -8,6 +8,7 @@
     "dev": "./node_modules/.bin/webpack serve -c config/webpack.dev.js --env NODE_ENV=local",
     "buildBeta": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=beta",
     "build": "./node_modules/.bin/webpack -c config/webpack.prod.js --env NODE_ENV=prod",
+    "dll": "./node_modules/.bin/webpack -c config/webpack.dll.js",
     "createProj": "node config/cli/create.js"
   },
   "keywords": [],
