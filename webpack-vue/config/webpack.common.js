@@ -19,11 +19,11 @@ module.exports = env => {
     mode: NODE_ENV,
     devtool: !(RUN_ENV === 'prod') || 'cheap-module-source-map',
     entry: {
-      index: {import: `${entryPath}/index.js`}
+      index: `${entryPath}/index.js`
     }, // 入口文件
     output: {
       path: outputPath, // 輸出項目路徑
-      filename: 'js/[name].js', // 文件夹名 [name]就可以将出口文件名和入口文件名一一对应
+      filename: 'js/[name].[chunkhash:8].js', // 文件夹名 [name]就可以将出口文件名和入口文件名一一对应
       publicPath: env.NODE_ENV === 'local' ? '/' : './' // 输出解析文件的目录
     },
     module: {
@@ -46,8 +46,7 @@ module.exports = env => {
         }, {
           test: /\.s?css$/i, // 解析css, scss
           use: [
-            // MiniCssExtractPlugin.loader,
-            'style-loader',
+            RUN_ENV === 'local' ? 'style-loader' : MiniCssExtractPlugin.loader,
             'css-loader',
             {
               loader: 'postcss-loader',
@@ -89,7 +88,14 @@ module.exports = env => {
       ]
     },
     plugins:[ // 插件
-      new MiniCssExtractPlugin(), // css提取插件
+      new MiniCssExtractPlugin({
+        filename:
+        RUN_ENV === 'local'
+          ? '[name].css'
+          : 'style/[name].[contenthash].css',
+        chunkFilename:
+        RUN_ENV === 'local' ? '[id].css' : 'style/[id].[contenthash].css',
+      }), // css提取插件
       new VueLoaderPlugin(), // vue-loader 插件
       // copy custom static assets
       new CopyWebpackPlugin({ // 复制插件,将static复制到打包路径里
