@@ -20,6 +20,7 @@
         {{ key }}
       </div>
     </div>
+    <img src="/static/29.jpg" >
   </div>
 </template>
 <script>

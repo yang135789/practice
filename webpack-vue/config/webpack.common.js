@@ -30,24 +30,38 @@ module.exports = env => {
       rules: [{
           test: /\.(png|svg|jpe?g|gif)$/i, // 解析图片
           // include: /to64\/*/,
-          // include: /\/static/,
-          use: [{
-            loader: 'url-loader',
-            options: {
-              limit: 100 * 1024, // 大於100k轉碼
-              name: '[name].[hash:7].[ext]', //文件名
-              outputPath: 'img'
+          // exclude: /[^\/]static/,
+          type: 'asset', // 使用资源模块,自动选择
+          parser: {
+            dataUrlCondition: {
+              maxSize: 100 * 1024 // 大于100k转为链接， 否则转行内
             }
-          }]
+          },
+          generator: {
+            filename: 'img/[name].[hash:7][ext]', // 输出资源路径
+          }
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体处理
-          use: ['file-loader']
+          type: 'asset/source' //  导出资源的源代码。
+          // use: ['file-loader']
         }, {
           test: /\.s?css$/i, // 解析css, scss
           use: [
             RUN_ENV === 'local' ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: (url, resourcePath) => { // 过滤链接路劲
+                  // resourcePath - css 文件的路径
+                  // 不处理 `/static` url 下面的文件
+                  if (/^\//.test(url) && url.includes("/static")) {
+                    return false;
+                  }
+                  return true;
+                }
+              }
+            },
             {
               loader: 'postcss-loader',
               options: {
