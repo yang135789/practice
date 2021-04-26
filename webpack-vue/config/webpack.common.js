@@ -5,6 +5,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css提取插件
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 文件複製插件
 const { VueLoaderPlugin } = require('vue-loader'); // vue解析插件
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 module.exports = env => {
   // 获取环境变量，匹配: 开头的键作为项目文件名
   const proj = Object.keys(env).filter(key => /^:.*/.test(key))[0].slice(1);
@@ -26,6 +27,11 @@ module.exports = env => {
       filename: 'js/[name].[chunkhash:8].js', // 文件夹名 [name]就可以将出口文件名和入口文件名一一对应
       publicPath: env.NODE_ENV === 'local' ? '/' : './' // 输出解析文件的目录
     },
+    performance: {
+      hints: 'warning', 
+      maxAssetSize: 30000000, // 整数类型（以字节为单位）控制webpack单个资产超出限制时发出性能提示
+      maxEntrypointSize: 500000 // 整数类型（以字节为单位） 控制webpack最大入口点文件大小超出限制时发出性能提示
+    },
     module: {
       rules: [{
           test: /\.(png|svg|jpe?g|gif)$/i, // 解析图片
@@ -40,13 +46,13 @@ module.exports = env => {
           generator: {
             filename: 'img/[name].[hash:7][ext]', // 输出资源路径
           }
-        },
-        {
+        }, {
           test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体处理
           type: 'asset/source' //  导出资源的源代码。
           // use: ['file-loader']
         }, {
           test: /\.s?css$/i, // 解析css, scss
+          exclude: /node_modules/,
           use: [
             RUN_ENV === 'local' ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
@@ -92,12 +98,27 @@ module.exports = env => {
         }, {
           test: /\.m?js$/, // js文件解析
           exclude: /node_modules/, // 排除符合条件的模块
-          use: {
+          use: [{
+          // 开启多进程打包。 
+          // 进程启动大概为600ms，进程通信也有开销。
+          // 只有工作消耗时间比较长，才需要多进程打包
+          //   loader: "thread-loader",
+          //   options: {
+          //     workers: 2,
+          //     workerParallelJobs: 50,
+          //     workerNodeArgs: ['--max-old-space-size=1024'],
+          //     poolRespawn: false,
+          //     poolTimeout: 2000,
+          //     poolParallelJobs: 50,
+          //     name: "my-pool"
+          //   }
+          // }, {
             loader: 'babel-loader',
             options: {
+              cacheDirectory: true, // 开启缓存
               configFile: path.resolve(__dirname,'./.babelrc') // 修改配置文件位置， 默认根目录
             }
-          }
+          }]
         }
       ]
     },
@@ -144,6 +165,26 @@ module.exports = env => {
         __VUE_PROD_DEVTOOLS__: false, // 啟用vue生產模式調試工具devtools
         __VUE_OPTIONS_API__: true, // 啟用vue編譯器options的api
       }),
+      new ImageMinimizerPlugin({ // 图片压缩
+        // test: /\.(jpe?g|png|gif|svg)$/i,
+        minimizerOptions: {
+          plugins: [
+            ['gifsicle', { interlaced: true }],
+            ['mozjpeg', { quality: 80 }],
+            ['pngquant',  {speed: 4, quality: [0.3, 0.5] }],
+            [
+              'svgo',
+              {
+                plugins: [
+                  {
+                    removeViewBox: false,
+                  },
+                ],
+              },
+            ],
+          ]
+        }
+      })
     ],
     resolve: {
       extensions: ['.js', '.json', 'scss', 'css', '.vue'], // 引入文件可以省略後綴

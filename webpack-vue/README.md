@@ -105,9 +105,6 @@ html-webpack-plugin@next // html模板插件
 mini-css-extract-plugin // 提取CSS到单独的文件
 css-loader // 解析js中的css文件
 style-loader // 将css文件用style标签插入html
-url-loader // 
-file-loader //
-html-loader // 
 sass-loader node-sass // sass文件解析
 postcss postcss-loader // 样式兼容处理
 postcss-preset-env // post预设环境
@@ -117,7 +114,15 @@ vue@next // vue3
 vue-loader@next @vue/compiler-sfc@next // vue文件解析 @vue/compiler-sfc需要vue的版本一致
 copy-webpack-plugin // 文件複製插件
 yeoman-generator // 脚手架生成
+
 ```
+6. 提高构建速度
+ + 使用DllPlugin拆分 bundles
+ + 使用thread-loader，开启多进程打包。
+
+7. 性能优化
+ + 图片压缩image-minimizer-webpack-plugin
+ + 图片压缩插件imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant imagemin-svgo 
 
 99. 問題處理
 + 安裝node-sass失敗
