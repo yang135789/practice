@@ -30,7 +30,7 @@ module.exports = env => {
     performance: {
       hints: 'warning', 
       maxAssetSize: 30000000, // 整数类型（以字节为单位）控制webpack单个资产超出限制时发出性能提示
-      maxEntrypointSize: 500000 // 整数类型（以字节为单位） 控制webpack最大入口点文件大小超出限制时发出性能提示
+      maxEntrypointSize: 5000000 // 整数类型（以字节为单位） 控制webpack最大入口点文件大小超出限制时发出性能提示
     },
     module: {
       rules: [{
