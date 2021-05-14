@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>啥都没有</h1>
     <ballistic></ballistic>
   </div>
 </template>
@@ -23,5 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {}
+.home {
+  padding: 50px;
+}
 </style>
