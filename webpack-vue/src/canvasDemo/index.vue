@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <ballistic></ballistic>
+    <!-- <catchFishCss></catchFishCss> -->
+    <catchFishCvs></catchFishCvs>
   </div>
 </template>
 <script>
-import ballistic from './components/ballistic'
+import catchFishCss from './components/catchFishCss'
+import catchFishCvs from './components/catchFishCvs'
 export default {
   data () {
     return {
     }
   },
   components: {
-    ballistic
+    catchFishCss,
+    catchFishCvs
   },
   computed: {
   },

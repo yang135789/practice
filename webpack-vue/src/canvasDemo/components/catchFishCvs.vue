@@ -1,29 +1,10 @@
 <template>
   <div class="game">
-    <!-- 倒计时 -->
-    <div class="countDown">
-      <div class="num">{{ countDown.time }}S</div>
-      <div class="bgBar">
-        <div class="colorBar" ref="colorBar" :class="{play: isPlaying}" :style="{
-          'transition-duration': `${ countDown.gameLength }s`
-        }"></div>
-      </div>
+    <canvas ref="canvas"></canvas>
+    <div>
+      <button @click="start">开始</button>
+      <button @click="stop">停止</button>
     </div>
-    <!-- 游戏区 -->
-    <div class="gameContent">
-      <div class="fishRow" v-for="(item, row) in fishData" :key="row" :ref="`fish_${row}`">
-        <div class="fish" v-for="(fish, cel) in item" :key="cel" @click="clickFish($event, fish)"  :ref="`fish_${row}_${cel}`">
-          <div class="img" v-show="!fishData.isDead">鱼</div>
-        </div>
-      </div>
-      <div class="shell" :style="[{
-        left: shellData.targX,
-        top: shellData.targY,
-      }]" ref="shell"></div>
-      <div class="battery"></div>
-    </div>
-    <button @click="start">开始</button>
-    <button @click="stop">停止</button>
   </div>
 </template>
 <script>
@@ -34,11 +15,9 @@ export default {
         [{},{},{}],
         [{},{},{},{},{}],
         [{},{},{},{},{},{}],
-        [{},{},{},{},{},{},{}],
-        [{},{},{},{},{},{}],
         [{},{},{},{},{}],
-        [{},{},{},{}],
-        [{},{},{}]
+        [{},{},{},{},{}],
+        // [{}],
       ],
       countDown: {
         time: 20, // 倒计时
@@ -196,81 +175,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .game {
-  .countDown {
+  canvas {
     width: 750px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    .num {
-      font-size: 24px;
-      color: #666;
-      width: 120px;
-      text-align: center;
-    }
-    .bgBar {
-      height: 30px;
-      flex: 1;
-      border-radius: 25px;
-      background: cornflowerblue;
-      overflow: hidden;
-      .colorBar {
-        height: 100%;
-        width: 100%;
-        background: #cea;
-        transition: width 20s linear;
-        &.play {
-          width: 0;
-        }
-      }
-    }
-  }
-  .gameContent {
-    width: 750px;
-    height: 900px;
-    position: relative;
-    .fishRow {
-      height: 100px;
-      width: 750px;
-      display: flex;
-      .fish {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .img {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background: chocolate;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #fff;
-        }
-      }
-    }
-    .shell {
-      position: absolute;
-      background:olive;
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      left: 50%;
-      top: calc(100% - 25px);
-      transform: translate(-50%, -50%);
-      z-index: 1;
-      transition: all 2s linear;
-    }
-    .battery {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      background: navajowhite;
-      left: 50%;
-      bottom: 0;
-      transform: translate(-50%, 0);
-      border-radius: 50px 50px 0 0;
-    }
+    height: 800px;
+    background: #cad;
   }
 }
 </style>
