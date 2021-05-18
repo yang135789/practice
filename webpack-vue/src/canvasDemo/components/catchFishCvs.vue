@@ -1,5 +1,6 @@
 <template>
   <div class="game">
+    <div>{{ timeData.time }}</div>
     <canvas ref="canvas" @click="clickCanvas"></canvas>
     <div>
       <button @click="start">开始</button>
@@ -16,7 +17,7 @@ export default {
         ctx: null,
         width: this.toCurPX(750),
         height: this.toCurPX(800),
-        fishRowHeight: this.toCurPX(100),
+        runing: false
       },
       fishData: {
         height: this.toCurPX(100),
@@ -30,29 +31,26 @@ export default {
         list: []
       },
       bulletData: {
-        width: 10,
-        height: 10,
+        width: this.toCurPX(20),
+        height: this.toCurPX(20),
         color: '#000',
         list: []
       },
-      countDown: {
+      timeData: {
+        timestamp: 0, // 保存时间戳
+        runTime: 0, // 运行时间
         time: 20, // 倒计时
-        gameLength: 10 // 游戏时长
+        gameLength: 20 // 游戏时长
       },
-      isPlaying: false, // 游戏中
       gunData: { // 炮弹数据
-        el: null, // dom
         color: "#fac",
-        height: this.toCurPX(100),
-        width: this.toCurPX(100),
+        height: this.toCurPX(50),
+        width: this.toCurPX(50),
         centerX: 0, // 原坐标x
         centerY: 0, // 原坐标y
-        targX: false, // 目标坐标y
-        targY: false, // 目标坐标x
         targFishList: [], // 目标线上的鱼
         runing: false // 飞行中
-      },
-      animatonTimmer: null, // 动画定时器
+      }
     }
   },
   computed: {
@@ -66,9 +64,6 @@ export default {
     toCurPX (px) { // 轉換為當前屏幕大小的像素
       return px / (1920 / 100) * (window.innerWidth / 100);
     },
-    start () {
-      this.draw();
-    },
     init () { // 初始化
       if (!this.canvas.el) {
         this.canvas.el = this.$refs.canvas;
@@ -76,6 +71,12 @@ export default {
         this.canvas.el.width = this.canvas.width;
         this.canvas.el.height = this.canvas.height;
       }
+      this.initFish();
+      this.initGun();
+      this.draw();
+    },
+    // 初始化鱼数据
+    initFish () {
       this.fishData.list = [];
       // 初始化矩阵数据
       this.fishData.matrix.forEach((fishRow, index) => {
@@ -101,32 +102,50 @@ export default {
           fish.centerY = fish.y + fish.height / 2;
           // 死亡
           fish.isDead = false;
+          //
+          fish.item = []
           this.fishData.list.push(fish);
         })
       });
+    },
+    // 初始化枪数据
+    initGun () {
       this.gunData.x = this.canvas.width / 2 - this.gunData.width / 2;
       this.gunData.y = this.canvas.height - this.gunData.height;
       this.gunData.centerX = this.canvas.width / 2;
       this.gunData.centerY = this.canvas.height - this.gunData.height / 2;
-      // this.draw();
-      console.log(this.canvas.ctx);
+    },
+    // 60帧定时器
+    fps60Timer (fn) {
+      return setInterval(fn, 1000 / 60);
     },
     // 渲染画布
-    draw () {
-      this.canvas.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+    draw (times) {
+      // this.canvas.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+      this.canvas.ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      this.canvas.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+      // 绘制鱼
       this.fishData.list.forEach((fish, index) => {
         if (!fish.isDead) {
           this.canvas.ctx.fillStyle = fish.color;
           this.canvas.ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
         }
       });
+      // 绘制枪
       this.canvas.ctx.fillStyle = this.gunData.color;
       this.canvas.ctx.fillRect(this.gunData.x, this.gunData.y, this.gunData.width, this.gunData.height);
+      // 绘制子弹
       this.canvas.ctx.fillStyle = this.bulletData.color;
       this.bulletData.list.forEach(item => {
-        this.canvas.ctx.fillRect(item.curX, item.curY, this.bulletData.width, this.bulletData.height);
+        this.canvas.ctx.fillRect(item.x, item.y, this.bulletData.width, this.bulletData.height);
       })
-      this.canvas.animationFrame = requestAnimationFrame(this.draw);
+      if (times) {
+        // 记录时间戳
+        if (!this.timeData.timestamp) this.timeData.timestamp = times;
+        this.timeData.runTime = times - this.timeData.timestamp;
+        this.timeData.time = Math.ceil(this.timeData.gameLength - this.timeData.runTime / 1000);
+        this.canvas.animationFrame = requestAnimationFrame(this.draw);
+      }
     },
     // 获取坐标点上的鱼
     getXYofFish (x, y) {
@@ -135,75 +154,115 @@ export default {
     },
     // 点击画布
     clickCanvas (event) {
+      if (!this.canvas.runing) return;
       let targetFish = this.getXYofFish(event.offsetX, event.offsetY);
-      let road = this.distanceToXY(event.offsetX, event.offsetY, this.canvas.height + 200);
-      let routerFish = this.forecastRoute(event.offsetX, event.offsetY);
-      this.bulletData.list.push(this.createBullet(road.x, road.y))
-      // this.draw();
-      this.canvas.ctx.beginPath();
-      this.canvas.ctx.moveTo(this.gunData.centerX, this.gunData.centerY);
-      this.canvas.ctx.lineTo(road.x, road.y);
-      this.canvas.ctx.stroke();
-      ;
-      // console.log(event.offsetX, event.offsetY, targetFish, routerFish);
+      // 子弹终点
+      let bulletEnd = this.distanceToXY(event.offsetX, event.offsetY, this.canvas.height + 100);
+      let bullet = this.createBullet(bulletEnd.x, bulletEnd.y);
+      this.bulletData.list.push(bullet);
     },
     // 生成子弹
     createBullet (targX, targY) {
+      // 在弹道上的鱼
+      let routerFish = this.forecastRoute(targX, targY);
       let bullet = {
-        targX: targX - this.bulletData.width / 2,
-        targY: targY + this.bulletData.height / 2,
-        curX: this.gunData.centerX - this.bulletData.width / 2,
+        x: this.gunData.centerX - this.bulletData.width / 2,
+        y: this.gunData.centerY - this.bulletData.height / 2,
+        x1: this.gunData.centerX + this.bulletData.width / 2,
+        y1: this.gunData.centerY + this.bulletData.height / 2,
+        targX: targX - this.bulletData.width / 2, // 目标坐标
+        targY: targY - this.bulletData.height / 2,
+        curX: this.gunData.centerX - this.bulletData.width / 2, // 当前坐标
         curY: this.gunData.centerY - this.bulletData.height,
-        show: true,
-        timmer: null
+        timmer: null,
+        invalid: false, // 子弹失效
+        fishList: routerFish // 弹道上的鱼列表
       }
-      let x = bullet.targX - bullet.curX;
-      let y = bullet.targY - bullet.curY;
-      let stepX = x * 60 / (1000 * 3);
-      let stepY = y * 60 / (1000 * 3);
-      bullet.timmer = setInterval(() => {
-        bullet.curX += stepX;
-        bullet.curY += stepY;
-        let overstepX = stepX >= 0 ? bullet.curX >= bullet.targX : bullet.curX <= bullet.targX;
-        let overstepY = bullet.curY <= bullet.targY;
-        // console.log([x * 60 / 1000, y * 60 / 1000], [bullet.curX, bullet.curY], [bullet.targX, bullet.targY]);
-        if (overstepX && overstepY) {
+      let s = 3; // 小球到终点所用时间
+      let x = bullet.targX - bullet.x;
+      let y = bullet.targY - bullet.y;
+      // 每帧速度
+      let stepX = x * 60 / (1000 * s);
+      let stepY = y * 60 / (1000 * s);
+      bullet.timmer = this.fps60Timer(() => {
+        // 改变子弹坐标
+        bullet.x += stepX;
+        bullet.y += stepY;
+        bullet.x1 += stepX;
+        bullet.y1 += stepY;
+        let overstepX = stepX >= 0 ? bullet.x >= bullet.targX : bullet.x <= bullet.targX;
+        let overstepY = bullet.y <= bullet.targY;
+        // 遍历经过哪些鱼，跳过打过的鱼
+        for (let fish of routerFish) {
+          if (this.rectCollision(bullet, fish) && !fish.isDead) {
+              fish.isDead = true; // 鱼死亡
+              bullet.invalid = true; // 让子弹失效
+              console.log('死掉的鱼', fish);
+              break;
+          }
+        }
+        // 到达终点或打到鱼后消失
+        if (overstepX && overstepY || bullet.invalid) {
           clearInterval(bullet.timmer);
           this.bulletData.list.splice(this.bulletData.list.indexOf(bullet), 1);
         }
-      }, 1000 / 60);
+      });
       return bullet;
     },
-    // 计算路线经过的鱼
-    forecastRoute (ox1, oy1) {
-      let x = ox1 - this.gunData.centerX;
-      let y = oy1 - this.gunData.centerY;
-      let length = Math.ceil(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+    // 计算在子弹路线上的鱼
+    forecastRoute (targX, targY) {
+      let length = Math.ceil(Math.sqrt(Math.pow(targX - this.gunData.centerX, 2) + Math.pow(targY - this.gunData.centerY, 2)));
       let fishList = [];
       Array.from(new Array(length), (v, i) => {
-        let {x: curx, y: cury} = this.distanceToXY(ox1, oy1, i);
-        let atFish = this.fishData.list.filter(item => {
-          let [x, y, x1, y1] = item.coordinate;
-          return curx >= x && curx < x1 && cury > y && cury <= y1
+        let dot = this.distanceToXY(targX, targY, i);
+        let x = dot.x - this.bulletData.width / 2;
+        let y = dot.y - this.bulletData.height / 2;
+        let x1 = x + this.bulletData.width;
+        let y1 = y + this.bulletData.height;
+        // this.canvas.ctx.fillRect(x1, y1, this.bulletData.width, this.bulletData.height);
+        let atFish = this.fishData.list.filter(fish => {
+          return this.rectCollision({x, y, x1, y1}, fish)
         })
-        if (atFish.length) {
-          if (fishList.indexOf(atFish[0]) === -1) {
-            fishList.push(atFish[0]);
+        atFish.forEach(fish => {
+          if (fishList.indexOf(fish) === -1) {
+            fishList.push(fish);
           }
-        }
+        })
       })
+      console.log('弹道上的鱼', fishList)
       return fishList;
     },
-    // 根据距离求坐标点
-    distanceToXY (ox1, oy1, length) {
+    // 计算枪中心点到目标点间,
+    distanceToXY (targX, targY, length) {
       let ox = this.gunData.centerX;
       let oy = this.gunData.centerY;
-      let x = ox1 - this.gunData.centerX;
-      let y = oy1 - this.gunData.centerY;
+      let x = targX - this.gunData.centerX;
+      let y = targY - this.gunData.centerY;
       let proportion = length / (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
       let x1 = ox + x * proportion;
       let y1 = oy + y * proportion;
       return {x: x1, y: y1}
+    },
+    // 碰撞计算
+    rectCollision (obj, obj1) {
+      let x = Math.max.apply(null, [obj.x, obj1.x]) <= Math.min.apply(null, [obj.x1, obj1.x1]);
+      let y = Math.max.apply(null, [obj.y, obj1.y]) <= Math.min.apply(null, [obj.y1, obj1.y1]);
+      if (x && y) {
+        return true
+      }
+      return false;
+    },
+    start () {
+      this.canvas.runing = true;
+      this.timeData.timestamp = 0;
+      this.canvas.animationFrame = requestAnimationFrame(this.draw);
+    },
+    stop () {
+      this.init();
+      this.canvas.runing = false;
+      this.timeData.time = 20;
+
+      cancelAnimationFrame(this.canvas.animationFrame)
     }
   }
 }
@@ -211,6 +270,7 @@ export default {
 <style lang="scss" scoped>
 .game {
   canvas {
+    user-select: none;
     // width: 750px;
     // height: 800px;
   }
