@@ -122,7 +122,8 @@ yeoman-generator // 脚手架生成
 
 7. 性能优化
  + 图片压缩image-minimizer-webpack-plugin
- + 图片压缩插件imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant imagemin-svgo 
+ + 无损图片压缩插件 imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo
+ + 有损图片压缩插件 imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant imagemin-svgo 
 
 99. 問題處理
 + 安裝node-sass失敗
