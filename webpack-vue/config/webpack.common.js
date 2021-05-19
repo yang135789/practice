@@ -170,8 +170,8 @@ module.exports = env => {
         minimizerOptions: {
           plugins: [
             ['gifsicle', { interlaced: true }],
-            ['mozjpeg', { quality: 80 }],
-            ['pngquant',  {speed: 4, quality: [0.3, 0.5] }],
+            ['jpegtran', { progressive: true }],
+            ['optipng', { optimizationLevel: 5 }],
             [
               'svgo',
               {

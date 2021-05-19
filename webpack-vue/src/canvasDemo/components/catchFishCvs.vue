@@ -79,7 +79,11 @@ export default {
     initFish () {
       this.fishData.list = [];
       // 初始化矩阵数据
+      let imgs = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png']
       this.fishData.matrix.forEach((fishRow, index) => {
+        let img = new Image();
+        img.src =  require(`../assets/image/${imgs[index]}`);
+        // document.body.append(img);
         fishRow.forEach((fish, i) => {
           let r = 255 * Math.random();
           let g = 255 * Math.random();
@@ -102,6 +106,8 @@ export default {
           fish.centerY = fish.y + fish.height / 2;
           // 死亡
           fish.isDead = false;
+          // 图片
+          fish.img = img;
           //
           fish.item = []
           this.fishData.list.push(fish);
@@ -127,6 +133,7 @@ export default {
       // 绘制鱼
       this.fishData.list.forEach((fish, index) => {
         if (!fish.isDead) {
+          this.canvas.ctx.drawImage(fish.img, fish.x, fish.y)
           this.canvas.ctx.fillStyle = fish.color;
           this.canvas.ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
         }
