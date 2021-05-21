@@ -24,6 +24,7 @@ export default {
         runing: false
       },
       fishData: {
+        has: 0,
         height: this.toCurPX(100),
         matrix: [
           [{},{},{}],
@@ -38,6 +39,8 @@ export default {
         width: this.toCurPX(20),
         height: this.toCurPX(60),
         color: '#000',
+        num: 10,
+        use: 0,
         list: []
       },
       timeData: {
@@ -157,15 +160,13 @@ export default {
             y: itemY,
             x1: itemX1,
             y1: itemY1,
-            stepX: Math.random(),
-            stepY: Math.random(),
+            stepX: Math.random() * 0.5,
+            stepY: Math.random() * 0.5,
             isPlay: false,
-            play: () => {
+            play: () => { // 鱼游动
               let item = fish.item;
               if (item.isPlay) return;
-              // if (!(fish.row === 0 && fish.cel === 1)) return;
               item.isPlay = true;
-              // item.x+=50;
               let timer = this.fps60Timer(() => {
                 if (item.y1 + item.stepY > fish.y1 || item.y + item.stepY < fish.y) {
                   item.stepY = -item.stepY;
@@ -205,14 +206,16 @@ export default {
       // this.canvas.ctx.fillStyle = 'rgba(255,255,255,0.3)';
       // this.canvas.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
       // 绘制枪
-      this.canvas.ctx.fillStyle = this.gunData.color;
-      this.canvas.ctx.fillRect(this.gunData.x, this.gunData.y, this.gunData.width, this.gunData.height);
+      // this.canvas.ctx.fillStyle = this.gunData.color;
+      // this.canvas.ctx.fillRect(this.gunData.x, this.gunData.y, this.gunData.width, this.gunData.height);
+      this.canvas.ctx.fillText(this.bulletData.num - this.bulletData.use, this.gunData.x + this.gunData.width, this.gunData.centerY )
       this.canvas.ctx.drawImage(this.gunData.img, this.gunData.x, this.gunData.y, this.gunData.width, this.gunData.height)
       // 绘制鱼
+      this.canvas.ctx.fillText(this.fishData.has, 0, this.canvas.height - 10 )
       this.fishData.list.forEach((fish, index) => {
         if (!fish.isDead) {
-          this.canvas.ctx.fillStyle = fish.color;
-          this.canvas.ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
+          // this.canvas.ctx.fillStyle = fish.color;
+          // this.canvas.ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
           // 渲染鱼图片
           this.canvas.ctx.drawImage(fish.item.img, fish.item.x, fish.item.y, fish.item.width, fish.item.height)
           times && fish.item.play()
@@ -247,17 +250,19 @@ export default {
     // 点击画布
     clickCanvas (event) {
       if (!this.canvas.runing) return;
+      if (this.bulletData.use >= this.bulletData.num) return;
       // 子弹终点
       let bulletEnd = this.distanceToXY(event.offsetX, event.offsetY, this.canvas.height + 100);
       let bullet = this.createBullet(bulletEnd.x, bulletEnd.y);
+      console.log('剩余子弹', this.bulletData.num - this.bulletData.use);
       this.bulletData.list.push(bullet);
     },
     // 生成子弹
     createBullet (targX, targY) {
+      this.bulletData.use++;
       // 在弹道上的鱼
       // let targetFish = this.getXYofFish(targX, targY);
       let routerFish = this.forecastRoute(targX, targY);
-      
       let bullet = {
         centerX: this.gunData.centerX,
         centerY: this.gunData.centerY,
@@ -275,7 +280,6 @@ export default {
         img: this.imgs['bullet'][0],
         deg: Math.atan2((targY - this.gunData.centerY), (targX - this.gunData.centerX)) + Math.PI / 2
       }
-      console.log(bullet.deg);
       let s = 3; // 小球到终点所用时间
       let x = bullet.targX - bullet.x;
       let y = bullet.targY - bullet.y;
@@ -294,9 +298,10 @@ export default {
         let overstepY = bullet.y <= bullet.targY;
         // 遍历经过哪些鱼，跳过打过的鱼
         for (let fish of routerFish) {
-          if (this.rectCollision(bullet, fish) && !fish.isDead) {
+          if (this.rectCollision(bullet, fish.item) && !fish.isDead) {
               fish.isDead = true; // 鱼死亡
               bullet.invalid = true; // 让子弹失效
+              this.fishData.has++;
               console.log('死掉的鱼', fish);
               break;
           }
