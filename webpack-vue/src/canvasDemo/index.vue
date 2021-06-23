@@ -1,20 +1,20 @@
 <template>
   <div class="home">
-    <!-- <catchFishCss></catchFishCss> -->
     <catchFishCvs></catchFishCvs>
+    <!-- <game></game> -->
   </div>
 </template>
 <script>
-import catchFishCss from './components/catchFishCss'
 import catchFishCvs from './components/catchFishCvs'
+// import game from './components/game'
 export default {
   data () {
     return {
     }
   },
   components: {
-    catchFishCss,
-    catchFishCvs
+    catchFishCvs,
+    // game
   },
   computed: {
   },
@@ -26,6 +26,6 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  padding: 50px;
+  // padding: 50px;
 }
 </style>

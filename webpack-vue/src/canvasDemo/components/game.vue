@@ -18,10 +18,10 @@
           <img :src="imgs.count[startCountDownTime -1].src">
         </div>
     </div>
-    <!-- <div>
+    <div>
       <button @click="start">开始</button>
       <button @click="stop">停止</button>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -55,8 +55,8 @@ export default {
       fishData: { // 保存鱼数据
         has: 0,
         height: [
-          this.toCurPX(204), 
-          this.toCurPX(159),
+          this.toCurPX(150), 
+          this.toCurPX(140),
           this.toCurPX(82),
           this.toCurPX(88),
           this.toCurPX(88)
@@ -105,13 +105,7 @@ export default {
   },
   async mounted () {
     await this.loadImgs();
-    this.$nextTick(() => {
-      this.canvas.height = this.$refs.canvas.offsetHeight * window.devicePixelRatio;
-      console.log(this.canvas.height);
-      this.init();
-      this.startCountDown();
-      // this.start();
-    })
+    this.init();
   },
   methods: {
     // 加载图片
@@ -124,7 +118,7 @@ export default {
           total += this.imgs[key].length;
           this.imgs[key].forEach((imgStr, index) => {
             let img = new Image();
-            img.src = require(`../assets/image/${imgStr}.png`);
+            img.src = require(`../assets/image/game/${imgStr}.png`);
             // img.src = require(`../assets/image/${imgStr}`);
             img.onload = () => {
               count++;
@@ -148,7 +142,7 @@ export default {
       })
     },
     toCurPX (px) { // 轉換為當前屏幕大小的像素
-      return px / (750 / 100) * (window.innerWidth / 100) * window.devicePixelRatio;
+      return px / (1920 / 100) * (window.innerWidth / 100) * window.devicePixelRatio;
     },
     // 开始倒计时
     startCountDown () {
@@ -160,7 +154,10 @@ export default {
           clearInterval(tiemr);
           this.showMask = false;
           this.init();
-          this.start();
+          this.canvas.runing = true;
+          this.timeData.timestamp = 0;
+          this.canvas.animationFrame = requestAnimationFrame(this.draw);
+          this.$emit('gameStart');
         }
       }, 1000)
     },
@@ -619,11 +616,7 @@ export default {
           break;
         }
       }
-      if (lineEndFish !== targFish) {
-        this.$toast('該目標前面有障礙, 優先清除障礙')
-      }
       console.log('将死之鱼', targFish);
-      this.$emit('fire', targFish);
       this.bulletData.curBullet = bullet;
       this.bulletData.list.push(bullet);
     },
@@ -671,10 +664,14 @@ export default {
     },
     // 开始游戏
     start () {
-      this.canvas.runing = true;
-      this.timeData.timestamp = 0;
-      this.canvas.animationFrame = requestAnimationFrame(this.draw);
-      this.$emit('gameStart');
+      
+      this.$nextTick(() => {
+        this.canvas.height = this.$refs.canvas.offsetHeight * window.devicePixelRatio;
+        console.log(this.canvas.height);
+        this.init();
+        this.startCountDown();
+        // this.start();
+      })
     },
     // 停止游戏
     stop () {
@@ -688,9 +685,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-// @import '~@style/common.scss';
 .game {
-  height: calc(100% - 180px);
+  height: 800px;
+  width: 500px;
   position: relative;
   .mask {
     position: fixed;
@@ -743,7 +740,7 @@ export default {
   .gameCanvas {
     user-select: none;
     height: calc(100% - 96px);
-    width: 750px;
+    width: 100%;
     // height: 800px;
   }
   .parts {
