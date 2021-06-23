@@ -189,7 +189,14 @@ module.exports = env => {
     resolve: {
       extensions: ['.js', '.json', 'scss', 'css', '.vue'], // 引入文件可以省略後綴
       alias: { // 別名
-        '@src': entryPath
+        '@Assets': path.resolve(__dirname, '../assets'),
+        '@src': entryPath,
+        '@cpt': path.join(entryPath, './components'),
+        '@style': path.join(entryPath, './assets/style'),
+        '@img': path.join(entryPath, './assets/image'),
+        '@js': path.join(entryPath, './assets/js'),
+        '@store': path.join(entryPath, './store'),
+        '@route': path.join(entryPath, './route'),
       }
     }
   }
