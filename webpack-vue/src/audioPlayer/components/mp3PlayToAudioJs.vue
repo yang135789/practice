@@ -11,7 +11,7 @@
        ></span>
     </div>
     <div class="currentTime">
-      {{ currentTime }}
+      {{ parseInt(currentTime) }}
     </div>
     <div>
     </div>
@@ -48,6 +48,21 @@ export default {
     } else if (typeof document.webkitHidden !== "undefined") {
       hidden = "webkitHidden";
     }
+    fetch(new Request(this.src)).then(res =>{
+      let audio = new Audio();
+      let mediaStream = new MediaStream();
+      let reader = res.body.pipeTo(new WritableStream());
+      console.log(reader)
+      // res.blob().then(res => {
+      //   audio.src =  window.URL.createObjectURL(res);
+      //   audio.play();
+      // })
+    //   let audio = new Audio();
+    //   Reader.read().then(res => {
+    //     audio.src = window.URL.createObjectURL(res);
+    //     audio.play();
+    //   })
+    })
   },
   computed: {
     src () {
@@ -86,6 +101,7 @@ export default {
     // 获取音乐数据
     getAudioData () {
       this.isLoading = true;
+      console.log(this.src);
       this.ajax({
         url: this.src,
         responseType:'arraybuffer'

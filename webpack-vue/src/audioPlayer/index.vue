@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       tag: '标签',
-      name: 'mp3PlayToAudioJsRe'
+      name: 'mp3PlayToAudioJs'
     }
   },
   computed: {
