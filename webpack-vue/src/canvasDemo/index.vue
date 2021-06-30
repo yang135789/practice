@@ -6,15 +6,13 @@
 </template>
 <script>
 import catchFishCvs from './components/catchFishCvs'
-// import game from './components/game'
 export default {
   data () {
     return {
     }
   },
   components: {
-    catchFishCvs,
-    // game
+    catchFishCvs
   },
   computed: {
   },

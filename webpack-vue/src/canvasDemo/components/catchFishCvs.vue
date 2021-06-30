@@ -20,6 +20,7 @@ export default {
         count: ['start', 'cd1', 'cd2', 'cd3'],
         hit: ['hit']
       },
+      names: ['垂耳兔', '團團熊', '咕咕雞', '雪球鼠', '可可熊', '橘皮貓'],
       canvas: {
         el: null,
         ctx: null,
@@ -47,13 +48,14 @@ export default {
         color: '#000',
         num: 10000,
         use: 0,
-        list: []
+        list: [],
+        type: 1
       },
       timeData: {
         timestamp: 0, // 保存时间戳
         runTime: 0, // 运行时间
         time: 200, // 倒计时
-        gameLength: 20 // 游戏时长
+        gameLength: 200 // 游戏时长
       },
       batteryData: { // 炮弹数据
         color: "#fac",
@@ -121,6 +123,7 @@ export default {
       this.bulletData.list = [];
       this.initFish();
       this.initBattery();
+      this.initBag();
       this.draw();
     },
     // 初始化鱼数据
@@ -208,7 +211,8 @@ export default {
                   fishItem.isDead = true; // 鱼死亡
                   fishItem.showHit = false;
                   this.bulletData.curBullet = null;
-                  this.fishData.has++;
+                  this.bagData.showGetStyle() // 显示+1
+                  this.bagData.num++;
                   // if (!this.batteryData.text.getText()) {
                   //   this.stop();
                   // }
@@ -253,12 +257,6 @@ export default {
           this.canvas.ctx.drawImage(cage.fish.hitImg, cage.fish.hit.x, cage.fish.hit.y, cage.fish.hit.width, cage.fish.hit.height)
         }
       });
-      this.canvas.ctx.font = `bold ${this.toCurPX(26)}px PingFang SC`;
-      this.canvas.ctx.fillStyle = '#000';
-      this.canvas.ctx.strokeStyle = '#cad';
-      this.canvas.ctx.lineWidth = this.toCurPX(2);
-      this.canvas.ctx.fillText(this.fishData.has, 10, this.canvas.height - 10 )
-      this.canvas.ctx.strokeText(this.fishData.has, 10, this.canvas.height - 10 );
     },
     // 初始化枪数据
     initBattery () {
@@ -267,12 +265,151 @@ export default {
       this.batteryData.img = this.imgs['battery'][0];
       this.batteryData.centerX = this.canvas.width / 2;
       this.batteryData.centerY = this.canvas.height - this.batteryData.height / 2;
+
+
+      
+      this.bulletData.x = this.canvas.width / 2 - this.bulletData.width / 2;
+      this.bulletData.y = this.canvas.height - this.toCurPX(45) - this.bulletData.height;
+      this.bulletData.centerX = this.canvas.width / 2;
+      this.bulletData.centerY = this.canvas.height - this.toCurPX(45) - this.bulletData.height / 2;
+      this.bulletData.fishImg = this.imgs.bullet[this.bulletData.type];
+      this.bulletData.imgs = Array.from(new Array(3), (item, index) => {
+        let img = index === 1? this.imgs.bullet[this.bulletData.type] : this.imgs.battery[Number(!!index)];
+        let width = this.toCurPX(img.width);
+        let height = width / img.width * img.height;
+        let x = this.canvas.width / 2 - width / 2;
+        let y = this.canvas.height - height;
+        switch (index) {
+          case 0:
+            y -= this.toCurPX(57);
+            break;
+          case 1:
+            y -= this.toCurPX(81);
+            break;
+          case 2:
+            y -= this.toCurPX(45);
+            break;
+        }
+        return {
+          width,
+          height,
+          x,
+          y,
+          img
+        }
+      });
+      let  textBgSrc = { // 圆角矩形左上角坐标
+        height: this.toCurPX(30),
+        x: this.toCurPX(422),
+        y: this.canvas.height - this.toCurPX(108)
+      }
+      this.bulletData.text = {
+        getText: () => this.bulletData.num - this.bulletData.use,
+        fillStyle: '#ffffff',
+        strokeStyle: '#286812',
+        x: this.toCurPX(430),
+        y: this.canvas.height - this.toCurPX(85)
+      }
+      this.bulletData.textBg = {
+        fillStyle: '#fff', 
+        getData: (index) => {
+          let fontWidth = this.canvas.ctx.measureText(this.bulletData.num - this.bulletData.use).width;
+          if (index === 0) {
+            return [textBgSrc.x + this.toCurPX(15), textBgSrc.y + this.toCurPX(15), textBgSrc.height / 2, Math.PI / 2 * 3, Math.PI / 2, true]
+          } else {
+            return [textBgSrc.x + fontWidth, textBgSrc.y + this.toCurPX(15), textBgSrc.height / 2, Math.PI / 2, Math.PI / 2 * 3, true]
+          }
+        }
+      };
+      this.bulletData.name = {
+        text: this.names[this.bulletData.type],
+        fillStyle: '#ffffff',
+        strokeStyle: '#286812',
+        fontSize: 26,
+        x: this.bulletData.centerX - this.toCurPX(35),
+        y: this.bulletData.centerY + this.toCurPX(65),
+      }
     },
     drawBullet () {
       // this.canvas.ctx.fillStyle = this.batteryData.color;
       // this.canvas.ctx.fillRect(this.batteryData.x, this.batteryData.y, this.batteryData.width, this.batteryData.height);
       this.canvas.ctx.fillText(this.bulletData.num - this.bulletData.use, this.batteryData.x + this.batteryData.width, this.batteryData.centerY )
       this.canvas.ctx.drawImage(this.batteryData.img, this.batteryData.x, this.batteryData.y, this.batteryData.width, this.batteryData.height)
+      this.canvas.ctx.lineWidth = this.toCurPX(1);
+      // this.canvas.ctx.fillStyle = text.fillStyle;
+      // this.canvas.ctx.strokeStyle = text.strokeStyle;
+      // this.canvas.ctx.fillText(this.bulletData.num - this.bulletData.use, text.x, text.y);
+      // this.canvas.ctx.strokeText(this.bulletData.num - this.bulletData.use, text.x, text.y);
+    },
+    // 初始化背包
+    initBag () {
+      let num = 0;
+      let img = this.imgs.bag[0];
+      let width = this.toCurPX(img.width);
+      let height = width / img.width * img.height;
+      let x = this.toCurPX(24);
+      let y = this.canvas.height - height - this.toCurPX(39);
+      let textBgSrc = { // 圆角矩形左上角坐标
+        height: this.toCurPX(30),
+        width: this.toCurPX(50),
+        x: this.toCurPX(51),
+        y: this.canvas.height - this.toCurPX(60)
+      }
+      let bgColor = '#ffffffdd';
+      let textColor = `#0834AE`;
+      let fontSize = this.toCurPX(22);
+      let textBg = [
+        [textBgSrc.x + this.toCurPX(15), textBgSrc.y + this.toCurPX(15), textBgSrc.height / 2, Math.PI / 2 * 3, Math.PI / 2, true],
+        [textBgSrc.x + this.toCurPX(65), textBgSrc.y + this.toCurPX(15), textBgSrc.height / 2, Math.PI / 2, Math.PI / 2 * 3, true]
+      ]
+      let getFishStyle = {
+        srcY: this.canvas.height - this.toCurPX(39 + 127),
+        x: this.toCurPX(24 + 67),
+        y: this.canvas.height - this.toCurPX(39 + 127),
+        text: '+1',
+        fontSize: this.toCurPX(30),
+        fillStyle: 'rgba(255,255,255,1)',
+        show: false,
+        timer: null
+      }
+      // 显示+1
+      let showGetStyle = () => {
+        if (getFishStyle.show) return;
+        let i = 120;
+        getFishStyle.fillStyle = '#adc';
+        getFishStyle.y = getFishStyle.srcY;
+        getFishStyle.show = true;
+        clearInterval(getFishStyle.timer);
+        getFishStyle.timer = this.fps60Timer(() => {
+          i--;
+          getFishStyle.fillStyle = `rgba(40,102,90,${i / 120})`;
+          getFishStyle.y-= this.toCurPX(0.5);
+          if (i <= 0) {
+            clearInterval(getFishStyle.timer);
+            getFishStyle.show = false;
+          }
+        })
+      }
+      this.bagData = {img, width, height, x, y, num, textBg, bgColor, textColor, fontSize, getFishStyle, showGetStyle};
+    },
+    // 渲染背包
+    drawBag () {
+      this.canvas.ctx.beginPath();
+      this.canvas.ctx.drawImage(this.bagData.img, this.bagData.x, this.bagData.y, this.bagData.width, this.bagData.height)
+      this.canvas.ctx.fillStyle = this.bagData.bgColor;
+      this.canvas.ctx.arc(...this.bagData.textBg[0]);
+      this.canvas.ctx.arc(...this.bagData.textBg[1]);
+      this.canvas.ctx.fill();
+      this.canvas.ctx.fillStyle =  this.bagData.textColor;
+      this.canvas.ctx.font = `bold ${this.bagData.fontSize}px PingFang SC`;
+      let fontWidth = this.canvas.ctx.measureText(this.bagData.num).width;
+      this.canvas.ctx.fillText(this.bagData.num, this.toCurPX(91) - fontWidth / 2, this.canvas.height - this.toCurPX(37));
+      this.canvas.ctx.closePath();
+      if (this.bagData.getFishStyle.show) {
+        this.canvas.ctx.font = `bold ${this.bagData.getFishStyle.fontSize}px PingFang SC`;
+        this.canvas.ctx.fillStyle = this.bagData.getFishStyle.fillStyle;
+        this.canvas.ctx.fillText(this.bagData.getFishStyle.text, this.bagData.getFishStyle.x, this.bagData.getFishStyle.y);
+      }
     },
     // 60帧定时器
     fps60Timer (fn, fps = 60) {
@@ -284,6 +421,8 @@ export default {
       // this.canvas.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
       this.canvas.ctx.fillStyle = 'rgba(255,255,255,0.3)';
       this.canvas.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+      // 绘制背包
+      this.drawBag();
       // 绘制枪
       this.drawBullet();
       // 绘制鱼
@@ -321,7 +460,6 @@ export default {
       // 子弹终点
       let bulletEnd = this.distanceToXY(event.offsetX, event.offsetY, this.canvas.height + 100);
       let bullet = this.initBullet(bulletEnd.x, bulletEnd.y);
-      console.log('剩余子弹', this.bulletData.num - this.bulletData.use);
       this.bulletData.list.push(bullet);
     },
     // 生成子弹
@@ -399,7 +537,6 @@ export default {
           }
         })
       })
-      console.log('弹道上的鱼', fishList)
       return fishList;
     },
     // 计算枪中心点到目标点间,

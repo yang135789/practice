@@ -39,7 +39,7 @@ export default {
       names: ['垂耳兔', '團團熊', '咕咕雞', '雪球鼠', '可可熊', '橘皮貓'],
       imgs: {  // 图片
         fish: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
-        gun: ['bulletAfter', 'bullet1', 'bulletBefore'],
+        gun: ['batteryAfter', 'bullet1', 'batteryBefore'],
         bullet: ['bullet1', 'bullet2', 'bullet3', 'bullet4', 'bullet5', 'bullet6'],
         bag: ['bag'],
         count: ['start', 'cd1', 'cd2', 'cd3'],
@@ -118,6 +118,7 @@ export default {
           total += this.imgs[key].length;
           this.imgs[key].forEach((imgStr, index) => {
             let img = new Image();
+            console.log(imgStr);
             img.src = require(`../assets/image/game/${imgStr}.png`);
             // img.src = require(`../assets/image/${imgStr}`);
             img.onload = () => {
@@ -202,7 +203,7 @@ export default {
           let itemImg = this.imgs.fish[fish.type];
           // let itemHeight = 0.5 * fish.height;
           // let itemWidth = itemHeight / itemImg.height * itemImg.width;
-          let itemWidth = this.toCurPX(0.9 * itemImg.width);
+          let itemWidth = this.toCurPX(1 * itemImg.width);
           let itemHeight = itemWidth / itemImg.width * itemImg.height;
           let itemX = fish.centerX - itemWidth / 2;
           let itemY = fish.centerY - itemHeight / 2;
