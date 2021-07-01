@@ -243,6 +243,7 @@ export default {
         })
       });
     },
+    // 渲染鱼
     drawFish (times) {
       this.fishData.list.forEach((cage, index) => {
         if (!cage.fish.isDead) {
@@ -258,7 +259,7 @@ export default {
         }
       });
     },
-    // 初始化枪数据
+    // 初始化炮台数据
     initBattery () {
       this.batteryData.x = this.canvas.width / 2 - this.batteryData.width / 2;
       this.batteryData.y = this.canvas.height - this.batteryData.height;
@@ -330,16 +331,38 @@ export default {
         y: this.bulletData.centerY + this.toCurPX(65),
       }
     },
+    // 渲染炮台
     drawBullet () {
-      // this.canvas.ctx.fillStyle = this.batteryData.color;
-      // this.canvas.ctx.fillRect(this.batteryData.x, this.batteryData.y, this.batteryData.width, this.batteryData.height);
-      this.canvas.ctx.fillText(this.bulletData.num - this.bulletData.use, this.batteryData.x + this.batteryData.width, this.batteryData.centerY )
-      this.canvas.ctx.drawImage(this.batteryData.img, this.batteryData.x, this.batteryData.y, this.batteryData.width, this.batteryData.height)
+      let ctx = this.canvas.ctx;
+      this.canvas.ctx.font = `bold ${this.toCurPX(22)}px PingFang SC`;
+      this.bulletData.imgs.forEach((img, index) => {
+        if (index === 1) {
+          ctx.drawImage(this.bulletData.fishImg, img.x, img.y, img.width, img.height);
+        } else {
+          ctx.drawImage(img.img, img.x, img.y, img.width, img.height);
+        }
+      });
+
+      let {textBg, text, type, name} = this.bulletData;
+      this.canvas.ctx.beginPath();
+      this.canvas.ctx.fillStyle = textBg.fillStyle;
+      this.canvas.ctx.arc(...textBg.getData(0));
+      // this.canvas.ctx.fillRect(...textBg.getData(1));
+      this.canvas.ctx.arc(...textBg.getData(1));
+      this.canvas.ctx.fill();
+      this.canvas.ctx.closePath();
       this.canvas.ctx.lineWidth = this.toCurPX(1);
-      // this.canvas.ctx.fillStyle = text.fillStyle;
-      // this.canvas.ctx.strokeStyle = text.strokeStyle;
-      // this.canvas.ctx.fillText(this.bulletData.num - this.bulletData.use, text.x, text.y);
-      // this.canvas.ctx.strokeText(this.bulletData.num - this.bulletData.use, text.x, text.y);
+      this.canvas.ctx.fillStyle = text.fillStyle;
+      this.canvas.ctx.strokeStyle = text.strokeStyle;
+      this.canvas.ctx.fillText(text.getText(), text.x, text.y);
+      this.canvas.ctx.strokeText(text.getText(), text.x, text.y);
+
+      this.canvas.ctx.font = `bold ${this.toCurPX(26)}px PingFang SC`;
+      this.canvas.ctx.lineWidth = this.toCurPX(1);
+      this.canvas.ctx.fillStyle = text.fillStyle;
+      this.canvas.ctx.strokeStyle = text.strokeStyle;
+      this.canvas.ctx.fillText(name.text, name.x, name.y);
+      this.canvas.ctx.strokeText(name.text, name.x, name.y);
     },
     // 初始化背包
     initBag () {
