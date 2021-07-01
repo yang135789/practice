@@ -1,5 +1,5 @@
 <template>
-  <canvas class="textStroke" :style="{width: `${width}px`}" ref="cvs"></canvas>
+  <canvas class="textStroke" :style="{width: `${width}px`, height: `${height}px`}" ref="cvs"></canvas>
 </template>
 <script>
 export default {
@@ -26,6 +26,7 @@ export default {
       //   // lineHeight: 100
       // },
       width: 0,
+      height: 0,
       cvs: null,
       ctx: null,
     }
@@ -35,6 +36,14 @@ export default {
       this.cvs = this.$refs.cvs;
       this.ctx = this.cvs.getContext('2d');
     }
+    let measureText = this.ctx.measureText(this.text);
+    this.ctx.font = `bold ${this.toCurPX(this.font.size * window.devicePixelRatio)}px PingFang SC`;
+    this.cvs.textAlign = 'left';
+    this.cvs.textBaseline = 'top';
+    this.width = measureText.actualBoundingBoxLeft + measureText.actualBoundingBoxRight;
+
+    console.log(measureText)
+
     this.crateText();
   },
   methods: {
@@ -42,19 +51,19 @@ export default {
       return px / (750 / 100) * (window.innerWidth / 100);
     },
     crateText () {
-      this.ctx.clearRect(0,0,this.cvs.width,this.cvs.height);
-      this.ctx.font = `bold ${this.toCurPX(this.font.size * window.devicePixelRatio)}px PingFang SC`;
-      let measureText = this.ctx.measureText(this.text);
-      this.cvs.width = measureText.actualBoundingBoxRight;
-      this.width = this.toCurPX(measureText.actualBoundingBoxRight, false);
-      this.cvs.height = (this.font.lineHeight || measureText.fontBoundingBoxAscent + measureText.fontBoundingBoxDescent) + this.toCurPX(this.font.borderWidth * 2);
-      console.log(measureText, this.cvs.width, this.width);
-      this.ctx.lineWidth = this.toCurPX(this.font.borderWidth);
-      this.ctx.fillStyle = this.font.color;
-      this.ctx.strokeStyle = this.font.borderColor;
-      this.ctx.font = `bold ${this.toCurPX(this.font.size * window.devicePixelRatio)}px PingFang SC`;
-      this.ctx.fillText(this.text, 0, measureText.fontBoundingBoxAscent);
-      this.ctx.strokeText(this.text, 0, measureText.fontBoundingBoxAscent);
+      // this.ctx.clearRect(0,0,this.cvs.width,this.cvs.height);
+      // this.ctx.font = `bold ${this.toCurPX(this.font.size * window.devicePixelRatio)}px PingFang SC`;
+      // let measureText = this.ctx.measureText(this.text);
+      // this.cvs.width = measureText.actualBoundingBoxRight;
+      // this.width = this.toCurPX(measureText.actualBoundingBoxRight, false);
+      // this.cvs.height = (this.font.lineHeight || measureText.fontBoundingBoxAscent + measureText.fontBoundingBoxDescent) + this.toCurPX(this.font.borderWidth * 2);
+      // console.log(measureText, this.cvs.width, this.width);
+      // this.ctx.lineWidth = this.toCurPX(this.font.borderWidth);
+      // this.ctx.fillStyle = this.font.color;
+      // this.ctx.strokeStyle = this.font.borderColor;
+      // this.ctx.font = `bold ${this.toCurPX(this.font.size * window.devicePixelRatio)}px PingFang SC`;
+      // this.ctx.fillText(this.text, 0, measureText.fontBoundingBoxAscent);
+      // this.ctx.strokeText(this.text, 0, measureText.fontBoundingBoxAscent);
     }
   },
   watch: {
