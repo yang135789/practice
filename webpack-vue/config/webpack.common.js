@@ -50,6 +50,10 @@ module.exports = env => {
           test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体处理
           type: 'asset/source' //  导出资源的源代码。
           // use: ['file-loader']
+        },  {
+          test: /\.(mp4|mp3)$/, // 影像資源
+          type: 'asset' //  导出资源的源代码。
+          // use: ['file-loader']
         }, {
           test: /\.s?css$/i, // 解析css, scss
           exclude: /node_modules/,
@@ -192,6 +196,7 @@ module.exports = env => {
         '@Assets': path.resolve(__dirname, '../assets'),
         '@src': entryPath,
         '@cpt': path.join(entryPath, './components'),
+        '@static': path.join(entryPath, './static'),
         '@style': path.join(entryPath, './assets/style'),
         '@img': path.join(entryPath, './assets/image'),
         '@js': path.join(entryPath, './assets/js'),

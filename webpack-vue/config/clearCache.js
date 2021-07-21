@@ -38,6 +38,20 @@
   }
   // 請求html文件
   function requireHtml () {
+    // return fetch(`./index.html?t=${Date.now()}`).then(res =>{
+    //   if (res.ok) {
+    //     res.text().then(text=> {
+    //       let match = text.match(reg);
+    //       if (match && match[1]) {
+    //         Promise.resolve(match[1]);
+    //       } else {
+    //         Promise.reject({discription: '請求匹配值為空', res: match});
+    //       }
+    //     })
+    //   } else {
+    //     Promise.reject({discription: '請求html文件錯誤', res: res.statusText})
+    //   }
+    // })
     return new Promise(function(resolve, reject) {
       let xhq = new XMLHttpRequest();
       xhq.onreadystatechange = function () {
@@ -53,7 +67,7 @@
       xhq.onerror = function (err) {
         reject({discription: '請求html文件錯誤', res: err})
       };
-      xhq.open('get', `${location.origin}${location.pathname}?t=${Date.now()}`);
+      xhq.open('get', `./index.html?t=${Date.now()}`);
       xhq.send();
     })
   }
